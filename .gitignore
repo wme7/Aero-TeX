@@ -162,21 +162,20 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-#############
-## TeX Crap
-#############
+-#############
+-## TeX Crap
+-#############
 
-*.log
-*.pdf
-*.dvi
-*.backup
-*.aux
-*.nav
-*.mns
-*.smn
-*.snm
-*.out
-*.toc
-*.tex~
-
+-*.log
+-*.pdf
+-*.dvi
+-*.backup
+-*.aux
+-*.nav
+-*.mns
+-*.smn
+-*.snm
+-*.out
+-*.toc
+-*.tex~
 
