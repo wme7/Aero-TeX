@@ -1,7 +1,6 @@
 \documentclass[a4paper,10pt]{article}
 \usepackage[utf8]{inputenc}
 
-%opening
 \title{A Direct Discontinuous Galerkin Additive Runge-Kutta Solver 
 for Semiclassical Botlzmann Equation of Arbitrary Statistics}
 \author{Manuel Diaz}
@@ -11,7 +10,7 @@ for Semiclassical Botlzmann Equation of Arbitrary Statistics}
 \maketitle
 
 \begin{abstract}
-We report in this paper our most recent progress on implementing and analyzing a class of Discontinuous Galerkin method with the main objetice of solving directly the Semiclassical Boltzmann Equation using Additive Runge Kutta (ARK) time integration. The later time integration method is choosen to deal with the BGK approximation of the collision operator. Therefore BGK imposes in our in our hyperbolic PDE a source term highly stiffed which limits time step we can use in this method. The explicit Runge-Kutta (ERK) has been historically the a strong part of the DG original formulation, but our our case it won't fulfill the flexibility desired to make our Direct solver fast and computationally efficient for dealing with more complex application in future works.
+We report in this paper our most recent progress on implementing and analyzing a class of Discontinuous Galerkin method with the main objetice of solving directly the Semiclassical Boltzmann Equation with BGK appproximation using the Additive Runge Kutta (ARK) time integration. The later time integration method is choosen to deal with the BGK approximation of the collision operator. The BGK source imposes in our hyperbolic PDE a highly stiffed term which limits the time step we can use. The explicit Runge-Kutta (ERK) has been historically the a strong part of the DG original formulation, but for our case it won't fulfill the flexibility desired to make our Direct solver fast and computationally efficient in dealing with more complex application in future works.
 
 \end{abstract}
 

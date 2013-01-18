@@ -166,16 +166,16 @@ pip-log.txt
 -## TeX Crap
 -#############
 
--*.log
--*.pdf
--*.dvi
--*.backup
--*.aux
--*.nav
--*.mns
--*.smn
--*.snm
--*.out
--*.toc
--*.tex~
-
+*.log
+*.pdf
+*.dvi
+*.backup
+*.aux
+*.nav
+*.mns
+*.smn
+*.snm
+*.out
+*.toc
+*.tex~
+*.jpg
