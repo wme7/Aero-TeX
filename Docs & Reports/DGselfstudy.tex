@@ -1,18 +1,36 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[11pt,fleqn]{report}
+
+% Using Package inputenc
 \usepackage[utf8]{inputenc}
 
-\title{A Direct Discontinuous Galerkin Additive Runge-Kutta Solver 
-for Semiclassical Botlzmann Equation of Arbitrary Statistics}
-\author{Manuel Diaz}
+% Using AMS math packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 
+% Begin Document
 \begin{document}
 
+% Title Page
+\title{Introduction to Discontinuous Galerking Methods}
+\author{Manuel Diaz}
 \maketitle
 
-\begin{abstract}
-We report in this paper our most recent progress on implementing and analyzing a class of Discontinuous Galerkin method with the main objetice of solving directly the Semiclassical Boltzmann Equation with BGK appproximation using the Additive Runge Kutta (ARK) time integration. The later time integration method is choosen to deal with the BGK approximation of the collision operator. The BGK source imposes in our hyperbolic PDE a highly stiffed term which limits the time step we can use. The explicit Runge-Kutta (ERK) has been historically the a strong part of the DG original formulation, but for our case it won't fulfill the flexibility desired to make our Direct solver fast and computationally efficient in dealing with more complex application in future works.
+% Create table of contents
+\tableofcontents 
 
+% Abstract
+\begin{abstract}
+During the recent year Discontinuous Galerkin Methods (DGM) become widely popular and attracted the attention of many CFD and numerical practitioners due to its great accuaracy and the parallel advangates that the method provides to solve partial differential equations. DG methods takes the best of two worlds, i.e. the simplicity and fundamentals conservative principles of finite volume formulations and the domain flexibility of spectral methods such us finite element methods. Is in this context that new generations of practitioners like the present author starts its own journey in learning the method's formulation, numerical implementation and practical applications. 
 \end{abstract}
+
+% Chapter 1
+\chapter{Hyperpbolic Equations in One-dimension}
+
+% Introduction about main points on DG
+\section{Introduction}
+during the last semester I have been studyign DG methods, I have made a lot of notes in several notebooks. However I come to time to put all my notes in order. So this is was it is.
+We report in this paper our most recent progress on implementing and analyzing a class of Discontinuous Galerkin method with the main objetice of solving directly the Semiclassical Boltzmann Equation with BGK appproximation using the Additive Runge Kutta (ARK) time integration. The later time integration method is choosen to deal with the BGK approximation of the collision operator. The BGK source imposes in our hyperbolic PDE a highly stiffed term which limits the time step we can use. The explicit Runge-Kutta (ERK) has been historically the a strong part of the DG original formulation, but for our case it won't fulfill the flexibility desired to make our Direct solver fast and computationally efficient in dealing with more complex application in future works.
 
 \section{Introduction}
 First we consider a numerical solution for the hyperbolic conservation law
@@ -67,5 +85,42 @@ if we write our the first equation in (6),
 
 \section{The Implementation}
 Here is how we plan to solve the SBBGK using the our DG-ARK
+
+% Applying DG to a 1D Homogeneous Linear Advection Equation
+\section{Homogeneous Linear Advection Equations}
+When faced with the task of solving hyperbolic partial differential equation we found our selves challenged with the first main goal: A one-dimensional homogeneous linear advection equation;
+\begin{equation}
+	\frac{\partial u}{\partial t} + a \frac{\partial u}{\partial x} = 0, \;\; x \in \Omega
+	\label{homo_advection}
+\end{equation}
+with suitable boundary conditions in $\partial \Omega$ and initial condition $u(x,0) = u_0$.
+
+
+
+% Applying DG to a Non-homogeneous equation.
+\section{Non-homogeneous Linear Equations}
+Now the challenge is slightly increased when dealing with a source term. Our governing equation now looks like,
+\begin{equation}
+	\frac{\partial u}{\partial t} + a \frac{\partial u}{\partial x} = s(u), \;\; x \in \Omega
+	\label{nonhomo_advection}
+\end{equation}
+with suitable boundary conditions in $\partial \Omega$ and initial condition $u(x,0) = u_0$.
+and S(u) can be any nonlinear fucntion of $u(x,t)$
+
+% Using DG with Non-homogeneous equations.
+\section{Non-linear Hyperbolic Equations}
+Also known as Non-linear conservations laws equations. For this case our basic formulation becomes,
+\begin{equation}
+	\frac{\partial u}{\partial t} + \frac{\partial f}{\partial x} = 0, \;\; x \in \Omega
+	\label{nonlinear_advection}
+\end{equation}
+with suitable boundary conditions in $\partial \Omega$ and initial condition $u(x,0) = u_0$. 
+Here $f(u)$ is our flux function, and we recognize that if $f(u) = a u$ it will turn our euqation back in to the linear formuation of the advection equation. We are interested here in solving first for Burgers Advection Equation, i.e. $f(u) = u^2/2$.
+
+% Chapter 2
+\chapter{Hyperbolic Equations beyond One-dimension}
+This section in under construction... Please wait for it!
+
+
 
 \end{document}

@@ -1,0 +1,617 @@
+\documentclass[11pt,fleqn]{beamer}
+% This is the main file.tex
+
+\usetheme{Warsaw}
+\usecolortheme{crane}
+\usepackage{amsmath}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\graphicspath{ {./figures/} }
+%\graphicspath{ {C:/Users/Manuel/Dropbox/aero-TeX/DDOM/figures/} }
+
+\title{Evaluation of the  Discrete Ordinate Method}
+\author{Manuel Diaz}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section*{outline}
+\begin{frame}
+	\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\subsection{Motivation}
+
+\begin{frame}
+	\frametitle{Boltzmann Equation - BGK}
+	Boltzmann Equation witt BGK collision operator approximation 
+	\begin{equation}
+	\frac{\partial{f}}{\partial{t}} +
+	\vec{c}\bullet\frac{\partial{f}}{\partial{\vec{x}}} +
+	\vec{F}\bullet\frac{\partial{f}}{\partial{\vec{c}}} = 
+	\Omega = -\frac{1}{\tau}(f-f^{eq})
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Classical Distribution Function}
+	For Maxwell Boltzmann Equilibrium Velocity Distribution in one-dimensional case is:
+	\begin{equation}
+	f^{eq}(\vec{c},\vec{x},t) = n\left(\frac{m}{2\pi k_B T}\right)^{\frac{3}{2}}\exp \left( -\frac{m}{2 k_B T}(\vec{c}-\vec{u})^2 \right)
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Semi-classical Distribution Function}
+	Following the work of Uehling–Uhlenbeck, The equilibrium Velocity Distribution in one-dimensional case is:
+	\begin{equation}
+	f^{eq}(\vec{c},\vec{x},t)=\frac{1}{(\frac{1}{z})\exp{\frac{m}{2\pi k_B T}(\vec{c}-\vec{u})^2}+\theta}
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Moments of the Distribution Function}
+	Moments of the distribution function are defined as follows:
+	\begin{equation}
+	(\rho,\rho \vec{u},\rho\varepsilon)^T = \int m\phi f(\vec{c},\vec{x},t) d\vec{c} 
+	\end{equation}
+	where $ \phi =  (1,\vec{u},\frac{1}{2}(\vec{c}-\vec{u})^2)^T $
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semiclassical Distribution Functions in 1d}
+	Using semi-classical initial conditions for Sod's problem:
+	\begin{figure}[p1]
+	\centering
+	\includegraphics[height=5cm]{MB_IC}%
+	\caption{Maxwell-Boltzmann Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semiclassical Distribution Functions in 1d}
+	Using semi-classical initial conditions for Sod's problem:
+	\begin{figure}[p2]
+	\centering
+	\includegraphics[height=5cm]{FD_IC}%
+	\caption{Fermi-Dirac Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semiclassical Distribution Functions in 1d}
+	Using semi-classical initial conditions for Sod's problem:
+	\begin{figure}[p3]
+	\centering
+	\includegraphics[height=5cm]{BE_IC}%
+	\caption{Bose-Einstein Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's solution using MB distribution}
+	\begin{figure}[p4]
+	\centering
+	\includegraphics[height=5.5cm]{MB_sod's_10ms}%
+	\caption{Maxwell-Boltzmann Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's solution using FD distribution}
+	\begin{figure}[p5]
+	\centering
+	\includegraphics[height=5.5cm]{FD_sod's_10ms}%
+	\caption{Fermi-Dirac Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's solution using BE distribution}
+	\begin{figure}[p6]
+	\centering
+	\includegraphics[height=5.5cm]{BE_sod's_10ms}%
+	\caption{Bose-Einstein Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Evolution of distribution functions in 1d}
+	\begin{figure}[p7]
+	\centering
+	\includegraphics[height=5cm]{MB_evolution}%
+	\caption{Maxwell-Boltzmann Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Evolution of distribution functions in 1d}
+	\begin{figure}[p8]
+	\centering
+	\includegraphics[height=5cm]{FD_evolution}%
+	\caption{Fermi-Diract Distribution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Evolution of distribution functions in 1d}
+	\begin{figure}[p9]
+	\centering
+	\includegraphics[height=5cm]{BE_evolution}%
+	\caption{Bose-Einstein Distribution}
+	\end{figure}
+\end{frame}
+
+\section{Numerical Tests}
+\subsection{Evaluating Gauss Hermite quadrature method}
+\begin{frame}
+	\frametitle{Evaluating numerically the semi-classical $f^{eq}$}
+	Numerical Observations
+	\begin{figure}[small_z]
+	\centering
+	\includegraphics[height=5cm]{Quad_err_small_z}%
+	\caption{Semi-classical function evaluated with small fugacity values}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluating numerically the semi-classical $f^{eq}$}
+	Numerical Observations
+	\begin{figure}[medium_z]
+	\centering
+	\includegraphics[height=5cm]{Quad_err_medium_z}%
+	\caption{Semi-classical function evaluated with fugacity value of 0.5}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluating numerically the semi-classical $f^{eq}$}
+	Numerical Observations
+	\begin{figure}[large_z]
+	\centering
+	\includegraphics[height=5cm]{Quad_err_large_z}%
+	\caption{Semi-classical function evaluated with large fugacity values}
+	\end{figure}
+\end{frame}
+
+\subsection{Evaluating GH quadrature under displacement of $f^{eq}$}
+\begin{frame}
+	\frametitle{Evaluating numerically the semi-classical $f^{eq}$}
+	Numerical Observations
+	\begin{figure}[disp_a_1]
+	\centering
+	\includegraphics[height=5cm]{Quad_err_disp_1c}%
+	\caption{Semi-classical function evaluated with small Z and displaced one unit from ref.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evaluating numerically the semi-classical $f^{eq}$}
+	Numerical Observations
+	\begin{figure}[disp_a_2]
+	\centering
+	\includegraphics[height=5cm]{Quad_err_disp_2c}%
+	\caption{Semi-classical function evaluated with small Z and displaced two units from ref.}
+	\end{figure}
+\end{frame}
+
+\section{Alternatives of Solution}
+\subsection{BE with BGK for gas flows}
+
+\begin{frame}
+	\frametitle{Boltzmann Equation with BGK for gas flows}
+	Boltzmann Equation (BE), derived from statistical mechanics and based on kinetic theory, describes the evolution of the velocity distribution function $f(\vec{x},\vec{c},t)$ for rarefied gases in phase space. The collission operator we would use is the BKG collision operator.
+	\begin{equation}
+	\frac{\partial{f}}{\partial{t}} +
+	\vec{c}\bullet\frac{\partial{f}}{\partial{\vec{x}}} +
+	\vec{F}\bullet\frac{\partial{f}}{\partial{\vec{c}}} = 
+	\left( \frac{\delta f}{\delta t}\right )^{BGK}_{coll} = -\frac{1}{\tau}(f-f^{eq})
+	\end{equation}
+	where $\tau$ stands for the molecular collision relaxation time.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semiclassical Equilibrium Distribution function}
+	Following the work of Uehling and Uhlenbeck[?] the Equilibrium for the Semiclassical Distribution function $f^eq(\vec{x},\vec{c},t)$ is given by
+	\begin{equation}
+	f^{eq}=f^{eq}(\vec{x},\vec{c},t)=\frac{1}{(\frac{1}{z})\exp\left({\frac{m}{2 k_B T}(\vec{c}-\vec{u})^2}\right)+\theta}
+	\end{equation}
+	Where $z(\vec{x},t)$, $\vec{u}(\vec{x},t)$, $T(\vec{x},t)$, are the quemical potential, mean velocity and temperature of the gas, $\theta$ is a parameter that specifies the type of particle statistics we will using. Here for $\theta = +1$, Fermi-Dirac particles are considered, for $\theta = 0$ Maxwell-Boltzmann particles and for $\theta = -1$  Bose-Einstein particles. 
+
+	% i.e. we are will be solving Boltzmann Equation for Classical and Quantun Statisticas in a parallel maner.
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Moments of BE}
+	The first four moments of the distribution function are,
+	\begin{eqnarray}
+	\int f d^3 c  &=& \int f^{eq}d^3c = \rho \\
+	\int \vec{c} f d^3 c  &=& \int \vec{c} f^{eq}d^3c = \rho \vec{u} \\
+	\int \frac{\vec{c}^2}{2} f d^3 c  &=& \int \vec{c}^2 f^{eq}d^3c = \rho E \\
+	\int \frac{(\vec{c}-\vec{u})^2}{2} f d^3 c  &=& \int (\vec{c}-\vec{u})^2 f^{eq}d^3c = \rho e 
+	\end{eqnarray}
+	where $\rho(\vec{x},t)$,  $\vec{u}(\vec{x},t)$ and $e(\vec{x},t)$ are density, mean velocity and internal specific energy of the gas particles respectively. Note that total Energy density can be also defined as $\rho E = 1/2 \rho \vec{u}^2 + \rho e$.
+\end{frame}
+
+\subsection{Dynamic Discrete Ordinate Method}
+\begin{frame}
+	\frametitle{Conventional Discrete Ordinate Method}
+	When applying conventional Discrete Ordinate Method (DOM) to Boltzmann-BGK formulation we render the following set of linear ODE's,
+	\begin{equation}
+	\frac{\partial{f_\sigma}}{\partial{t}} +
+	\vec{c_\sigma}\bullet\frac{\partial{f_\sigma}}{\partial{\vec{x}}} +
+	\vec{F}\bullet\frac{\partial{f_\sigma}}{\partial{\vec{c_\sigma}}} = 
+	-\frac{1}{\tau}(f_\sigma-f^{eq}_\sigma)
+	\end{equation}
+Here $\sigma$, $(\sigma = 1-N)$ stands as the index  the number of discrete velocities. The Semi-classical Equilibrium Distribution function is also rendered as,
+	\begin{equation}
+	f_\sigma^{eq}=f^{eq}(\vec{x},\vec{c_\sigma},t)=\frac{1}{(\frac{1}{z})\exp\left({\frac{m}{2 k_B T}(\vec{c_\sigma}-\vec{u})^2}\right)+\theta}
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Moment of the Semi-classical distribution function}
+	The four moments integrals can be written in quadrature form, 
+	\begin{eqnarray}
+	\int f_\sigma d^3 c &=& \sum_\sigma W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho \\
+	\int \vec{c_\sigma} f_\sigma d^3 c &=& \sum_\sigma \vec{c_\sigma} W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho \vec{u} \nonumber \\
+	\int \frac{\vec{c_\sigma}^2}{2} f_\sigma d^3 c &=& \sum_\sigma \vec{c_\sigma}^2 W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho E \nonumber \\
+	\int \frac{(\vec{c_\sigma}-\vec{u})^2}{2} f_\sigma d^3 c &=& \sum_\sigma (\vec{c_\sigma}-\vec{u})^2 W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho e \nonumber
+	\end{eqnarray}
+	Here we let $\vec{c}_\sigma$ be the abscissas or our quadrature and $W_\sigma$ their corresponding weigthing values. Gauss Hermite quadrature is used due to gaussians-like behavior of the three statistics.
+\end{frame} 
+
+\begin{frame}
+	\frametitle{DDOM}
+	To circumbent the problems we observed, C.T. Hsu, et al. \cite{CTHsu} noted that the exponential in (\ref{eq:newdistf}) can be made independent of $\vec{u}(\vec{x},t)$ and $T(\vec{x},t)$. by using the transformation,
+	\begin{equation}
+	\vec{C}^{*}  = \frac{(\vec{c}-\vec{u})}{\sqrt{\frac{2 k_B T}{m}}} = \frac{(\vec{c}-\vec{u})}{a}
+	\label{eq:transformation}
+	\end{equation}
+	Then the Semiclassical equilibrium distribution becomes,
+	\begin{equation}
+	f^{*eq} = f^{eq}(\vec{x},\vec{C}^{*},t) = \frac{1}{(\frac{1}{z})\exp{(\vec{C}^{*}}^2)+\theta}
+	\label{eq:newdistf}
+	\end{equation}
+	Where $\vec{C}^{*}$ will be defined as the abscissas of our GH quadrature.
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	Define variable $a = \sqrt{\frac{2 k_B T}{m}}$ and (\ref{eq:transformation}) can be re-written as in ref. \cite{CTHsu},
+	\begin{equation}
+	\vec{c_\sigma}(\vec{x},t)  = a(\vec{x},t)\vec{C_\sigma}^{*}+\vec{u}(\vec{x},t) 
+	\end{equation}
+	To substitute $f(x,\vec{c},t)$ with $f^*(x,\vec{C^*},t)$ in BE, implies to substitute the total variation of the last term respect to $x$ and $t$ as if $C^*$ is a dependent variable of $c$, in oder to preserver the physical meaning of the original BE.
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	Taking the total diferenciations of $f^*$ respecto to $x$ and $t$ we get,
+			
+	\begin{align*}
+		\frac{df^*}{dt} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{a}} \frac{\partial{a}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{u}} \frac{\partial{u}}{\partial{t}}
+		\\		
+		\\ \frac{df^*}{dx} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{a}} \frac{\partial{a}}{\partial{x}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{u}} \frac{\partial{u}}{\partial{x}}
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	Substituting know partial factors,
+			
+	\begin{align*}
+		\frac{df^*}{dt} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{-C^*}{a} \frac{\partial{a}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{ -1 }{a} \frac{\partial{u}}{\partial{t}}
+		\\		
+		\\ \frac{df^*}{dx} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{-C^*}{a} \frac{\partial{a}}{\partial{x}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{ -1 }{a} \frac{\partial{u}}{\partial{x}}
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+Then Boltzmann - BGK equation using DDOM becomes,
+	\begin{equation}
+		\begin{split}
+			\frac{\partial{f^*_\sigma}}{\partial{t}} &+ (a\vec{C_\sigma}^{*}+\vec{u})\bullet\frac{\partial{f^*_\sigma}}{\partial{\vec{x}}} 
+			+\vec{F}\bullet\frac{\partial{f^*_\sigma}}{\partial{\vec{C_\sigma}^{*}}}
+			\\ &-\frac{1}{a}\frac{\partial f^*}{\partial C^*}C^*\left(\frac{\partial a}{\partial t} +c \frac{\partial a}{\partial x} \right )
+			-\frac{1}{a}\frac{\partial f^*}{\partial C^*}\left(\frac{\partial u}{\partial t} +c \frac{\partial u}{\partial x} \right ) 
+			\\ &= -\frac{1}{\tau}(f^*_\sigma-f^{*eq}_\sigma)
+		\end{split}
+	\end{equation}
+	Note that $f^*_\sigma = f(\vec{x},\vec{C_\sigma}^{*},t)$ and $f^{*eq}_\sigma=f^eq(\vec{x},\vec{C_\sigma}^{*},t)$
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	Again, we wish to compute the first four moments fo the the distribution function,
+	\begin{eqnarray}
+	\int f^* d^3 c  &=& \int f^{*eq}d^3c = \rho \\
+	\int \vec{c} f^* d^3 c  &=& \int \vec{c} f^{*eq}d^3c = \rho \vec{u} \nonumber \\
+	\int \frac{\vec{c}^2}{2} f^* d^3 c  &=& \int \frac{1}{2}\vec{c}^2 f^{*eq}d^3c = \rho E \nonumber \\
+	\int \frac{(\vec{c}-\vec{u})^2}{2} f^* d^3 c  &=& \int \frac{1}{2}(\vec{c}-\vec{u})^2 f^{*eq}d^3c = \rho e \nonumber
+	\end{eqnarray}
+	but observe that a change of integration variable is necessary to keep their physical meaning intact.
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	The term $(\frac{\partial C^*}{\partial c} )^3$ is introduced to perform this change of variables inside the moment integrals
+	\begin{eqnarray}
+		\int f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c  &=& \rho \\
+		\int \vec{c} f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c &=& \rho \vec{u} \nonumber \\
+		\int \frac{\vec{c}^2}{2} f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c  &=& \rho E \nonumber \\
+		\int \frac{(\vec{c}-\vec{u})^2}{2} f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c &=& \rho e \nonumber
+	\end{eqnarray}
+	We identify the term $\left(\frac{\partial C^*}{\partial c} \right )$ as the Jacobian, J. 
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	The moment integrals become,
+	\begin{eqnarray}
+		\sum_\sigma J^3 W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t) &=&  \rho, \\
+		\sum_\sigma J^3 \vec{c_\sigma} W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t)&=& \rho \vec{u}, \nonumber \\
+		\sum_\sigma J^3 \frac{\vec{c_\sigma}^2}{2} W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t)&=& \rho E, \nonumber \\
+		\sum_\sigma J^3 \frac{(\vec{c_\sigma}-\vec{u})^2}{2} W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t) &=& \rho e  \nonumber
+	\end{eqnarray}
+	Where J is the Jacobian. Here $J = \sqrt{\frac{2k_B T(\vec{x},t)}{m}}$ .
+\end{frame}
+
+\subsection{Numerical Results using DDOM}
+\begin{frame}
+	\frametitle{Numerical Tests}
+	\begin{itemize}
+	\item Based on our DDOM description of the moments and our initial observations with conventional DOM, we developed a 'snipet' code in Matlab to evaluate and compare both methods in 1d and 2d cases.
+	\item Our finding and conclusions will follow our preliminary resutls.
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{1d Equations}
+	Neglecting any external force, the Boltzmann-BKG equation in 1d becomes,
+	\begin{equation}
+	\frac{\partial f(x,c,t)}{\partial t} + c \frac{\partial f(x,c,t)}{\partial x} = -\frac{f - f^{eq}}{\tau}
+	\end{equation}
+	and its companion semiclassical equilibrium distribution function becomes,
+	\begin{equation}
+	f^{eq} (x,c,t) = \frac{1}{(1/z) exp( \frac{\left m | c - u \right |^2}{\sqrt{2 k_B T}} )+\theta}
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{1d Equations}
+	substituting $f(x,c,t)$ by $f^*(x,C^*,t)$, where and evaluating the total derivates of $f*$ we get our Dynamics Boltzmann-BGK equation,
+	
+	\begin{equation}
+	\frac{\partial f^*}{\partial t} + c_x \frac{\partial f*}{\partial x} 
+		- \frac{1}{a} \frac{\partial f^*}{\partial C^*} C^* \frac{Da}{Dt}
+		- \frac{1}{a} \frac{\partial f^*}{\partial C^*} \frac{Du}{Dt}
+		= -\frac{f - f^{eq}}{\tau}
+	\end{equation}
+	
+	Where operator $D/Dt = d/dt + c d/dx$ is identified as the material derivate. Observer that, 
+	\begin{equation}
+		c(x,t) = a(x,t) C^* + u(x,t)
+	\end{equation}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 1d Equations}
+	But we first need to normalize our governing equations. Following Muljadi and Yang \cite{BPM_JYY}.
+	\begin{align*}
+	&V_\infty = \sqrt{\frac{2k_BT_\infty}{m}}, &t_\infty = \frac{L}{V_\infty}
+	\end{align*}
+	Here L is identified as the characterisitc length
+	\begin{align*}
+	&(\hat t, \hat \tau) = \frac{(t,\tau)}{T_\infty}, &(\hat u_x,\hat c_x,) = \frac{(u_x,c_x)}{V_\infty}, \\
+	&\hat T = \frac{T}{T_\infty}, \;\; \hat x = \frac{x}{L}, &\hat \rho = \rho / \left(\frac{m^2V_\infty^2}{h^2} \right ), \\
+	&\hat {\rho u_x} = \rho u_x / \left(\frac{m^2V_\infty^3}{h^2} \right ), &\hat E = E / \left(\frac{m^3V_\infty^4}{h^2} \right ), &\;\; \hat f = f.
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 1d Equations}
+	Neglecting any external force, the normalized Boltzmann-BKG equation in 1d becomes,
+	\begin{equation}
+	\frac{\partial \hat {f^*}}{\partial \hat t} + \hat c_x \frac{\partial \hat {f*}}{\partial \hat x} 
+		- \frac{1}{\hat a} \frac{\partial \hat {f^*}}{\partial \hat {C^*}} \hat {C^*} \frac{D \hat a}{D \hat t}
+		- \frac{1}{\hat a} \frac{\partial \hat {f^*}}{\partial \hat {C^*}} \frac{D \hat u}{D \hat t}
+		= -\frac{\hat f - \hat {f^{eq}}}{\hat \tau}
+	\end{equation}
+	The normalized one-dimensional semiclassical equilibrium distribution function becomes,
+	\begin{equation}
+	\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/z) exp(\left | \hat c - \hat u \right |^2 / \hat T)+\theta}
+\end{equation}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 1d Equations}
+	our normalized definition of $\vec{C}^*$ 
+	\begin{align*}
+	&\hat C^* = \frac{(\hat c-\hat u)}{\sqrt{\hat T}} & \hat J = \left(\frac{\partial \hat {C^*}}{\partial \hat c} \right ) = \sqrt(\hat T) 
+	\end{align*}
+	The Semiclassical equilibrium distribution becomes,
+	\begin{equation}
+	\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/ \hat z) exp(\hat {C^*})+\hat \theta}
+	\label{eq:normadistf1d}
+	\end{equation}
+	We will drop the hat notation in the following slides while working with normalized equations.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Apply DOM to D-BE}
+	Applying Discrete Ordinate Method, we render the following set of dynamic Boltzmann-BGK equations,
+	\begin{equation}
+	\frac{\partial {f_\sigma^*}}{\partial t} + c_\sigma \frac{\partial f_\sigma^*}{\partial x} 
+		- \frac{1}{a} \frac{\partial f_\sigma^*}{\partial C_\sigma^*} C_\sigma^* \frac{Da}{Dt}
+		- \frac{1}{a} \frac{\partial f_\sigma^*}{\partial C_\sigma^*} \frac{Du}{Dt}
+		= -\frac{f_\sigma - f_\sigma^{eq}}{\tau}
+	\end{equation}
+	Note that $c_\sigma(x,t) = a(x,t) C_\sigma^* + u(x,t)$. We also must render their companion semi-classical equilibrium distribution functions,
+	\begin{equation}
+	f_\sigma^{eq} (x,c_\sigma,t) = \frac{1}{(1/z) exp(C_\sigma^*)^2 + \theta}
+	\end{equation}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	The moment integrals become,
+	\begin{eqnarray}
+		\sum_\sigma J W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=&  \rho, \\
+		\sum_\sigma J c_\sigma W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=& \rho \vec{u}, \nonumber \\
+		\sum_\sigma J \frac{c_\sigma^2}{2} W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=& \rho E, \nonumber \\
+		\sum_\sigma J \frac{(c_\sigma-u)^2}{2} W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=& \rho e  \nonumber
+	\end{eqnarray}
+	Where J is the Jacobian. Here $J = \sqrt{T(x,t)}$ .
+\end{frame}
+
+\begin{frame}
+	\frametitle{Matlab 'Snipet'}
+	\begin{figure}
+	\centering
+	\includegraphics[height=5.5cm]{snipet_DDOM_vs_DOM}%
+	\caption{Matlab 'snipet' of the 1d case}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tests}
+	We propose 3 cases to be evaluated:
+	\begin{itemize}
+	\item case 1: Sod's left semiclassical IC
+	\item case 2: Sod's right semiclassical IC
+	\item case 3: large displacement-low temperature semiclassical IC
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tests}
+	\centering
+	\begin{tabular}{r | c}
+	z = 0.0394; u = 0.00; t = 3.2 &  z = 0.0394; u = 0.00; t = 3.2 \\ \hline
+	z = 0.3000; u = 1.00; t = 0.1 & \\
+	\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tests}
+	\begin{tabular}{r c}
+	\centering
+	\includegraphics[scale= 0.11]{MB_DDOMvsDOM1} & \includegraphics[scale= 0.11]{MB_DDOMvsDOM2} \\ 
+	\includegraphics[scale= 0.11]{MB_DDOMvsDOM3} & {3 selected cases Graphically}\\
+	\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Number of points for decided acuaracy}
+	The required number of GH quadrature points to achieve an specific order of accuaracy, is tabulated as follows
+	\begin{center}
+	\begin{tabular}{| l | l | l | l |}
+	%\centering
+	\hline
+	Order        & MB & FD & BE \\ \hline
+	$O(h^2)$ &  -   &    3   &   3   \\ \hline
+	$O(h^4)$ &  -   &  5-7  & 9-12 \\ \hline
+	$O(h^8)$ &  3  & 19-20 & 18-20 \\ \hline
+	\end{tabular}
+	\end{center}
+	%\caption{GH quadrature points for desired $O(h^n)$ presicion}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 2d Equations}
+	Again, normalize our governing equations as in \cite{BPM_JYY}.
+	\begin{equation}
+	V_\infty = \sqrt{\frac{2k_BT_\infty}{m}}, \;\;\;\;  t_\infty = \frac{L}{V_\infty}
+	\end{equation}
+	Here L is identified as the characterisitc length
+	\begin{align*}
+	&(\hat t, \hat \tau) = \frac{(t,\tau)}{T_\infty}, &(\hat u_x,\hat u_y,\hat v_x,\hat v_y) = \frac{(u_x,u_y,v_x,v_Y)}{V_\infty}, \\
+	&(\hat x,\hat y) = \frac{(x,y)}{L}, &\hat T = \frac{T}{T_\infty}, \;\; \hat \rho =\rho / \left(\frac{m^2V_\infty^2}{h^2} \right ), \\
+	&\hat{\rho u_x} = \rho u_x / \left(\frac{m^2V_\infty^3}{h^2} \right ), &\hat E = E / \left(\frac{m^3V_\infty^4}{h^2} \right ), \;\; \hat f = f.
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 2d Equations}
+	Neglecting any external force, The normalized Boltzmann-BKG equation in 2d becomes,
+	\begin{equation}
+	\frac{\partial \hat f(\hat x,\hat v_x,t)}{\partial \hat t} + \hat v_x \frac{\partial \hat f(\hat x,\hat v_x,t)}{\partial \hat x} +  \hat v_x \frac{\partial \hat f(\hat x,\hat v_x,t)}{\partial \hat y} =  -\frac{\hat f - \hat f^{eq}}{\hat \tau}
+	\end{equation}
+	The normalized two-dimensional semiclassical equilibrium distribution function becomes,
+	\begin{equation}
+	\hat f^{eq} (\hat x,\hat v_x,\hat t) = \frac{1}{(1/z) \exp{((\left|\hat v_x - \hat u_x \right|^2 + \left|\hat v_y - \hat u_y \right|^2) / \hat T)}+\theta} 
+	\end{equation}
+	We will drop the hat notation in the following slides while working with normalized equations.
+\end{frame}
+
+\subsection{Conservative Discrete Ordinate Method}
+\begin{frame}
+	\frametitle{CDOM}
+	Based on the work by JC Huang \cite{JCHuang}, a two-dimensional BGK model Botlzmann Equation with out acceleration from external forces can be written as:
+	\begin{equation}
+		\frac{\partial f}{\partial t} + c_x \frac{\partial f}{\partial x} + c_y \frac{\partial f}{\partial x} = -\frac{f - f^{eq}}{\tau}
+	\end{equation}
+	where $f = f(x,y,c_x,c_y,t)$ and the Maxwellian Equilibrium distribution function es expressed as:
+	\begin{equation}
+		f^{eq} = \rho \left( \frac{\lambda}{\pi})^\frac{k+2}{2} \exp{\lambda[(c_x-u_x)^2+()]}
+	\end{equation}
+\end{frame}
+
+\subsection{Conservative Discrete Ordinate Method}
+\begin{frame}
+	\frametitle{CDOM}
+	Based on the work by JC Huang \cite{JCHuang}, a two-dimensional system we have:
+	\begin{equation}
+		\sum_{l=1}^{N_l}\sum_{m=1}^{N_m} 
+			\begin{pmatrix}
+			G_{l,m}^{M}-g_{l,m}\\ 
+			\nu_l (G_{l,m}^{M}-g_{l,m})\\ 
+			\nu_m (G_{l,m}^{M}-g_{l,m})\\ 
+			(\nu_l^2+\nu_m^2) (G_{l,m}^{M}-g_{l,m})+(H_{l,m}^{M}-h_{l,m})
+			\end{pmatrix} = 0 
+	\end{equation}
+\end{frame}
+
+\section{References}
+\subsection{Bibliography}
+\begin{frame}
+	\frametitle{Resources}
+	 \begin{thebibliography}{10}
+
+  	\beamertemplatearticlebibitems
+
+ 	 \bibitem{CTHsu}
+    	C.T. Hsu, S. W. Chiang and K.F. Sin, ''A Novel Quadrature Scheme for solving Boltzmann Equation with DOM and LBM''
+    	\newblock {doi: 10.4208/cicp.150510.150511s}
+
+  	\bibitem{JCHuang}
+    	Juan-Chen Huang, ''A Conservative Discrete Ordinate Method for model Boltzmann Equations''
+    	\newblock {Computers \& Fluids 45 (2011) 261-267 }
+
+	\bibitem{BPM_JYY}
+	B.P. Muljadi and J.Y. Yang. ''Simulation of shock wave disffraction by a square cylinder in gases of arbitrary statistics using a semiclassical Boltzmann Bhatnaga Gross Krook Equation solver''
+	\newblock {Proc. R. Soc. A 468:651-670, 2012}
+  \end{thebibliography}
+
+\end{frame}
+
+\end{document}
