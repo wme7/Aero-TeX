@@ -1,0 +1,39 @@
+\documentclass[a4paper]{report}
+
+%\includeonly{file2}
+
+% Redefine \vec command to generate bold vector characters 
+\let\oldhat\hat
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\begin{document}
+
+\title{My PhD Thesis}
+\author{Manuel Diaz}
+\date{February 2012}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+\chapter*{Acknowlegdements}
+I thanks the creator for all his patient!
+
+\begin{abstract}
+this is my abstract
+\end{abstract}
+
+\pagenumbering{arabic}
+
+\include{file1}
+
+\include{file2}
+
+\bibliography{DGM_refs}
+\bibliographystyle{unsrt}
+
+\end{document}

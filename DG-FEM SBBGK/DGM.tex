@@ -1,0 +1,126 @@
+\documentclass[11pt,fleqn]{report}
+
+% Using Package inputenc
+\usepackage[utf8]{inputenc}
+
+% Using AMS math packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+% Begin Document
+\begin{document}
+
+% Title Page
+\title{Introduction to Discontinuous Galerking Methods}
+\author{Manuel Diaz}
+\maketitle
+
+% Create table of contents
+\tableofcontents 
+
+% Abstract
+\begin{abstract}
+During the recent years, Discontinuous Galerkin Methods (DGM) have become widely popular and have attracted the attention of many CFD and numerical practitioners due to its great accuaracy and the parallel advangates that the method provides to solve partial differential equations. DG methods takes the best of two worlds, i.e. the simplicity and fundamentals conservative principles of finite volume formulations and the domain flexibility of spectral methods such us finite element methods. Is in this context that new practitioners like the present author starts its own journey in learning the method's formulation, numerical implementation and formulation for practical applications. 
+\end{abstract}
+
+% Chapter 1
+\chapter{Hyperpbolic Equations in One-dimension}
+
+% Introduction about main points on DG
+\section{Introduction}
+During the last semester I have been studyign DG methods, I have made a lot of notes in several notebooks. However I come to time to put all my notes in order. So this is was it is.
+We report in this paper our most recent progress on implementing and analyzing a class of Discontinuous Galerkin method with the main objetice of solving directly the Semiclassical Boltzmann Equation with BGK nappproximation using the Additive Runge Kutta (ARK) time integration. The later time integration method is choosen to deal with the BGK approximation of the collision operator. The BGK source imposes in our hyperbolic PDE a highly stiffed term which limits the time step we can use. The explicit Runge-Kutta (ERK) has been historically the a strong part of the DG original formulation, but for our case it won't fulfill the flexibility desired to make our Direct solver fast and computationally efficient in dealing with more complex application in future works.
+
+First we consider a numerical solution for the hyperbolic conservation law
+\begin{equation}
+ u_t + \nabla_{x_i} \cdot f(u) = g(u) \;\; i = 1,2,3
+\end{equation}
+equipped with suitable initial and boundary conditions. Here
+$ u = (u_1, \dots , u_m)^t$ and $x = (x_1, \dots , x_m)$. 
+We would concentrate first on a one-dimensional case problem and we use this as a model and framework of the scheme, to prove theoretical results and highly essential ingredients in the method, while keeping in mind that these methods are naturally extendable to second and third dimension problems.
+We are going to implement Discontinuous Galerkin Method (DGM). Which is based on polynomial reconstruction ideas of classical Finite Element Method (FEM) and flux conservation principles of the Finite Volume Method (FVM).
+
+\section{The Method}
+Discontinuous Galerkin Method was introduced in 1973 by Reed and Hill [ref?], in the framework of neutron transport (steady state linear hyperbolic equations). Major contributions have been carried out by Cockburn et al. in series or papers [refs?], which stablished a initial framework for all the new kinds of methods for solving non-linear hyperbolic time dependent conservation laws.
+
+In this paper we start the investigation of adapting DGM to deal with our Direct Solver by studying the numerical properties of solving an nonhomogenous scalar advection equation.  
+\begin{eqnarray}
+ u_t + \nabla_x \cdot f(u) = S(u) \\
+ u(x,0) = u_0(x) \nonumber
+\end{eqnarray}
+A semidiscrete Discontinuous Galerkin method for solving the non-homogenous hyperbolic PDE (2) is usually obtained by multiplying (2) by a test function $v_h \in V_h$, integrating over suitable domains, and finally integrating by parts. If the space of trial functions $U_h$ and hte one of the test functions $V_h$ coincide, the method is called a Galerkin Method, otherwise it is called a Petrov-Galerkin method.
+
+Let points $x_i$ be the center of the cells $I_i = [x_{i-1/2},x_{i+1/2}]$, and we denote the cell sizes by $\Delta x_i = x_{i-1/2}-x_{i+1/2}$ and the maximun cell size by $h =  sup_i(\Delta x_i)$ The Finite Element Method we are going to use is Discontinuous Galerkin, that is for the solution as well as the test function is given by
+\begin{equation}
+ U_h = V_h = V_h^k = \{p : p|_{I_i} \in P^k(I_i)\},
+\end{equation}
+where $p_k(I_i)$ is the space of polynomials of degree $\leq k$ on the $I_i$. Note that in $V_h^k$, the functions are allowed to have jumps at the interfaces $x_{i+1/2}$. Is this characteristic of the method that make it different to any finite element method and render it's characteristic of explicit in semidiscrete form with is suitable for any explicit time discretization method.
+
+
+\section{The Local Basis}
+We adopt a local Orthogonal basis over $I_i$, $\{v_l^{(i)}(x), l=0,1,2, \dots, k\}$ namely the Legendre polynomials.
+
+The numerical solution $u^h(x,t)$ in the space $V_h^k$ can be written as
+\begin{equation}
+ u^h(x,t) = \sum_{l=0}^{k} u_i^{(l)}(t)v_l^({i})(x), \; \; for \; x \in I_i
+\end{equation}
+and the Legendre Coeficients or degrees of freedom $u_i^{(l)}(t)$ are the moments defined by
+\begin{equation}
+ u_i^{(l)}(t) = 1/a_l \int_{I_i} u^h(x,t)v_l^{(i)}(x),dx, \; \; l = 0,1, \cdots,k
+\end{equation}
+where $a_l = \int_{I_i} (v_l^{(i)}(x))^2 dx$ are the normalization constants since the basis is not orthonormal. In order to determine the approximate solution, what we would like to do is to evolve the degress of freedom $u_i^{(l)}$. To do this we first we multiply (2) by $v_h \in V_h^k$, and integrate over $I_i$ and replace the exact solution $u$ by its approximation $u^h$
+
+\begin{eqnarray}
+ d/dt u_i^{(l)} + 1/a_l(-\int_{I_i} f(u^h(x,t))d/dx v^{(i)}x dx \\ \nonumber
+ 	+ f(u_{i+1/2}^{-},u_{i+1/2}^{+})v_l^{(i)}(x_{i+1/2}) 
+ 	- f(u_{i-1/2}^{-},u_{i+1/2}^{-})v_l^{(i)}(x_{i+1/2}) \\ \nonumber
+	= 0, \; \;  l = 0,1, \cdots ,k
+\end{eqnarray}
+
+if we write our the first equation in (6),
+\begin{equation}
+ d/dt u_i^{(l)} + 1/{\Delta x}f(u_{i+1/2}^{-},u_{i+1/2}^{+})
+ 	- f(u_{i-1/2}^{-},u_{i+1/2}^{-})
+\end{equation}
+
+\section{The Implementation}
+Here is how we plan to solve the SBBGK using the our DG-ARK
+
+% Applying DG to a 1D Homogeneous Linear Advection Equation
+\section{Homogeneous Linear Advection Equations}
+When faced with the task of solving hyperbolic partial differential equation we found our selves challenged with the first main goal: A one-dimensional homogeneous linear advection equation;
+\begin{equation}
+	\frac{\partial u}{\partial t} + a \frac{\partial u}{\partial x} = 0, \;\; x \in \Omega
+	\label{homo_advection}
+\end{equation}
+with suitable boundary conditions in $\partial \Omega$ and initial condition $u(x,0) = u_0$.
+
+
+% Applying DG to a Non-homogeneous equation.
+\section{Non-homogeneous Linear Equations}
+Now the challenge is slightly increased when dealing with a source term. Our governing equation now looks like,
+\begin{equation}
+	\frac{\partial u}{\partial t} + a \frac{\partial u}{\partial x} = s(u), \;\; x \in \Omega
+	\label{nonhomo_advection}
+\end{equation}
+with suitable boundary conditions in $\partial \Omega$ and initial condition $u(x,0) = u_0$.
+and S(u) can be any nonlinear fucntion of $u(x,t)$
+
+% Using DG with Non-homogeneous equations.
+\section{Non-linear Hyperbolic Equations}
+Also known as Non-linear conservations laws equations. For this case our basic formulation becomes,
+\begin{equation}
+	\frac{\partial u}{\partial t} + \frac{\partial f}{\partial x} = 0, \;\; x \in \Omega
+	\label{nonlinear_advection}
+\end{equation}
+with suitable boundary conditions in $\partial \Omega$ and initial condition $u(x,0) = u_0$. 
+Here $f(u)$ is our flux function, and we recognize that if $f(u) = a u$ it will turn our euqation back in to the linear formuation of the advection equation. We are interested here in solving first for Burgers Advection Equation, i.e. $f(u) = u^2/2$.
+
+% Chapter 2
+\chapter{Hyperbolic Equations beyond One-dimension}
+This section in under construction... Please wait for it!
+
+
+
+\end{document}
