@@ -1,5 +1,6 @@
 \documentclass[a4paper]{report}
 
+% Uncomment to compile only one file.
 %\includeonly{file2}
 
 % Redefine \vec command to generate bold vector characters 
@@ -7,33 +8,41 @@
 \renewcommand{\vec}[1]{\mathbf{#1}}
 \renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
 
+% Thesis Start
 \begin{document}
 
+% Make Title Page
 \title{My PhD Thesis}
 \author{Manuel Diaz}
 \date{February 2012}
-
 \maketitle
 
+% Roman Numbering for intropages
 \pagenumbering{roman}
 \tableofcontents
 %\listoffigures
 %\listoftables
 
+% Acknowledgements
 \chapter*{Acknowlegdements}
 I thanks the creator for all his patient!
 
+% Abstract of Report
 \begin{abstract}
 this is my abstract
 \end{abstract}
 
+% Arabic Numbering for Chapter Pages
 \pagenumbering{arabic}
 
+% file1
 \include{file1}
 
+% file2
 \include{file2}
 
-\bibliography{DGM_refs}
+% Bibliography
+\bibliography{Sample_refs}
 \bibliographystyle{unsrt}
 
 \end{document}
