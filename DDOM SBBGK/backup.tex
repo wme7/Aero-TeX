@@ -1,51 +1,18 @@
-\subsection{Dynamic Discrete Ordinate Method}
-	
 \begin{frame}
 	\frametitle{DDOM}
-	To circumbent the problems professor C.T. Hsu, et al. \cite{ISI:000303761300021,Hsu201239} noted that the exponential in the equilibrium distribution function (\ref{eq:classical_feq}) can be made independent of $\vec{u}(\vec{x},t)$ and $T(\vec{x},t)$. by using the transformation,
+	To circumbent the problems professor C.T. Hsu, et al. \cite{Hsu201239} noted that the exponential in (\ref{eq:newdistf}) can be made independent of $\vec{u}(\vec{x},t)$ and $T(\vec{x},t)$. by using the transformation,
 	\begin{equation}
 	\vec{C}^{*}  = \frac{(\vec{c}-\vec{u})}{\sqrt{\frac{2 k_B T}{m}}} = \frac{(\vec{c}-\vec{u})}{a}
 	\label{eq:transformation}
 	\end{equation}
-Where $\vec{C}^{*}$ will be defined as the abscissas of our GH quadrature.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Graphically speacking}
-	
-		\begin{figure}
-			\centering
-				\includegraphics[width=0.90\textwidth]{MB_DDOMvsDOM2}
-			\caption{Quadrature point distribution on thermaly normalized distribution with galilean transformation vs. traditional method}
-			\label{fig:MB_DDOMvsDOM2}
-		\end{figure}
+	Then the Semiclassical equilibrium distribution becomes,
+	\begin{equation}
+	f^{*eq} = f^{eq}(\vec{x},\vec{C}^{*},t) = \frac{1}{(\frac{1}{z})\exp{(\vec{C}^{*}}^2)+\theta}
+	\label{eq:newdistf}
+	\end{equation}
+	Where $\vec{C}^{*}$ will be defined as the abscissas of our GH quadrature.
 	
 \end{frame}
-
-\begin{frame}
-	\frametitle{Graphically speacking}
-		
-		\begin{figure}
-			\centering
-				\includegraphics[width=0.90\textwidth]{MB_DDOMvsDOM1}
-			\caption{Quadrature point distribution on thermaly normalized distribution with galilean transformation vs. traditional method}
-			\label{fig:MB_DDOMvsDOM1}
-		\end{figure}
-		
-\end{frame}
-
-\begin{frame}
-	\frametitle{Graphically speacking}
-
-		\begin{figure}
-			\centering
-				\includegraphics[width=0.90\textwidth]{MB_DDOMvsDOM3}
-			\caption{Quadrature point distribution on thermaly normalized distribution with galilean transformation vs. traditional method}
-			\label{fig:MB_DDOMvsDOM3}
-		\end{figure}
-		
-\end{frame}
-
 
 \begin{frame}
 	\frametitle{DDOM}
@@ -53,17 +20,12 @@ Where $\vec{C}^{*}$ will be defined as the abscissas of our GH quadrature.
 	\begin{equation}
 	\vec{c_\sigma}(\vec{x},t)  = a(\vec{x},t)\vec{C_\sigma}^{*}+\vec{u}(\vec{x},t) 
 	\end{equation}
-	To substitute $f(\vec{x},\vec{c},t)$ with $f^*(x,\vec{C^*},t)$ in BE, implies to substitute the total variation of the last term respect to $\vec{x}$ and $t$ as if $\vec{C}^*$ is a dependent variable of $\vec{c}$, in oder to preserver the physical meaning of the original BE.
+	To substitute $f(x,\vec{c},t)$ with $f^*(x,\vec{C^*},t)$ in BE, implies to substitute the total variation of the last term respect to $x$ and $t$ as if $C^*$ is a dependent variable of $c$, in oder to preserver the physical meaning of the original BE.
 \end{frame}
 
 \begin{frame}
 	\frametitle{DDOM}
-	e.i.,
-	\begin{equation}
-	f(\vec{x},\vec{c},t) = f^* (\vec{x},\vec{C}^*(\vec{x},t),t) = f^*
-	\end{equation}
-	
-	Taking the total differenciations of $f^*$ respecto to $x$ and $t$ we get,
+	Taking the total diferenciations of $f^*$ respecto to $x$ and $t$ we get,
 			
 	\begin{align*}
 		\frac{df^*}{dt} &= \frac{\partial{f^*}}{\partial{t}} + 
@@ -97,8 +59,8 @@ Then Boltzmann - BGK equation using DDOM becomes,
 		\begin{split}
 			\frac{\partial{f^*_\sigma}}{\partial{t}} &+ (a\vec{C_\sigma}^{*}+\vec{u})\bullet\frac{\partial{f^*_\sigma}}{\partial{\vec{x}}} 
 			+\vec{F}\bullet\frac{\partial{f^*_\sigma}}{\partial{\vec{C_\sigma}^{*}}}
-			\\ &-\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\vec{C_\sigma}^*\left(\frac{\partial a}{\partial t} + \vec{c} \frac{\partial a}{\partial \vec{x}} \right )
-			-\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\left(\frac{\partial u}{\partial t} + \vec{c} \frac{\partial u}{\partial \vec{x}} \right ) 
+			\\ &-\frac{1}{a}\frac{\partial f^*}{\partial C^*}C^*\left(\frac{\partial a}{\partial t} +c \frac{\partial a}{\partial x} \right )
+			-\frac{1}{a}\frac{\partial f^*}{\partial C^*}\left(\frac{\partial u}{\partial t} +c \frac{\partial u}{\partial x} \right ) 
 			\\ &= -\frac{1}{\tau}(f^*_\sigma-f^{*eq}_\sigma)
 		\end{split}
 	\end{equation}
@@ -109,10 +71,10 @@ Then Boltzmann - BGK equation using DDOM becomes,
 	\frametitle{DDOM}
 	Again, we wish to compute the first four moments fo the the distribution function,
 	\begin{eqnarray}
-	\int f^* d^3 c  &=& \rho \\
-	\int \vec{c} f^* d^3 c  &=& \rho \vec{u} \nonumber \\
-	\int \frac{\vec{c}^2}{2} f^* d^3 c  &=& \rho E \nonumber \\
-	\int \frac{(\vec{c}-\vec{u})^2}{2} f^* d^3 c  &=& \rho e \nonumber
+	\int f^* d^3 c  &=& \int f^{*eq}d^3c = \rho \\
+	\int \vec{c} f^* d^3 c  &=& \int \vec{c} f^{*eq}d^3c = \rho \vec{u} \nonumber \\
+	\int \frac{\vec{c}^2}{2} f^* d^3 c  &=& \int \frac{1}{2}\vec{c}^2 f^{*eq}d^3c = \rho E \nonumber \\
+	\int \frac{(\vec{c}-\vec{u})^2}{2} f^* d^3 c  &=& \int \frac{1}{2}(\vec{c}-\vec{u})^2 f^{*eq}d^3c = \rho e \nonumber
 	\end{eqnarray}
 	but observe that a change of integration variable is necessary to keep their physical meaning intact.
 \end{frame}
@@ -141,13 +103,12 @@ Then Boltzmann - BGK equation using DDOM becomes,
 	Where J is the Jacobian. Here $J = \sqrt{\frac{2k_B T(\vec{x},t)}{m}}$ .
 \end{frame}
 
-
+\subsection{Numerical Results with DDOM}
 \begin{frame}
-	\frametitle{Using DDOM with Semi-classical Formulation}
+	\frametitle{Numerical Tests}
 	\begin{itemize}
-	\item as we see the procedure is analogous to the DDOM developed for the classical distribution.
-	\item We apply and numerically evalute a case in 1d to test this results.
-	\item Our finding and conclusions will follow after.
+	\item Based on our DDOM description of the moments and our initial observations with conventional DOM, we developed a 'snipet' code in Matlab to evaluate and compare both methods in 1d and 2d cases.
+	\item Our finding and conclusions will follow our preliminary resutls.
 	\end{itemize}	
 \end{frame}
 
@@ -164,56 +125,40 @@ Then Boltzmann - BGK equation using DDOM becomes,
 \end{frame}
 
 \begin{frame}
-	\frametitle{Thermal Normalization \& Galilean trasformation of the 1d Equations}
-	Our thermal normalized definition of $\vec{C}^*$ goes a follows,
-	\begin{align*}
-	& C^* = \frac{(c-u)}{\sqrt{\frac{2k_BT_\infty}{m}}} & J = \left(\frac{\partial C^*}{\partial c} \right ) = \sqrt{\frac{2k_BT_\infty}{m}} 
-	\end{align*}
-	The Semiclassical equilibrium distribution becomes,
-	\begin{equation}
-	f^{eq} ( x, c, t) = \frac{1}{(1/  z) exp({C^*})+ \theta}
-	%\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/ \hat z) exp(\hat {C^*})+\hat \theta}
-	\label{eq:normadistf1d}
-	\end{equation}
-	%We will drop the hat notation in the following slides while working with normalized equations.
-\end{frame}
-
-\begin{frame}
-	\frametitle{BE with effects of galilean transformation}
-	substituting $f(x,c,t)$ by $f^*(x,C^*,t)$, and evaluating the total derivates of $f^*$ we get our dynamics Boltzmann-BGK equation,
+	\frametitle{1d Equations}
+	substituting $f(x,c,t)$ by $f^*(x,C^*,t)$, where and evaluating the total derivates of $f*$ we get our Dynamics Boltzmann-BGK equation,
 	
 	\begin{equation}
 	\frac{\partial f^*}{\partial t} + c_x \frac{\partial f*}{\partial x} 
 		- \frac{1}{a} \frac{\partial f^*}{\partial C^*} C^* \frac{Da}{Dt}
 		- \frac{1}{a} \frac{\partial f^*}{\partial C^*} \frac{Du}{Dt}
 		= -\frac{f - f^{eq}}{\tau}
-	\label{eq:sbbgk1d}
+		\label{eq:sbbgk1d}
 	\end{equation}
 	
 	Where operator $D/Dt = d/dt + c d/dx$ is identified as the material derivate. Observer that, 
 	\begin{equation}
 		c(x,t) = a(x,t) C^* + u(x,t)
-	\end{equation}	
+	\end{equation}
+	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Normalization of 1d Equations}
-	But before coding it, we first need to normalize our governing equations. We follow Muljadi and Yang \cite{Yang2013} procedure,
-	
+	But we first need to normalize our governing equations. Following Muljadi and Yang \cite{Yang2013}.
 	\begin{align*}
-	V_\infty &= \sqrt{\frac{2k_BT_\infty}{m}}, & t_\infty &= \frac{L}{V_\infty}
+	&V_\infty = \sqrt{\frac{2k_BT_\infty}{m}}, &t_\infty = \frac{L}{V_\infty}
 	\end{align*}
-	
-	Here $L$ $(L = V_\infty t_\infty)$ is identified as the characterisitc length.
+	Here L is identified as the characterisitc length
 \end{frame}
 
 \begin{frame}
-	Multiplying to equation \ref{eq:sbbgk1d} and it moments by $(\frac{V_\infty}{V_\infty})(\frac{t_\infty}{t_\infty})$, the following dimensionles relations follows,
+	then multiplying to \ref{eq:sbbgk1d} by $(\frac{V_\infty}{V_\infty})(\frac{t_\infty}{t_\infty})$ the following relations follow up,
 	\begin{align*}
-	(\hat t, \hat \tau) &= \frac{(t,\tau)}{t_\infty}, & (\hat u_x,\hat c_x,) = \frac{(u_x,c_x)}{V_\infty}, \\
-	\hat T &= \frac{T}{T_\infty}, & \hat E = E / \left(\frac{m^3V_\infty^4}{h^2} \right ), \\
-	\hat f &= f, &\hat {\rho u_x} = \rho u_x / \left(\frac{m^2V_\infty^3}{h^2} \right ), \\
-	\hat x &= \frac{x}{L}, &\hat \rho = \rho / \left(\frac{m^2V_\infty^2}{h^2} \right ).
+	&(\hat t, \hat \tau) = \frac{(t,\tau)}{T_\infty}, &(\hat u_x,\hat c_x,) = \frac{(u_x,c_x)}{V_\infty}, \\
+	&\hat T = \frac{T}{T_\infty}, &\hat x = \frac{x}{L}, \\
+	&\hat \rho = \rho / \left(\frac{m^2V_\infty^2}{h^2} \right ), &\hat {\rho u_x} = \rho u_x / \left(\frac{m^2V_\infty^3}{h^2} \right ), \\
+	&\hat E = E / \left(\frac{m^3V_\infty^4}{h^2} \right ), &\hat f = f.
 	\end{align*}
 \end{frame}
 
@@ -230,24 +175,25 @@ Then Boltzmann - BGK equation using DDOM becomes,
 	\begin{equation}
 	\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/z) exp(\left | \hat c - \hat u \right |^2 / \hat T)+\theta}
 \end{equation}
+	
 \end{frame}
 
 \begin{frame}
-	\frametitle{Thermal Normalization \& Galilean trasformation}
-	Normalized definition of $\vec{C}^*$ are,
+	\frametitle{Normalization of 1d Equations}
+	our normalized definition of $\vec{C}^*$ 
 	\begin{align*}
-	&\hat C^* = \frac{(\hat c-\hat u)}{\sqrt{\hat T}} & \hat J = \left(\frac{\partial \hat {C^*}}{\partial \hat c} \right ) = \sqrt{\hat T} 
+	&\hat C^* = \frac{(\hat c-\hat u)}{\sqrt{\hat T}} & \hat J = \left(\frac{\partial \hat {C^*}}{\partial \hat c} \right ) = \sqrt(\hat T) 
 	\end{align*}
 	The Semiclassical equilibrium distribution becomes,
 	\begin{equation}
-		\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/ \hat z) exp(\hat {C^*})+\hat \theta}
+	\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/ \hat z) exp(\hat {C^*})+\hat \theta}
 	\label{eq:normadistf1d}
 	\end{equation}
 	We will drop the hat notation in the following slides while working with normalized equations.
 \end{frame}
 
 \begin{frame}
-	\frametitle{Apply DOM to modified BE}
+	\frametitle{Apply DOM to D-BE}
 	Applying Discrete Ordinate Method, we render the following set of dynamic Boltzmann-BGK equations,
 	\begin{equation}
 	\frac{\partial {f_\sigma^*}}{\partial t} + c_\sigma \frac{\partial f_\sigma^*}{\partial x} 
@@ -259,6 +205,7 @@ Then Boltzmann - BGK equation using DDOM becomes,
 	\begin{equation}
 	f_\sigma^{eq} (x,c_\sigma,t) = \frac{1}{(1/z) exp(C_\sigma^*)^2 + \theta}
 	\end{equation}
+	
 \end{frame}
 
 \begin{frame}
@@ -273,40 +220,82 @@ Then Boltzmann - BGK equation using DDOM becomes,
 	Where J is the Jacobian. Here $J = \sqrt{T(x,t)}$ .
 \end{frame}
 
-\subsection{Numerical Results with DDOM}
-
 \begin{frame}
-	\frametitle{Numerical Results with DDOM}
-		
-		\begin{figure}
-			\centering
-				\includegraphics[width=0.90\textwidth]{2RE_upwind_DDOM1}
-			\caption{Right Expansion case. Using MB distribution, Upwind method for all space differentials with 100 points in physical space and DDOM with 5 velocity points in velocity space}
-			\label{fig:2RE_upwind_DDOM1}
-		\end{figure}
-		
+	\frametitle{Matlab 'Snipet'}
+	\begin{figure}
+	\centering
+	\includegraphics[height=5.5cm]{snipet_DDOM_vs_DOM}%
+	\caption{Matlab 'snipet' of the 1d case}
+	\end{figure}	
 \end{frame}
 
 \begin{frame}
-	\frametitle{Numerical Results with DDOM}
-		
-		\begin{figure}
-			\centering
-				\includegraphics[width=0.90\textwidth]{2RE_upwind_DDOM}
-			\caption{Right Expansion case. Using MB distribution, Upwind method for all space differentials with 200 points in physical space and DDOM with 5 velocity points in velocity space}
-			\label{fig:MB_RE}
-		\end{figure}
-		
+	\frametitle{Tests}
+	We propose 3 cases to be evaluated:
+	\begin{itemize}
+	\item case 1: Sod's left semiclassical IC
+	\item case 2: Sod's right semiclassical IC
+	\item case 3: large displacement-low temperature semiclassical IC
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Numerical Results with DDOM}
-		
-		\begin{figure}
-			\centering
-				\includegraphics[width=0.90\textwidth]{2RE_WENO3_DDOM}
-			\caption{Right Expansion case. Using MB distribution, WENO3 method for all space differentials with 100 points in physical space and DDOM with 5 velocity points in velocity space}
-			\label{fig:MB_RE}
-		\end{figure}
-		
+	\frametitle{Tests}
+	\centering
+	\begin{tabular}{r | c}
+	z = 0.0394; u = 0.00; t = 3.2 &  z = 0.0394; u = 0.00; t = 3.2 \\ \hline
+	z = 0.3000; u = 1.00; t = 0.1 & \\
+	\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tests}
+	\begin{tabular}{r c}
+	\centering
+	\includegraphics[scale= 0.11]{MB_DDOMvsDOM1} & \includegraphics[scale= 0.11]{MB_DDOMvsDOM2} \\ 
+	\includegraphics[scale= 0.11]{MB_DDOMvsDOM3} & {3 selected cases Graphically}\\
+	\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Number of points for decided acuaracy}
+	The required number of GH quadrature points to achieve an specific order of accuaracy, is tabulated as follows
+	\begin{center}
+	\begin{tabular}{| l | l | l | l |}
+	%\centering
+	\hline
+	Order        & MB & FD & BE \\ \hline
+	$O(h^2)$ &  -   &    3   &   3   \\ \hline
+	$O(h^4)$ &  -   &  5-7  & 9-12 \\ \hline
+	$O(h^8)$ &  3  & 19-20 & 18-20 \\ \hline
+	\end{tabular}
+	\end{center}
+	%\caption{GH quadrature points for desired $O(h^n)$ presicion}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 2d Equations}
+	Again, normalize our governing equations as in \cite{Yang2013}.
+	\begin{equation}
+	V_\infty = \sqrt{\frac{2k_BT_\infty}{m}}, \;\;\;\;  t_\infty = \frac{L}{V_\infty}
+	\end{equation}
+	Here L is identified as the characterisitc length
+	\begin{align*}
+	&(\hat t, \hat \tau) = \frac{(t,\tau)}{T_\infty}, &(\hat u_x,\hat u_y,\hat v_x,\hat v_y) = \frac{(u_x,u_y,v_x,v_Y)}{V_\infty}, \\
+	&(\hat x,\hat y) = \frac{(x,y)}{L}, &\hat T = \frac{T}{T_\infty}, \;\; \hat \rho =\rho / \left(\frac{m^2V_\infty^2}{h^2} \right ), \\
+	&\hat{\rho u_x} = \rho u_x / \left(\frac{m^2V_\infty^3}{h^2} \right ), &\hat E = E / \left(\frac{m^3V_\infty^4}{h^2} \right ), \;\; \hat f = f.
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 2d Equations}
+	Neglecting any external force, The normalized Boltzmann-BKG equation in 2d becomes,
+	\begin{equation}
+	\frac{\partial \hat f(\hat x,\hat v_x,t)}{\partial \hat t} + \hat v_x \frac{\partial \hat f(\hat x,\hat v_x,t)}{\partial \hat x} +  \hat v_x \frac{\partial \hat f(\hat x,\hat v_x,t)}{\partial \hat y} =  -\frac{\hat f - \hat f^{eq}}{\hat \tau}
+	\end{equation}
+	The normalized two-dimensional semiclassical equilibrium distribution function becomes,
+	\begin{equation}
+	\hat f^{eq} (\hat x,\hat v_x,\hat t) = \frac{1}{(1/z) \exp{((\left|\hat v_x - \hat u_x \right|^2 + \left|\hat v_y - \hat u_y \right|^2) / \hat T)}+\theta} 
+	\end{equation}
+	We will drop the hat notation in the following slides while working with normalized equations.
 \end{frame}

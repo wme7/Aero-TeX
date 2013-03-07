@@ -3,21 +3,83 @@
 
 \begin{frame}
 	\frametitle{CDOM}
-	Based on the work by JC Huang \cite{Yang1995323}, a two-dimensional BGK model Botlzmann Equation with out acceleration from external forces can be written as:
+Following the work by Prof. Yang \& Huang \cite{Yang1995323} and more recently Prof. Huang's publication \cite{Huang2011261}. A single classical Boltzmann equation in three-space dimension can be reduced into a single or two-spatial dimension by integrating  velocities space of the distribution function. e.g.: consider the class of Boltzmann-BGK equation:
 	\begin{equation}
-		\frac{\partial f}{\partial t} + c_x \frac{\partial f}{\partial x} + c_y \frac{\partial f}{\partial x} = -\frac{f - f^{eq}}{\tau}
+		\frac{\partial f}{\partial t} + \vec{c} \bullet \frac{\partial f}{\partial \vec{x}} = -\frac{f - f^{eq}}{\tau}
 	\end{equation}
-	where $f = f (x,y,c_x,c_y,t)$ and the Maxwellian Equilibrium distribution function es expressed as:
-	\begin{equation}
-		f^{eq} = \rho \left( \frac{\lambda}{\pi} \right) ^{\frac{k+2}{2}} \exp{\lambda (c_x - u_x)^2}
-	\end{equation}
+	where $f = f (\vec{x},\vec{c},t)$ and the Maxwellian Equilibrium distribution function es expressed as in eq.\ref{eq:classical_feq}.
 \end{frame}
 
-\subsection{Numerical Results with CDOM}
+\begin{frame}
+	\frametitle{Moments of the distribution funcion}
+	The main three moments of the distribution function are,
+	\begin{align*}
+		&\int{
+		\begin{bmatrix}
+			1 			\\
+			c_i 		\\
+			\vec{v}
+		\end{bmatrix}
+		} f(\vec{x},\vec{c},t)d^3c = 
+		\begin{bmatrix}
+			\rho(\vec{x},t)		\\
+			\rho u(\vec{x},t)	\\
+			\frac{3}{2}\rho RT(\vec{x},t)
+		\end{bmatrix}, & i = 1,2,3
+	\end{align*}
+	where $\vec{v} = \frac{(\vec{c}-\vec{u})^2}{2}$ is the the peculiar velocity of a molecule.
+\end{frame}
 
 \begin{frame}
-	\frametitle{CDOM}
-	for a two-dimensional system we have:
+	\frametitle{gas pressure and stress tensor $\tau_{ij}$}
+		and the gas pressure and stress tensor are defined by,
+		\begin{align*}
+			p(\vec{x},t) &= \rho(\vec{x},t) k_B T(\vec{x},t) \\
+			\tau_{ij} &= \int c_i c_j f(\vec{x},\vec{c},t) d^3c - p\delta_{ij}
+		\end{align*}
+		here $k_B$ is the Boltzmann constant and $\delta_{ij}$ is the Kroneker delta.
+		The heat vector flux $\vec{q}$ is defined by,
+		\begin{align*}
+			q_i (\vec{x},t) &= \int \frac{c^2}{2} c_i f(\vec{x},\vec{c},t)d^3c.
+		\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reduced Distributions}
+	the reduced distribution functions are defined as by,
+	\begin{align*}
+			g(x,y,c_x,c_y,t) &= \int^{\infty}_{-\infty} f(x,y,c_x,c_y,t) dc_z \\
+			h(x,y,c_x,c_y,t) &= \int^{\infty}_{-\infty} c^2_z f(x,y,c_x,c_y,t) dc_z
+	\end{align*}
+	and using DOM they further reduce to,
+	\begin{align*}
+			g(x,y,c_l,c_m,t) = g_{l,m}(x,y,t)
+			h(x,y,c_l,c_m,t) = h_{l,m}(x,y,t)
+	\end{align*}
+	here $l = 1, \dots ,N_l$ and $m = 1, \dots N_m$ are discrete values in velocity space.
+\end{frame}
+
+\begin{frame}
+	\frametitle{2D system}
+	A reduced two dimensional system can be defined as,
+	\begin{align*}
+	 \frac{\partial g_{l,m}}{\partial t} + c_l \frac{\partial g_{l,m}}{\partial x} + c_m \frac{\partial g_{l,m}}{\partial y} &= \frac{1}{\tau}(G^{eq}_{l,m} - g_{l,m}), \\
+	\frac{\partial h_{l,m}}{\partial t} + c_l \frac{\partial h_{l,m}}{\partial x} + c_m \frac{\partial h_{l,m}}{\partial y} &= \frac{1}{\tau}(H^{eq}_{l,m} - h_{l,m}).
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conservative constrain}
+	During the collision of a monoatomic or non-reacting gas, mass, momentum and energy are conserved. Thus $f$ and $f^{eq}$ satisfy the following conservative constrain,
+		\begin{equation}
+			\int \phi (f^{eq}-f) d\Theta = 0
+		\end{equation}
+		where $\phi = (1, c_x, c_y, (c^2_x+c^2_y+c^2_z)/2)^T$ is the vector of collision of invariants and $d\Theta = dc_x dc_y dc_z$.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conservative constrain}
+	then for a two-dimensional we can write the following non-linear system,
 	\begin{equation}
 		\sum_{l=1}^{N_l}\sum_{m=1}^{N_m} 
 			\begin{pmatrix}
@@ -27,4 +89,66 @@
 			(\nu_l^2+\nu_m^2) (G_{l,m}^{M}-g_{l,m})+(H_{l,m}^{M}-h_{l,m})
 			\end{pmatrix} = 0 
 	\end{equation}
+\end{frame}
+
+\subsection{Numerical Results with CDOM}
+
+\begin{frame}
+	\frametitle{Numerical Results with CDOM}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.50\textwidth]{DN1n4-61}
+			\caption{Lax's Euler Problem. Using MB classical distribution function, using WENO3 with a 100 poinst in physical space and DOM with 61 velocity points.}
+			\label{fig:DN1n4-61}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Numerical Results with CDOM}
+	
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.50\textwidth]{DN1n4-81}
+			\caption{Lax's Euler Problem. Using MB classical distribution function, using WENO3 with a 100 poinst in physical space and DOM with 81 velocity points.}
+			\label{fig:DN1n4-81}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Numerical Results with CDOM}
+	
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.50\textwidth]{DN1n4-101}
+			\caption{Lax's Euler Problem. Using MB classical distribution function, using WENO3 with a 100 poinst in physical space and DOM with 101 velocity points.}
+			\label{fig:DN1n4-101}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Numerical Results with CDOM}
+	
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.50\textwidth]{DC1n4-41}
+			\caption{Lax's Euler Problem. Using MB classical distribution function, using WENO3 with a 100 poinst in physical space and CDOM with 41 velocity points.}
+			\label{fig:DC1n4-41}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Numerical Results with CDOM}
+	
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.50\textwidth]{DC1n4-61}
+			\caption{Lax's Euler Problem. Using MB classical distribution function, using WENO3 with a 100 poinst in physical space and CDOM with 61 velocity points.}
+			\label{fig:DC1n4-61}
+		\end{figure}
+	
 \end{frame}

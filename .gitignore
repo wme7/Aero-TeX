@@ -180,3 +180,6 @@ pip-log.txt
 *.tex~
 *.jpg
 *.png
+*.bbl
+*.blg
+*.bib~
