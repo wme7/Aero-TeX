@@ -1,0 +1,30 @@
+\section{Alternatives to improve DOM}
+\subsection{Conservative Discrete Ordinate Method}
+
+\begin{frame}
+	\frametitle{CDOM}
+	Based on the work by JC Huang \cite{Yang1995323}, a two-dimensional BGK model Botlzmann Equation with out acceleration from external forces can be written as:
+	\begin{equation}
+		\frac{\partial f}{\partial t} + c_x \frac{\partial f}{\partial x} + c_y \frac{\partial f}{\partial x} = -\frac{f - f^{eq}}{\tau}
+	\end{equation}
+	where $f = f (x,y,c_x,c_y,t)$ and the Maxwellian Equilibrium distribution function es expressed as:
+	\begin{equation}
+		f^{eq} = \rho \left( \frac{\lambda}{\pi} \right) ^{\frac{k+2}{2}} \exp{\lambda (c_x - u_x)^2}
+	\end{equation}
+\end{frame}
+
+\subsection{Numerical Results with CDOM}
+
+\begin{frame}
+	\frametitle{CDOM}
+	for a two-dimensional system we have:
+	\begin{equation}
+		\sum_{l=1}^{N_l}\sum_{m=1}^{N_m} 
+			\begin{pmatrix}
+			G_{l,m}^{M}-g_{l,m}\\ 
+			\nu_l (G_{l,m}^{M}-g_{l,m})\\ 
+			\nu_m (G_{l,m}^{M}-g_{l,m})\\ 
+			(\nu_l^2+\nu_m^2) (G_{l,m}^{M}-g_{l,m})+(H_{l,m}^{M}-h_{l,m})
+			\end{pmatrix} = 0 
+	\end{equation}
+\end{frame}

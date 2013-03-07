@@ -1,0 +1,42 @@
+\subsection{Semi-classical Boltzmann-BGK}
+
+\begin{frame}
+	\frametitle{Boltzmann Equation with BGK for gas flows}
+	Boltzmann Equation (BE), derived from statistical mechanics and based on kinetic theory, describes the evolution of the velocity distribution function, $f(\vec{x},\vec{c},t)$, for rarefied gases in phase space. The collission operator we would use is the BKG collision operator.
+	\begin{equation}
+	\frac{\partial{f}}{\partial{t}} +
+	\vec{c}\bullet\frac{\partial{f}}{\partial{\vec{x}}} +
+	\vec{F}\bullet\frac{\partial{f}}{\partial{\vec{c}}} = 
+	\left( \frac{\delta f}{\delta t}\right )^{BGK}_{coll} = -\frac{1}{\tau}(f-f^{eq})
+	\end{equation}
+	where $\tau$ stands for the molecular collision relaxation time.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semiclassical Equilibrium Distribution function}
+	Following the work of Uehling \& Uhlenbeck \cite{PhysRev.43.552} the equilibrium for the semi-classical distribution function, $f^{eq}(\vec{x},\vec{c},t)$, is given by
+	\begin{equation}
+	f^{eq}=f^{eq}(\vec{x},\vec{c},t)=\frac{1}{(\frac{1}{z})\exp\left({\frac{m}{2 k_B T}(\vec{c}-\vec{u})^2}\right)+\theta}
+	\end{equation}
+	Where $z(\vec{x},t)$, $\vec{u}(\vec{x},t)$, $T(\vec{x},t)$, the quemical potential, mean velocity and temperature of the gas; $\theta$ is a parameter that specifies the type of particle statistics we will using. Here are consider:
+	\[
+		\begin{cases}
+		\theta = +1, 	& \text{Fermi-Dirac particles.} \\
+		\theta = \ 0,	& \text{Maxwell-Boltzmann or classical particles.} \\
+		\theta = -1, 	& \text{Bose-Einstein particles.}
+		\end{cases}
+	\]
+	% i.e. we are will be solving Boltzmann Equation for Classical and Quantun Statisticas in a parallel maner.
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Moments of BE}
+	The first four moments of the distribution function are,
+	\begin{eqnarray}
+	\int f d^3 c  &=& \int f^{eq}d^3c = \rho \\
+	\int \vec{c} f d^3 c  &=& \int \vec{c} f^{eq}d^3c = \rho \vec{u} \\
+	\int \frac{\vec{c}^2}{2} f d^3 c  &=& \int \vec{c}^2 f^{eq}d^3c = \rho E \\
+	\int \frac{(\vec{c}-\vec{u})^2}{2} f d^3 c  &=& \int (\vec{c}-\vec{u})^2 f^{eq}d^3c = \rho e 
+	\end{eqnarray}
+	where $\rho(\vec{x},t)$,  $\vec{u}(\vec{x},t)$ and $e(\vec{x},t)$ are density, mean velocity and internal specific energy of the gas particles respectively. Note that total Energy density can be also defined as $\rho E = 1/2 \rho \vec{u}^2 + \rho e$.
+\end{frame}
