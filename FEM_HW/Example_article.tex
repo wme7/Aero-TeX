@@ -1,0 +1,57 @@
+\documentclass[a4paper,12pt]{article}
+
+\setlength\topmargin{-0.75in}
+\setlength\headheight{0in}
+\setlength\headsep{0in}
+\setlength\textheight{10in}
+\setlength\textwidth{6.5in}
+\setlength\oddsidemargin{0in}
+\setlength\evensidemargin{0in}
+\setlength\parindent{0in}
+\setlength\parskip{0in}
+\title{SP2171: Mathematics tutorial 1}
+\author{Ng Xin Zhao}
+
+
+
+\begin {document}
+\maketitle
+
+
+\section{}
+By the Fundamental theorem of Arithmetic, every integer, $n>1$ can be written as a product of primes and is unique. It follows that $a=q_{1}q_{2}q_{3}...q_{N}$ , and $b=d_{1}d_{2}d_{3}...d_{M}$ where $q_{i}$ and $d_{j}$ are primes, and $1\leq i,j\leq N,M$ . And since $p\mid ab$, $p \mid (q_{1}q_{2}q_{3}...q_{N})(d_{1}d_{2}d_{3}...d_{M})$. By the theorem proven in Problem 3, it follows that $p=q_{i}$ or $p=d_{j}$ for some i and j. Thus since $a=q_1...q_i...q_{N}$ and $b=d_1...d_j...d_{M}$, $p \mid a$ or $p \mid b$.
+
+\section{}
+The proof can be obtained by making extension based on problem 1. We denote $a=a_1, b=a_2$ and introduce $a_3, a_4,...,a_n$ into the term $p \mid ab$ so that it becomes $p \mid a_1a_2a_3a_4...a_n$. By the Fundamental Theorem of Arithmetic, all the terms $a_1$ to $a_n$ can be written as products of prime numbers, that is $a_1=q_1q_2...q_F, a_2=w_1w_2...w_G$ and so on until $a_n=e_1e_2...e_H$ where $q_r$,$w_t$, and $e_y$ are primes and $1\leq r,t,y\leq F,G,H$. Therefore $p \mid (q_1q_2...q_F)(w_1w_2...w_G)...(e_1e_2...e_H)$. By the theorem proven in Problem 3, it follows that $p=q_{r}$ or $p=w_{t}$ and so on until $p=e_y$ for some r,t...to y. Therefore there must be a number, $a_k=s_1s_2...s_J$, with $1\leq k\leq n, w_t$ is a prime and $1\leq t\leq J$ which contains $w_t=p$ and thus statisfies $p \mid a_k$.
+
+\section{}
+We get $p \mid q_1q_2...q_n$ where $p,q_i$ are primes. Suppose there is a $q_i$ such that $q_i\neq p$ then $gcd(p,q_i)=1$, And from the Proposition 0.8 mentioned, then
+\begin{equation} px+q_iy=1 \end {equation} for some $x,y\in$ integer . Multiply the equation by $q_1...q_n$ without $q_i$, a term which we'll now denote as c, \begin{equation} cpx+cq_iy=c \end{equation}
+
+Since $p \mid q_ic$, then $p \mid cq_iy$ for any integer y. And it is obvious that $p \mid cpx$, then by Proposition 0.3, number 8, $p \mid c(q_iy+px)$. Hence $p \mid c$. By repeating the above reasoning, there would eventually left with only one term of q say $q_k$ that remains in c. Then since $p \mid q_k$ and both are prime, then $p=q_k$ for some $1\leq k\leq n$.
+
+\section{}
+First, we'll prove that $\forall$ integers $n>1$, there is a prime factor,then later on we'll prove that every integer $n>1$ is a product of primes.
+
+\paragraph{}
+Theorem 4.1: Every Integer $n\geq 2$ has a prime factor.
+
+Induction Hypothesis: Assume every integer,n that statisfies $2\leq n 2$, if n itself is again a prime, there's nothing to verify as this is exacly the same as the case for n=2. This is the case for n=3. But $k=4=2\cdot 2$ Since 2 is a prime, k has a prime factor.
+\paragraph{}
+Induction step: For every integer n where $2\leq n1$ is a product of primes.
+It is trivial to notice that n=2 as 2 itself is a prime, having only itself and 1 as its factor. So let's us suppose $n>2$, if n itself is again a prime, there's nothing to verify as this is exacly the same as the case for n=2.If n is not a prime, then by definition, n=pq, where $p,q>1$ and since $p,q1$ is a product of primes.
+\paragraph{}
+Suppose $n=p_1p_2p_3...p_k=q_1q_2...q_r$ are two factorizations of the integer $n>1$. Without loss of generality, we can assume that $p_1\leq p_2\leq ...\leq p_k, q_1\leq q_2\leq...\leq q_r$ and $k\leq r$. Since $p_1p_2p_3...p_k=q_1q_2...q_r$, $p_1\mid q_1q_2...q_r$ and since they are all primes, by the solution of Problem 3, we can say that $p_1=q_i$ for some i. Since $q_i\geq q_1$for any i, $p_1\geq q_1$. By the reverse arguement, that is we can write $q_1\mid p_1p_2p_3...p_k$ and since they are all primes, by the solution of Problem 3, we can say that $q_1=p_j$ for some j. Since $p_j\geq p_1$ for all j, $q_1\geq p_1$, then $p_1=q_1$.
+\paragraph{}
+Theorem 4.3: The prime factorisation of n is unique.
+Induction Hypothesis: If $n=p_1p_2...p_k=q_1q_2...q_r$ then k=r and $p_1=q_1, p_2=q_2...p_k=q_r$
+\paragraph{}
+Basis step: Assume that $p_1=q_1q_2...q_r$ then by the solution to Problem 3, $p_1=q_i$ for some i. But $q_i\leq q_r$, so $p_1\leq q_r$ but it is obvious that $q_r\leq p_1$, therefore $p_1=q_r$ and $q_1q_2...q_{r-1}=1$ that is $q_1=q_2=...=q_{r-1}=1$ but since $q_i$ is a prime, $q_i\neq 1$. m must be 1. $p_1=q_1$.
+\paragraph{}
+Induction step: Assume that if $p_1p_2...p_t=q_1q_2...q_r$, then t=r and $p_1=q_1, p_2=q_2...p_t=q_r$. Let $p_1p_2...p_{t+1}=q_1q_2...q_r$, then $p_{t+1}=q_i$ for some i. Since $q_i\leq q_r$, it follows that $p_{t+1}\leq q_r$. Similarly by arguing the other way round, $q_r\leq p_{t+1}$ Hence, $p_{t+1}=q_r$. It follows that $p_1p_2...p_t=q_1q_2...q_{r-1}$. By the Induction Hypothesis, k=r-1, and $p_1=q_1, p_2=q_2...p_t=q_{r-1}$. Therefore, k+1=m and adding in $p_{t+1}=q_r$, we get $p_1=q_1, p_2=q_2...p_{t+1}=q_{r}$.
+Since the Induction Hypothesis is true for t+1 when it is true for t, and it is shown that it is true for t=1, it is true for t=1+1 and therefore, the prime factorisation of n is unique. The Fundamental Theorem of Arithmetic is proven.
+
+\section{}
+We prove this by contradiction. Suppose that there's a finite number of primes so this implies that there is a largest prime, $p_L$. But we can construct a term of $p_1p_2...p_L+1$ where $p_1<...p_L$ and since we have already stated that $p_L$ is the largest prime, this is a contradiction. Therefore there are infinite number of primes.
+
+\end {document}

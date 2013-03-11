@@ -262,6 +262,32 @@ Then Boltzmann - BGK equation using DDOM becomes,
 \end{frame}
 
 \begin{frame}
+	\frametitle{Basic Numerical Method}
+		\begin{equation}
+		\begin{split}
+			\frac{f^{*,n+1}_{\sigma,i} - f^{*,n}_{\sigma,i}}{\Delta t} & + 
+			(a_i\vec{C_\sigma}^{*}+\vec{u}_i)^{+} \bullet \frac{f^{*,n}_{\sigma,i-1} - f^{*,n}_{\sigma,i}}{\Delta x} 
+			\\ & +(a_i\vec{C_\sigma}^{*}+\vec{u}_i)^{-} \bullet \frac{f^{*,n}_{\sigma,i} - f^{*,n}_{\sigma,i+1}}{\Delta x}
+			\\ & -\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\vec{C_\sigma}^*\left(\frac{D a}{D t} \right )
+			\\ & -\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\left(\frac{D u}{D t} \right)
+			\\ & = -\frac{1}{\tau}(f^n_{\sigma,i} - f^{eq,n}_{\sigma,i})
+		\end{split}
+	\end{equation}
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Basic Numerical Method}
+		\begin{align*}
+			\left(\frac{D a}{D t} \right ) &= \frac{a^{n+1}_{i} - a^{n+1}_{i}}{\Delta t} \\
+				& + c^{+} \bullet \frac{a^{n}_{i} - a^{n}_{i-1}}{\Delta x}
+				 + c^{-} \bullet \frac{a^{n}_{i+1} - a^{n}_{i}}{\Delta x} \\
+			\left(\frac{D a}{D t} \right ) &= \frac{u^{n+1}_{i} - u^{n+1}_{i}}{\Delta t} \\
+				& + c^{+} \bullet \frac{u^{n}_{i} - u^{n}_{i-1}}{\Delta x}
+				 + c^{-} \bullet \frac{u^{n}_{i+1} - u^{n}_{i}}{\Delta x}
+		\end{align*}
+\end{frame}
+
+\begin{frame}
 	\frametitle{DDOM}
 	The moment integrals become,
 	\begin{eqnarray}
