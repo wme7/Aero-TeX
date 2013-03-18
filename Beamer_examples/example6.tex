@@ -1,0 +1,228 @@
+\documentclass[hyperref={pdfpagelabels=false}]{beamer}
+% By  using hyperref={pdfpagelabels=false} you get rid off:
+% Package hyperref Warning: Option `pdfpagelabels' is turned off
+% (hyperref)                because \thepage is undefined. 
+% Hyperref stopped early 
+%
+
+\usepackage{lmodern}
+% Using lmondern and you get rid off this:
+% LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
+% (Font)              size <5> substituted on input line 22.
+% LaTeX Font Warning: Size substitutions with differences
+% (Font)              up to 1.0pt have occurred.
+%
+
+% If \titel{…} \author{…} come after \begin{document} 
+% you get the following warnig:
+% Package hyperref Warning: Option `pdfauthor' has already been used,
+% (hyperref) ... 
+% So it is here before \begin{document}
+
+% additional some extra space for pictures
+
+\title{Beamer Class well nice}   
+\author{Sascha Frank} 
+\date{\today} 
+
+\usepackage{beamerthemeshadow}
+
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame} 
+
+\begin{frame}
+\frametitle{Table of contents}
+\tableofcontents
+\end{frame}
+ 
+
+
+\section{Section no.1} 
+\begin{frame}
+\frametitle{frame title} 
+Each frame should have a title.
+\end{frame}
+
+\subsection{Subsection no.1.1  }
+\begin{frame}
+Without title somethink is missing. 
+\end{frame}
+
+
+\section{Section no. 2} 
+\subsection{Lists I}
+\begin{frame}
+\frametitle{unnumbered lists}
+\begin{itemize}
+\item keyword
+\item still another keyword
+\end{itemize} 
+\end{frame}
+
+\begin{frame}
+\frametitle{lists with single pause}
+\begin{itemize}
+\item keyword  \pause 
+\item still another keyword
+\end{itemize} 
+\end{frame}
+
+\begin{frame}
+\frametitle{lists with pause}
+\begin{itemize}[<+->]
+\item keyword  
+\item still another keyword
+\item a third one 
+\end{itemize} 
+\end{frame}
+
+
+
+\subsection{Lists II}
+\begin{frame}
+\frametitle{numbered lists}
+\begin{enumerate}
+\item keyword
+\item still another keyword
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{numbered lists with single pause}
+\begin{enumerate}
+\item keyword  \pause 
+\item still another keyword
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{numbered lists with pause}
+\begin{itemize}[<+->]
+\item keyword  
+\item still another keyword
+\item a third one 
+\end{itemize} 
+\end{frame}
+
+
+
+\section{Section no.3} 
+\subsection{Tables}
+\begin{frame}
+\frametitle{Tables}
+\begin{tabular}{|l|c|r|p{1.5 cm }|}
+\hline
+left & centers & right & width \\
+l & C & r & p \\
+\hline
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Tables with pause}
+\begin{tabular}{c c c}
+A & B & C \\ 
+\pause 
+1 & 2 & 3 \\  
+\pause 
+A & B & C \\ 
+\end{tabular} 
+\end{frame}
+
+
+\section{Section no. 4}
+\subsection{blocs}
+\begin{frame}
+\frametitle{blocs}
+
+\begin{block}{title of the bloc}
+bloc text
+\end{block}
+
+\begin{exampleblock}{title of the bloc}
+bloc text
+\end{exampleblock}
+
+
+\begin{alertblock}{title of the bloc}
+bloc text
+\end{alertblock}
+\end{frame}
+
+
+\section{Section no. 5}
+\subsection{split screen}
+
+\begin{frame}
+\frametitle{splitting screen}
+\begin{columns}
+\begin{column}{5cm}
+\begin{itemize}
+\item Beamer 
+\item Beamer Class 
+\item Beamer Class Latex 
+\end{itemize}
+\end{column}
+\begin{column}{5cm}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Instructor} & \textbf{Title} \\
+\hline
+Sascha Frank &  \LaTeX \ Course 1 \\
+\hline
+Sascha Frank &  Course serial  \\
+\hline
+\end{tabular}
+\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{Pictures} 
+\begin{frame}
+\frametitle{pictures in latex beamer class}
+\begin{figure}
+\includegraphics[scale=0.5]{PIC1} 
+\caption{show an example picture}
+\end{figure}
+\end{frame}
+
+\subsection{joining picture and lists} 
+
+\begin{frame}
+\frametitle{pictures and lists in beamer class}
+\begin{columns}
+\begin{column}{5cm}
+\begin{itemize}
+\item<1-> subject 1
+\item<3-> subject 2
+\item<5-> subject 3
+\end{itemize}
+\vspace{3cm} 
+\end{column}
+\begin{column}{5cm}
+\begin{overprint}
+\includegraphics<2>{PIC1}
+\includegraphics<4>{PIC2}
+\includegraphics<6>{PIC3}
+\end{overprint}
+\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{pictures which need more space} 
+\begin{frame}[plain]
+\frametitle{plain, or a way to get more space}
+\begin{figure}
+\includegraphics[scale=0.5]{PIC1} 
+\caption{show an example picture}
+\end{figure}
+\end{frame}
+
+
+\end{document}
