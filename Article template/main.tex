@@ -1,4 +1,4 @@
-\documentclass[a4paper]{report}
+\documentclass[a4paper]{article}
 
 % Uncomment to compile only one file.
 %\includeonly{file2}
@@ -14,6 +14,9 @@
 \providecommand{\SetAlgoLined}{\SetLine}
 \providecommand{\DontPrintSemicolon}{\dontprintsemicolon}
 
+% Uncomment to test compliation of single files:
+%\includeonly{file1,file2}
+
 % Redefine \vec command to generate bold vector characters 
 \let\oldhat\hat
 \renewcommand{\vec}[1]{\mathbf{#1}}
@@ -23,7 +26,7 @@
 \begin{document}
 
 % Make Title Page
-\title{My PhD Thesis}
+\title{Explicit Conservative Methods}
 \author{Manuel Diaz\\[1ex]
 	Institute of Applied Mechanics\\
 	National Taiwan University \\
@@ -38,10 +41,6 @@
 %\listoffigures
 %\listoftables
 
-% Acknowledgements
-\chapter*{Acknowlegdements}
-I thanks the creator for all his patient!
-
 % Abstract of Report
 \begin{abstract}
 this is my abstract
@@ -51,13 +50,16 @@ this is my abstract
 \pagenumbering{arabic}
 
 % file1
-\include{file1}
+\input{file1}
+
+%file3
+\input{file2}
 
 % file2
-\include{file2}
+\input{file3}
 
 % Bibliography
-\bibliography{Sample_refs}
+\bibliography{Refs}
 \bibliographystyle{unsrt}
 
 \end{document}
