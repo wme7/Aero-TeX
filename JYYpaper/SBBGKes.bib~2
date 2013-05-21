@@ -1,0 +1,104 @@
+@comment{x-kbibtex-personnameformatting=<%l><, %f>}
+
+@article{Fatemi1993209,
+	author = "Fatemi, Emad and Odeh, Faroukh",
+	doi = "10.1006/jcph.1993.1176",
+	issn = "0021-9991",
+	journal = "Journal of Computational Physics",
+	note = "",
+	number = "2",
+	pages = "209--217",
+	title = "{Upwind Finite Difference Solution of Boltzmann Equation Applied to Electron Transport in Semiconductor Devices}",
+	url = "http://www.sciencedirect.com/science/article/pii/S0021999183711769",
+	volume = "108",
+	year = "1993"
+}
+
+@article{Majorana2001649,
+	author = "Majorana, A. and Pidatella, R.M.",
+	doi = "10.1006/jcph.2001.6929",
+	issn = "0021-9991",
+	journal = "Journal of Computational Physics",
+	note = "",
+	number = "2",
+	pages = "649--668",
+	title = "{A Finite Difference Scheme Solving the Boltzmann{\^a}€``Poisson System for Semiconductor Devices}",
+	url = "http://www.sciencedirect.com/science/article/pii/S0021999101969293",
+	volume = "174",
+	year = "2001"
+}
+
+@article{Carrillo2002,
+	author = "Carrillo, Jos{\~A}©A. and Gamba, IreneM. and Majorana, Armando and Shu, Chi-Wang",
+	doi = "10.1023/A:1020751624960",
+	issn = "1569-8025",
+	journal = "Journal of Computational Electronics",
+	keywords = "Boltzmann equation for semiconductors; WENO scheme; spherical coordinate system",
+	language = "English",
+	number = "3",
+	pages = "365--370",
+	publisher = "Kluwer Academic Publishers",
+	title = "{A WENO-Solver for the 1D Non-Stationary Boltzmann{\^a}€``Poisson System for Semiconductor Devices}",
+	url = "http://dx.doi.org/10.1023/A:1020751624960",
+	volume = "1",
+	year = "2002"
+}
+
+@article{Carrillo2003a,
+	author = "Carrillo, Jos{\~A}ƒ{\AE}{\rq}{\~A}‚{\^A}©A. and Gamba, IreneM. and Majorana, Armando and Shu, Chi-Wang",
+	doi = "10.1023/B:JCEL.0000011455.74817.35",
+	issn = "1569-8025",
+	journal = "Journal of Computational Electronics",
+	keywords = "Boltzmann-Poisson system for semiconductors; WENO scheme; spherical coordinate system",
+	language = "English",
+	number = "2-4",
+	pages = "375{\~A}¢{\^a}‚¬{\^a}€{\oe}380",
+	publisher = "Kluwer Academic Publishers",
+	title = "{A Direct Solver for 2D Non-Stationary Boltzmann-Poisson Systems for Semiconductor Devices: A MESFET Simulation by WENO-Boltzmann Schemes}",
+	url = "http://dx.doi.org/10.1023/B:JCEL.0000011455.74817.35",
+	volume = "2",
+	year = "2003"
+}
+
+@article{Carrillo2003b,
+	author = "Carrillo, Jos{\~A}ƒ{\AE}{\rq}{\~A}‚{\^A}©A. and Gamba, IreneM. and Majorana, Armando and Shu, Chi-Wang",
+	doi = "10.1023/B:JCEL.0000011455.74817.35",
+	issn = "1569-8025",
+	journal = "Journal of Computational Electronics",
+	keywords = "Boltzmann-Poisson system for semiconductors; WENO scheme; spherical coordinate system",
+	language = "English",
+	number = "2-4",
+	pages = "375{\~A}¢{\^a}‚¬{\^a}€{\oe}380",
+	publisher = "Kluwer Academic Publishers",
+	title = "{A Direct Solver for 2D Non-Stationary Boltzmann-Poisson Systems for Semiconductor Devices: A MESFET Simulation by WENO-Boltzmann Schemes}",
+	url = "http://dx.doi.org/10.1023/B:JCEL.0000011455.74817.35",
+	volume = "2",
+	year = "2003"
+}
+
+@book{MAR90,
+	added-at = "2009-03-03T17:19:04.000+0100",
+	address = "Wien",
+	author = "Markovich, P. A. and Ringhofer, C. A. and Schmeiser, C.",
+	biburl = "http://www.bibsonomy.org/bibtex/2994d72e2642fb290645f2dbb01effa46/bronckobuster",
+	interhash = "b38331016a13d2addd52d38565505222",
+	intrahash = "994d72e2642fb290645f2dbb01effa46",
+	keywords = "imported",
+	nota = "rw:",
+	publisher = "Springer",
+	title = "{Semiconductor Equations}",
+	x-fetchedfrom = "Bibsonomy",
+	year = 1990
+}
+
+@article{Wu2012,
+	author = "Wu, Lei and Meng, Jian-Ping and Zhang, Yonghao",
+	issn = "1364-5021",
+	journal = "Proceedings of the Royal Society Part A - Mathematical, Physical and Engineering Sciences",
+	number = "2142",
+	pages = "1799{\~A}¢{\^a}‚¬{\^a}€{\oe}1823",
+	title = "{Kinetic modelling of the quantum gases in the normal phase}",
+	volume = "468",
+	year = "2012"
+}
+

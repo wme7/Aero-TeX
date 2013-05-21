@@ -1,4 +1,4 @@
-\subsection{Discrete Ordinate Method}
+\subsection{Discrete Ordinate Method (DOM)}
 \begin{frame}
 	\frametitle{Conventional Discrete Ordinate Method}
 	When applying conventional DOM to either classical or semi-classical Boltzmann-BGK formulation, we render it as set of linear PDE's with fixed/constant advection velocity $\vec{c}_\sigma$,
@@ -25,12 +25,12 @@ We can also do the same for the semi-classical equilibrium distribution function
 	\int f_\sigma d^3 c &=& \sum_\sigma W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho \\
 	\int \vec{c_\sigma} f_\sigma d^3 c &=& \sum_\sigma \vec{c_\sigma} W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho \vec{u} \nonumber \\
 	\int \frac{\vec{c_\sigma}^2}{2} f_\sigma d^3 c &=& \sum_\sigma \vec{c_\sigma}^2 W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho E \nonumber \\
-	\int \frac{(\vec{c_\sigma}-\vec{u})^2}{2} f_\sigma d^3 c &=& \sum_\sigma (\vec{c_\sigma}-\vec{u})^2 W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho e \nonumber
+	\int \frac{(\vec{c_\sigma}-\vec{u})^2}{2} f_\sigma d^3 c &=& \sum_\sigma \frac{(\vec{c_\sigma}-\vec{u})^2}{2} W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho e \nonumber
 	\end{eqnarray}
 	Here we let $\vec{c}_\sigma$ be the abscissas of our quadrature and $W_\sigma$ their corresponding weigthing values. 
 \end{frame} 
 
-\subsection{Numerical Results}
+%\subsection{Numerical Results}
 
 \begin{frame}
 	\frametitle{Numerical Results}

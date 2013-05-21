@@ -10,9 +10,9 @@
 %define title and other basic document info
 %the title should reflect the style and give a foretaste of the document
 %work on making a stylized title page — or title on a page as in ARTICLE class
-\title{\huge \textbf{Homework-Lab Problems No.5}}
+\title{\huge \textbf{Homework Problems No.8}}
 \author{Manuel A. Diaz \\ f99543083}
-\date{April 2nd, 2013} % could use \today
+\date{May 21st, 2013} % could use \today
 %\publisher{Institute of Applied Mechanics, IAM}  %one day I’ll need this  
 %\thanks{Special thanks to God for the ability to work}        %produces a footnote to the title
 
@@ -57,5 +57,50 @@
 %\semiisopage[12]
 %try this predefined layout — others predefined ones are options in MEMOIR…
 %this one looked best but did not work
+
+\checkandfixthelayout          %make the layout happen and provide details in log during build
+
+
+\chapter{Homework Problems No. 6}
+\section{Problem 1}
+\subsection{Given}
+A 12-node serendipity type element depicted in figure \ref{fig:element1},
+
+\subsection{Derive}
+Derive $N_2$ and $N_9$ shape functions for the element.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.35\textwidth]{Element1.png}
+	\caption{Problem 1, 12-node Serenditipy quadrilateral type element}
+	\label{fig:element1}
+\end{figure}
+
+%\subsection{Plan}
+
+%\subsection{Calculations}
+
+%\subsection{Solution}
+
+\section{Problem 2}
+\subsection{Given}
+A 6-node serendipity type element depicted in figure \ref{fig:element2},
+
+\subsection{Derive}
+Derive $N_1$, $N_5$ and $N_6$ shape functions for the element.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.3\textwidth]{Element2.png}
+	\caption{Problem 2, 6-nodes Serenditipy quadrilateral type element}
+	\label{fig:element2}
+\end{figure}
+
+%\subsection{Plan}
+
+%\subsection{Calculations}
+
+%\subsection{Solution}
+
 
 \end{document}

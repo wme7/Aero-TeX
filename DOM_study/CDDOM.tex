@@ -1,0 +1,103 @@
+\section{Our new formulation}
+\subsection{Conservative-Dynamic DOM}
+
+\begin{frame}
+	\frametitle{CD-DOM}
+	Having reviewed the work in \cite{Huang2011261} and \cite{Hsu201239}, we notice that both method use a different perspective to reduce the number of discrete velocities while keeping a good approximation of the macroscopic quantities. \\
+	
+	Moreover we can explore a convination of both ideas to improve upon their work, becuase both ideas seem to be complemetary. However some slight modifications will be necessary to make this to approaches fully compatible made and to produce desirible results with lower computation cost (hopefully).
+\end{frame}
+
+\begin{frame}
+	We learn from \cite{Huang2011261} that any discrete velocity spaces model should comply with the conservative constrain; i.e,
+	\begin{align*}
+		\int \phi \left( f_eq - f \right) d\Theta
+	\end{align*}
+	We learn from \cite{Hsu201239} that using thermal normalization and lagrangean transformation of our infomation in velocity space will lead us to a better approximation of the pdf, we do this by using $\vec{C}^*$ as our fixed integration points and using the relation,
+	\begin{align*}
+		\ \vec{C}^{*} = \frac{c(\vec{x},t)-u(\vec{x},t)}{\sqrt{\frac{2 K_B T(\vec{x},t)}{m}}}
+	\end{align*}
+	and use $\vec{C}^{*}$ as the new reference to compute our integration moments.
+\end{frame}
+
+\begin{frame}
+\frametitle{Framework}
+	However these last relation makes these two ideas incompatible. Therefore we suggest to make the following modification.
+	\begin{align*}
+		\ \vec{C}^{*}(\vec{x},t) = \frac{c-u(\vec{x},t)}{\sqrt{\frac{2 K_B T(\vec{x},t)}{m}}}
+	\end{align*}
+	Note that by doing this $\vec{C}^*(\vec{x},t)$ is not anymore fixed but dependent on $\vec{c}$. This is done to thermaly normalize and take advantage of the lagrangean transformation of the reference when computing our integration moments. \\
+	 Toguether with our conservation constrain,
+	\begin{align*}
+		\int \phi \left( f^{eq} - f \right) d\Theta
+	\end{align*}
+	We set our basic framework.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semi-classical distribution function}
+	\begin{equation}
+		f^{eq}= \frac{1}{\exp \left[ \frac{\vec{p}-m\vec{c}}{2 m k_B T} -\frac{\mu - U(x,t)}{k_B T} \right] + \theta}
+	\label{eq:full_semiclassical_pdf}
+	\end{equation}
+	where $U(x,t)$ is the force mean field acting on the system. Neglecting any contribution form the mean force field we arrive to the most common form of distribution function,
+	\begin{equation}
+		f^{eq}= \frac{1}{\frac{1}{z} \exp \left[ \frac{\vec{p}-m\vec{c}}{2 m k_B T} \right] + \theta}
+	\label{eq:full_semiclassical_pdf}
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Moments of Semi-classical BE}
+	The first 13 moments of the distribution in D-dimensional space,
+	\begin{eqnarray}
+	\int \frac{d\vec{p}}{h^D} f(\vec{x},\vec{p},t) &=& \rho(\vec{x},t) \\
+	\int \frac{d\vec{p}}{h^D} \frac{\vec{p}}{m} f(\vec{x},\vec{p},t) &=& \rho(\vec{x},t) \vec{u}(\vec{x},t) \\
+	\int \frac{d\vec{p}}{h^D} \vec{v}_\alpha \vec{v}_\beta f(\vec{x},\vec{p},t) &=& P_{\alpha,\beta}(\vec{x},t) \\
+	\int \frac{d\vec{p}}{h^D} \frac{\vec{v}^2}{2} f(\vec{x},\vec{p},t) &=& e(\vec{x},t) \\
+	\int \frac{d\vec{p}}{h^D} \frac{v^2}{2}\vec{v} f(\vec{x},\vec{p},t) &=& Q(\vec{x},t) 
+	\end{eqnarray}
+	where $\vec{v} = \vec{p}/m - \vec{v}$ is the peculiar velocity.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hydrodynamic Moments of SBE}
+	In analogy, if we where to evaluate the hydrodynamic limit a semi-classical gas we have,
+	\begin{align*}
+	&\int \frac{d\vec{p}}{h^D} f^{eq}(\vec{x},\vec{p},t) = m \left( \frac{2\pi m k_B T}{h^2} \right)^{D/2} Q_{D/2}(z) \\
+	&\int \frac{d\vec{p}}{h^D} \frac{\vec{p}}{m} f^{eq}(\vec{x},\vec{p},t) = \rho(\vec{x},t) u(\vec{x},t) \\
+	&\int \frac{d\vec{p}}{h^D} \vec{v}_\alpha \vec{v}_\beta f(\vec{x},\vec{p},t) = \rho(\vec{x},t) \frac{k_B T}{m} \frac{Q_{D/2+1}(z)}{Q_{D/2}(z)}\delta_{\alpha}{\beta}  = P_{\alpha,\beta}\\
+	&\int \frac{d\vec{p}}{h^D} \frac{\vec{v}^2}{2} f^{eq}(\vec{x},\vec{p},t) = P_{\alpha,\alpha} \\
+	&\int \frac{d\vec{p}}{h^D} v^2 \vec{v} f^{eq}(\vec{x},\vec{p},t) = 0 
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conservative constrain}
+	from the conservative constrain arises to the following nonlinear system of equations,
+	\begin{equation}
+		\int 
+			\begin{bmatrix}
+			f^{eq}-f\\ 
+			c_\vec{x}(f^{eq}-f)\\ 
+			\vec{v}(f^{eq}-f)
+			\end{bmatrix}d\vec{c} 
+			=
+			\begin{bmatrix}
+			\int f^{eq} d\vec{c} - \int f d\vec{c}\\ 
+			\int c_\vec{x} f^{eq} d\vec{c} - \int c_\vec{x} f d\vec{c}\\ 
+			\int \vec{v} f^{eq} d\vec{c} - \int \vec{v} f d\vec{c}
+			\end{bmatrix}
+			= \vec{0}
+	\end{equation}
+	in one-dimension we can write the last expression as, 
+	\begin{equation}
+			\begin{bmatrix}
+			\int \left(\frac{\rho(x,t)}{2 \pi RT}\right)^{1/2} \exp \left(\frac{(c-u)^2}{2RT} \right) dc - \rho(x,t) \\
+			\int c \left(\frac{\rho(x,t)}{2 \pi RT}\right)^{1/2} \exp \left(\frac{(c-u)^2}{2RT} \right) dc - \rho u(x,t) \\
+			\int v \left(\frac{\rho(x,t)}{2 \pi RT}\right)^{1/2} \exp \left(\frac{(c-u)^2}{2RT} \right) dc - \frac{3}{2} \rho RT(x,t)
+			\end{bmatrix} 
+			=\vec{0} 
+	\label{eq:conservation_constrain_classical}
+	\end{equation}
+\end{frame}
