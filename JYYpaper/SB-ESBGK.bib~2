@@ -52,24 +52,8 @@
 	keywords = "Boltzmann-Poisson system for semiconductors; WENO scheme; spherical coordinate system",
 	language = "English",
 	number = "2-4",
-	pages = "375--380",
+	pages = "375-380",
 	publisher = "Kluwer Academic Publishers",
-	title = "{A Direct Solver for 2D Non-Stationary Boltzmann-Poisson Systems for Semiconductor Devices: A MESFET Simulation by WENO-Boltzmann Schemes}",
-	url = "http://dx.doi.org/10.1023/B:JCEL.0000011455.74817.35",
-	volume = "2",
-	year = "2003"
-}
-
-@article{Carrillo2003JCEL,
-	affiliation = "Departament de Matem{\~A} tiques, ICREA Universitat Aut{\~A}²noma de Barcelona E-08193 Bellaterra Spain",
-	author = "Carrillo, Jos{\~A}© A. and Gamba, Irene M. and Majorana, Armando and Shu, Chi-Wang",
-	issn = "1569-8025",
-	issue = "2",
-	journal = "Journal of Computational Electronics",
-	keyword = "Computer Science",
-	note = "10.1023/B:JCEL.0000011455.74817.35",
-	pages = "375--380",
-	publisher = "Springer Netherlands",
 	title = "{A Direct Solver for 2D Non-Stationary Boltzmann-Poisson Systems for Semiconductor Devices: A MESFET Simulation by WENO-Boltzmann Schemes}",
 	url = "http://dx.doi.org/10.1023/B:JCEL.0000011455.74817.35",
 	volume = "2",
@@ -96,7 +80,7 @@
 	issn = "1364-5021",
 	journal = "Proceedings of the Royal Society Part A - Mathematical, Physical and Engineering Sciences",
 	number = "2142",
-	pages = "1799--1823",
+	pages = "1799-1823",
 	title = "{Kinetic modelling of the quantum gases in the normal phase}",
 	volume = "468",
 	year = "2012"
@@ -167,7 +151,6 @@
 	biburl = "http://www.bibsonomy.org/bibtex/218b5cfb8856e5e72971ea63a23b850bb/euh_de",
 	interhash = "962e559493d56462d164bad2ac01f224",
 	intrahash = "18b5cfb8856e5e72971ea63a23b850bb",
-	journal = "GIS Proc. ACM Int. Symp. Adv. Geogr. Inf. Syst. GIS: Proceedings of the ACM International Symposium on Advances in Geographic Information Systems",
 	keywords = "imported",
 	owner = "vt1ha",
 	pages = "--",
@@ -204,7 +187,7 @@
 }
 
 @article{Jaw-YenYang05082006,
-	abstract = "A novel kinetic beam scheme for the ideal quantum gas is presented for the computation of quantum gas dynamical flows. The quantum Boltzmann equation approach is adopted and the local thermodynamic equilibrium quantum distribution is assumed. Both Bose?{\~A}{\^A}¯?`{\^A}{\^A}½Einstein and Fermi?{\~A}{\^A}¯?`{\^A}{\^A}½Dirac gases are considered. Formulae for one spatial dimension is first derived and the resulting beam scheme is tested for shock tube flows. Implementation of high-order methods is also outlined. We only consider the system in the normal phase consisting of particles in excited states and both the classical limit and the nearly degenerate limit are computed. The flow structures can all be accurately captured by the present beam scheme. Formulations for multiple spatial dimensions are also included.",
+	abstract = "A novel kinetic beam scheme for the ideal quantum gas is presented for the computation of quantum gas dynamical flows. The quantum Boltzmann equation approach is adopted and the local thermodynamic equilibrium quantum distribution is assumed. Both Bose?ï?`½Einstein and Fermi?ï?`½Dirac gases are considered. Formulae for one spatial dimension is first derived and the resulting beam scheme is tested for shock tube flows. Implementation of high-order methods is also outlined. We only consider the system in the normal phase consisting of particles in excited states and both the classical limit and the nearly degenerate limit are computed. The flow structures can all be accurately captured by the present beam scheme. Formulations for multiple spatial dimensions are also included.",
 	author = "Yang, Jaw Yen and Shi, Yu Hsin",
 	doi = "10.1098/rspa.2005.1618",
 	eprint = "http://rspa.royalsocietypublishing.org/content/462/2069/1553.full.pdf+html",
@@ -324,6 +307,29 @@
 	year = "2010"
 }
 
+@article{Scaldaferri2007,
+	author = "Scaldaferri, S. and Curatola, G. and Iannaccone, G.",
+	journal = "IEEE TRANSACTIONS ON ELECTRON DEVICES",
+	pages = "2901",
+	title = "{Direct Solution of the Boltzmann Transport Equation and Poisson Schrodinger Equation for Nanoscale MOSFETs}",
+	volume = "54",
+	year = "2007"
+}
+
+@article{1272832,
+	address = "Philadelphia, PA, USA",
+	author = "Yang, Jaw Yen and Hsieh, Tse Yang and Shi, Yu Hsin",
+	doi = "10.1137/050646664",
+	issn = "1064-8275",
+	journal = "SIAM J. Sci. Comput.",
+	number = "1",
+	pages = "221--244",
+	publisher = "Society for Industrial and Applied Mathematics",
+	title = "{Kinetic Flux Vector Splitting Schemes for Ideal Quantum Gas Dynamics}",
+	volume = "29",
+	year = "2007"
+}
+
 @article{nikuni98,
 	author = "Nikuni, T. and Griffin, A.",
 	issue = "5",
@@ -355,7 +361,7 @@
 	author = "{Huang}, A.~B. and {Giddens}, D.~P.",
 	booktitle = "{Rarefied Gas Dynamics, Volume 1}",
 	editor = "{C.~L.~Brundin}",
-	pages = "481",
+	pages = "481--+",
 	title = "{The Discrete Ordinate Method for the Linearized Boundary Value Problems in Kinetic Theory of Gases}",
 	year = 1967
 }
@@ -367,7 +373,7 @@
 	journal = "Journal of Computational Physics",
 	keywords = "Weighted essentially non-oscillatory schemes; Boltzmann transport equation; Semiconductor device simulation; MESFET; MOSFET; Direct simulation Monte Carlo",
 	number = "1",
-	pages = "55--80",
+	pages = "55-80",
 	title = "{2D semiconductor device simulations by WENO-Boltzmann schemes: Efficiency, boundary conditions and comparison to Monte Carlo methods}",
 	url = "http://www.sciencedirect.com/science/article/B6WHY-4HDX8VW-1/2/a6755526a1c873199b268b7f2b228df2",
 	volume = "214",
@@ -375,277 +381,15 @@
 }
 
 @article{Carrillo2003b,
-	author = "Carrillo, Jos{\'e} A. and Gamba, Irene M. and Majorana, Armando and Shu, Chi-Wang",
+	author = "Carrillo, Jos{\~A}ƒ{\^A}© A. and Gamba, Irene M. and Majorana, Armando and Shu, Chi-Wang",
 	doi = "10.1023/B:JCEL.0000011455.74817.35",
 	issn = "0021-9991",
 	journal = "Journal of Computational Electronics",
 	number = "2",
-	pages = "375--380",
+	pages = "375-380",
 	title = "{A Direct Solver for 2D Non-Stationary Boltzmann-Poisson Systems for Semiconductor Devices: A MESFET Simulation by WENO-Boltzmann Schemes}",
 	url = "http://www.springerlink.com/content/U362J422H3983717",
 	volume = "2",
 	year = "2003"
-}
-
-@article{Carrillo2003498,
-	author = "Carrillo, Jos{\~A}© A. and Gamba, Irene M. and Majorana, Armando and Shu, Chi-Wang",
-	doi = "10.1016/S0021-9991(02)00032-3",
-	issn = "0021-9991",
-	journal = "Journal of Computational Physics",
-	keywords = "Boltzmann-Poisson system; WENO scheme; High order accuracy; Semiconductor devices",
-	note = "",
-	number = "2",
-	pages = "498--525",
-	title = "{A WENO-solver for the transients of Boltzmann-Poisson system for semiconductor devices: performance and comparisons with Monte Carlo methods}",
-	url = "http://www.sciencedirect.com/science/article/B6WHY-47MCFSD-1/2/7a9a40e2578790abaa25878839108553",
-	volume = "184",
-	year = "2003"
-}
-
-@book{Lundstrom:2000,
-	alteditor = "",
-	author = "Lundstrom, Mark",
-	edition = "2nd",
-	optaddress = "",
-	optannote = "",
-	optkey = "",
-	optmonth = "",
-	optnote = "",
-	optnumber = "",
-	optseries = "",
-	optvolume = "",
-	publisher = "Cambridge University Press",
-	title = "{Fundamentals of Carrier Transport}",
-	year = "2000"
-}
-
-@article{vanLeer1979101,
-	author = "van Leer, Bram",
-	doi = "10.1016/0021-9991(79)90145-1",
-	issn = "0021-9991",
-	journal = "Journal of Computational Physics",
-	note = "",
-	number = "1",
-	pages = "101--136",
-	title = "{Towards the ultimate conservative difference scheme. V. A second-order sequel to Godunov's method}",
-	url = "http://www.sciencedirect.com/science/article/B6WHY-4DD1N8T-C5/2/9b051d1cfcff715a3d0f4b7b7b0397cc",
-	volume = "32",
-	year = "1979"
-}
-
-@article{Laxliu95,
-	author = "Lax, Peter D. and Liu, Xu Dong",
-	journal = "SIAM J. Sci. Comput",
-	pages = "319--340",
-	title = "{Solution of Two Dimensional Riemann Problem of Gas Dynamics by Positive Schemes}",
-	volume = "19",
-	year = "1995"
-}
-
-@book{Markowich2002,
-	alteditor = "",
-	author = "Markowich, Peter A. and Ringhofer, Christian A. and Schmeiser, Christian",
-	edition = "1",
-	optaddress = "",
-	optannote = "",
-	optkey = "",
-	optmonth = "",
-	optnote = "",
-	optnumber = "",
-	optseries = "",
-	optvolume = "",
-	publisher = "Springer",
-	title = "{Semiconductor Equations}",
-	year = "2002"
-}
-
-@article{Jiang1996202,
-	author = "Jiang, Guang-Shan and Shu, Chi-Wang",
-	doi = "10.1006/jcph.1996.0130",
-	issn = "0021-9991",
-	journal = "Journal of Computational Physics",
-	note = "",
-	number = "1",
-	pages = "202--228",
-	title = "{Efficient Implementation of Weighted ENO Schemes}",
-	url = "http://www.sciencedirect.com/science/article/B6WHY-45MGW7K-4G/2/b93769b39e6769e8c7e8cb9dc66cee95",
-	volume = "126",
-	year = "1996"
-}
-
-@article{Li2004708,
-	author = "Li, Zhi-Hui and Zhang, Han-Xin",
-	doi = "10.1016/j.jcp.2003.08.022",
-	issn = "0021-9991",
-	journal = "Journal of Computational Physics",
-	keywords = "Kinetic theory of gases; Velocity distribution function; Boltzmann model equation; Discrete ordinate method; Time-splitting method; NND finite difference scheme; Rarefied gas flow; Continuum flow",
-	note = "",
-	number = "2",
-	pages = "708--738",
-	title = "{Study on gas kinetic unified algorithm for flows from rarefied transition to continuum}",
-	url = "http://www.sciencedirect.com/science/article/B6WHY-49SFFBB-1/2/2ca74c0f9712aba7cb861926060e9269",
-	volume = "193",
-	year = "2004"
-}
-
-@article{Xu2005458,
-	author = "Xu, Zhengfu and Shu, Chi-Wang",
-	doi = "10.1016/j.jcp.2004.11.014",
-	issn = "0021-9991",
-	journal = "Journal of Computational Physics",
-	keywords = "Anti-diffusive flux correction; Sharpening contact discontinuity; High order accuracy; WENO scheme",
-	note = "",
-	number = "2",
-	pages = "458--485",
-	title = "{Anti-diffusive flux corrections for high order finite difference WENO schemes}",
-	url = "http://www.sciencedirect.com/science/article/B6WHY-4F1W6TM-1/2/e6201b6f8b868dcccc0dab148456ac94",
-	volume = "205",
-	year = "2005"
-}
-
-@book{nla.cat-vn1654801,
-	author = "Huang, Kerson",
-	catalogue-url = "http://nla.gov.au/nla.cat-vn1654801",
-	edition = "2nd ed.",
-	isbn = "0471815187",
-	language = "English",
-	life-dates = "1987 -",
-	pages = "xiv, 493 p. :",
-	publisher = "Wiley, New York :",
-	subjects = "Statistical mechanics.",
-	title = "{Statistical mechanics / Kerson Huang}",
-	type = "Book",
-	url = "http://www.loc.gov/catdir/toc/onix01/86032466.html",
-	year = "1987"
-}
-
-@article{Gardner1994,
-	address = "Philadelphia, PA, USA",
-	author = "Gardner, Carl L.",
-	doi = "10.1137/S0036139992240425",
-	issn = "0036-1399",
-	journal = "SIAM J. Appl. Math.",
-	number = "2",
-	pages = "409--427",
-	publisher = "Society for Industrial and Applied Mathematics",
-	title = "{The quantum hydrodynamic model for semiconductor devices}",
-	volume = "54",
-	year = "1994"
-}
-
-@article{PhysRevB.39.9536,
-	author = "Ancona, M. G. and Iafrate, G. J.",
-	doi = "10.1103/PhysRevB.39.9536",
-	journal = "Phys. Rev. B",
-	month = "May",
-	number = "13",
-	numpages = "4",
-	pages = "9536--9540",
-	publisher = "American Physical Society",
-	title = "{Quantum correction to the equation of state of an electron gas in a semiconductor}",
-	volume = "39",
-	year = "1989"
-}
-
-@article{Woolard5146296,
-	author = "Woolard, D. L. and Tian, H. and Littlejohn, M. A. and Kim, K. W. and Trew, R. J. and Ieong, M. K. and Tang, T. W.",
-	doi = "10.1063/1.355189",
-	issn = "0021-8979",
-	journal = "Journal of Applied Physics",
-	keywords = "",
-	month = "nov",
-	number = "10",
-	pages = "6197--6207",
-	title = "{Construction of higher-moment terms in the hydrodynamic electron transport model}",
-	volume = "74",
-	year = "1993"
-}
-
-@article{Harten1983357,
-	author = "Harten, Ami",
-	doi = "10.1016/0021-9991(83)90136-5",
-	issn = "0021-9991",
-	journal = "Journal of Computational Physics",
-	note = "",
-	number = "3",
-	pages = "357--393",
-	title = "{High resolution schemes for hyperbolic conservation laws}",
-	url = "http://www.sciencedirect.com/science/article/B6WHY-4DD1XP3-1PC/2/7139ec41e5bce99e04612c431428ead2",
-	volume = "49",
-	year = "1983"
-}
-
-@article{PhysRev.40.749,
-	author = "Wigner, E.",
-	doi = "10.1103/PhysRev.40.749",
-	journal = "Phys. Rev.",
-	month = "Jun",
-	number = "5",
-	numpages = "10",
-	pages = "749--759",
-	publisher = "American Physical Society",
-	title = "{On the Quantum Correction For Thermodynamic Equilibrium}",
-	volume = "40",
-	year = "1932"
-}
-
-@article{PhysRevB.35.7959,
-	author = "Ancona, M. G. and Tiersten, H. F.",
-	doi = "10.1103/PhysRevB.35.7959",
-	journal = "Phys. Rev. B",
-	month = "May",
-	number = "15",
-	numpages = "6",
-	pages = "7959--7965",
-	publisher = "American Physical Society",
-	title = "{Macroscopic physics of the silicon inversion layer}",
-	volume = "35",
-	year = "1987"
-}
-
-@article{schultzrinne,
-	address = "Philadelphia, PA, USA",
-	author = "Schultz-Rinne, Carsten W. and Collins, James P. and Glaz, Harland M.",
-	doi = "10.1137/0914082",
-	issn = "1064-8275",
-	journal = "SIAM J. Sci. Comput.",
-	number = "6",
-	pages = "1394--1414",
-	publisher = "Society for Industrial and Applied Mathematics",
-	title = "{Numerical solution of the Riemann problem for two-dimensional gas dynamics}",
-	volume = "14",
-	year = "1993"
-}
-
-@book{abramowitz+stegun,
-	address = "New York",
-	author = "Abramowitz, Milton and Stegun, Irene A.",
-	edition = "ninth Dover printing, tenth GPO printing",
-	isbn = "0-486-61272-4",
-	publisher = "Dover",
-	title = "{Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables}",
-	year = 1964
-}
-
-@inproceedings{STYu+SCChang,
-	author = "Yu, Sheng Tao and Chang, Sin Chung and Jorgenson, Philip C E and Park, Surg Jue and Lai, Ming Chia",
-	booktitle = "{Sixteenth International Conference on Numerical Methods in Fluid Dynamics}",
-	isbn = "978-3-540-65153-6",
-	title = "{Treating stiff source terms in conservation laws by the space-time conservation element and solution element methods}",
-	year = 2007
-}
-
-@article{Holway1658,
-	author = "{Lowell H. Holway}, Jr.",
-	collaboration = "",
-	doi = "10.1063/1.1761920",
-	journal = "Physics of Fluids",
-	number = "9",
-	pages = "1658--1673",
-	publisher = "AIP",
-	title = "{New Statistical Models for Kinetic Theory: Methods of Construction}",
-	url = "http://link.aip.org/link/?PFL/9/1658/1",
-	volume = "9",
-	year = "1966"
 }
 

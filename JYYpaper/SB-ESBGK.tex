@@ -7,6 +7,7 @@
 
 \documentclass{rsproca}%%%%where rsproca is the template name
 
+\RequirePackage{fix-cm}
 %%%% *** Do not adjust lengths that control margins, column widths, etc. ***
 
 %%%%%%%%%%% Defining Enunciations  %%%%%%%%%%%
@@ -45,7 +46,7 @@ $^{4}$China Aerodynamics Research and Development Center, Mianyang, 10764, CHINA
 
 %%%% Abstract text to be placed here %%%%%%%%%%%%
 \begin{abstract}
-The ideal quantum gas dynamics as manifested by the semiclassical ellipsoidal statistical equilibrium distribution function as derived in [L. Wu, J. Meng and Y. Zhang, Kinetic modelling of the quantum gases in the normal phase, Proc. R. Soc. A, 2012] is computationally studied for particles of three statistics.  This anisotropic ellipsoidal statistical equilibrium distribution was derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Fermi-Dirac or Bose-Einstein distribution. The present numerical method combines the discrete velocity (or momentum) ordinate method in momentum space and high resolution shock capturing method in physical space.   A decoding procedure to obtain the necessary parameters for determining the ellipsoidal equilibrium distribution function is also devised.  Computations of two-dimensional Riemann problems are presented and the results depict the main flow features of the complex nonlinear wave interaction and their manifestation.
+The ideal quantum gas dynamics as manifested by the semiclassical ellipsoidal statistical equilibrium distribution function as derived in \cite{Wu2012} is computationally studied for particles of three statistics.  This anisotropic ellipsoidal statistical equilibrium distribution was derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Fermi-Dirac or Bose-Einstein distribution. The present numerical method combines the discrete velocity (or momentum) ordinate method in momentum space and high resolution shock capturing method in physical space.   A decoding procedure to obtain the necessary parameters for determining the ellipsoidal equilibrium distribution function is also devised.  Computations of two-dimensional Riemann problems are presented and the results depict the main flow features of the complex nonlinear wave interaction and their manifestation.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -63,10 +64,10 @@ The ideal quantum gas dynamics as manifested by the semiclassical ellipsoidal st
 \section{Introduction}
 \label{sec:1}
 
- The Boltzmann equation has been widely used in kinetic theory of gases to describe various transport phenomena in classical dilute gas covering wide range of flow parameters such as Reynolds number, Mach number and Knudsen number.   The Chapman-Enskog expansion method is usually applied to the Boltzmann equation to derive closed sets of hydrodynamic transport equations, such as Euler and Navier-Stokes equations and beyond that apply to a broad range of flow regimes, see \cite{Chapman1990}.  Analogous to the classical Boltzmann equation, a semiclassical Boltzmann equation, which generalizing the collision term to treat collision of particles of quantum statistics, has been developed \cite{PhysRev.43.552}, see \cite{KadanoffBaym,PhysRev.43.552}.   Hydrodynamic behaviour of quantum gases has been the subject of some prominent researches, see \cite{nikuni98,PhysRev.40.749,PhysRevB.35.7959}, and the application of quantum Boltzmann hydrodynamic equations have been implemented in the analysis of electron flows in quantum semiconductor devices, see \cite{Gardner1994,PhysRevB.39.9536,Woolard5146296}.
-In recent years, due to the rapid advancements of nanotechnology, the device or structure characteristic length scales become comparable to the mean free path and the wavelength of energy and information carriers (mainly electrons, photons, phonons, and molecules), some of the classical continuum transport laws are no longer applicable.   It is generally believed that the microscopic description of Boltzmann equation (classical and semiclassical) is adequate to treat transport phenomena in the mesoscale range.  Besides, due to the different types of carriers may involve simultaneously in a single problem, it is desirable to have a method that can allow one to treat them in a unified and parallel manner.   Indeed, this is the view advocated in micro- and nano-scale energy transport by Chen \cite{GChen2005}.   With the semiclassical Boltzmann equation, it is possible to describe adequately the mesoscale transport of particles of arbitrary statistics.
+ The Boltzmann equation has been widely used in kinetic theory of gases to describe various transport phenomena in classical dilute gas covering wide range of flow parameters such as Reynolds number, Mach number and Knudsen number.   The Chapman-Enskog expansion method is usually applied to the Boltzmann equation to derive closed sets of hydrodynamic transport equations, such as Euler and Navier-Stokes equations and beyond that apply to a broad range of flow regimes, see \cite{Cowling1970}.  Analogous to the classical Boltzmann equation, a semiclassical Boltzmann equation, which generalizing the collision term to treat collision of particles of quantum statistics, has been developed \cite{PhysRev.43.552}, see \cite{KadanoffBaym,PhysRev.43.552}.   Hydrodynamic behaviour of quantum gases has been the subject of some prominent researches, see \cite{nikuni98,PhysRev.40.749,PhysRevB.35.7959}, and the application of quantum Boltzmann hydrodynamic equations have been implemented in the analysis of electron flows in quantum semiconductor devices, see \cite{Gardner1994,PhysRevB.39.9536,Woolard5146296}.
+In recent years, due to the rapid advancements of nanotechnology, the device or structure characteristic length scales become comparable to the mean free path and the wavelength of energy and information carriers (mainly electrons, photons, phonons, and molecules), some of the classical continuum transport laws are no longer applicable.   It is generally believed that the microscopic description of Boltzmann equation (classical and semiclassical) is adequate to treat transport phenomena in the mesoscale range.  Besides, due to the different types of carriers may involve simultaneously in a single problem, it is desirable to have a method that can allow one to treat them in a unified and parallel manner.   Indeed, this is the view advocated in micro- and nano-scale energy transport by Chen \cite{mit2005nanoscale}.   With the semiclassical Boltzmann equation, it is possible to describe adequately the mesoscale transport of particles of arbitrary statistics.
 
-The principal difficulty encountered in solving semiclassical Boltzmann equation as derived by Uehling and Uhlenbeck is the similar to that encountered in the classical counterpart and is mainly due to the complicated integral nature of its collision term. The relaxation time approximation proposed by Bhatnagar, Gross and Krook (BGK) \cite{PhysRev.94.511} for the classical Boltzmann equation provides a simple form of collision term and retains the principal effects of particle collisions and enables more tractable solution methods.  The relaxation time concept is quite general and is applicable to the semiclassical Boltzmann equation.   The only change is that the equilibrium Maxwell-Boltzmann distribution in the classical case is replaced by the Bose-Einstein or Fermi-Dirac distribution depending on the types of carrier particles.  Indeed, the semiclassical Boltzmann-BGK equation has been widely used in electron carrier transport in semiconductor \cite{Lundstrom:2000,Fatemi1993209,Carrillo2003498,Majorana2002450,springerlink:10.1023/A:1020751624960,springerlink:10.1023/B:JCEL.0000011455.74817.35,Markowich2002,Pattamatta2009,Scaldaferri2007} and phonon energy transport in thermoelectric materials \cite{GChen2005}.   The main shortcoming of the classical BGK model is that the Prandtl number is equal to one while it is $2/3$ from the full Boltzmann equation.  In order to improve the semiclassical Boltzmann-BGK model equation which does not produce correct Prandtl numbers, a new kinetic model for quantum gases in the normal phase has been developed by Wu, Meng and Zhang [22]. This new model mimics the classical ellipsoidal statistical (ES) model of Holway [21] and was derived by maximizing the corresponding entropy function under some constraints.   It posseses all the desirable features of a kinetic model and yields a correct Prandtl number for Fermi gases.   The main purpose of the present work to develop direct solver in phase space for the semiclassical ellipsoidal statistical Boltzmann model equation and calculate rarefied gas flows of arbitrary statistics governing by the semiclassical ES Boltzmann model equation.
+The principal difficulty encountered in solving semiclassical Boltzmann equation as derived by Uehling and Uhlenbeck is the similar to that encountered in the classical counterpart and is mainly due to the complicated integral nature of its collision term. The relaxation time approximation proposed by Bhatnagar, Gross and Krook (BGK) \cite{PhysRev.94.511} for the classical Boltzmann equation provides a simple form of collision term and retains the principal effects of particle collisions and enables more tractable solution methods.  The relaxation time concept is quite general and is applicable to the semiclassical Boltzmann equation.   The only change is that the equilibrium Maxwell-Boltzmann distribution in the classical case is replaced by the Bose-Einstein or Fermi-Dirac distribution depending on the types of carrier particles.  Indeed, the semiclassical Boltzmann-BGK equation has been widely used in electron carrier transport in semiconductor \cite{Lundstrom:2000,Fatemi1993209,Carrillo2003498,Majorana2001649,Carrillo2003JCEL,Carrillo2003b,Markowich2002,Pattamatta2009,Scaldaferri2007} and phonon energy transport in thermoelectric materials \cite{mit2005nanoscale}.   The main shortcoming of the classical BGK model is that the Prandtl number is equal to one while it is $2/3$ from the full Boltzmann equation.  In order to improve the semiclassical Boltzmann-BGK model equation which does not produce correct Prandtl numbers, a new kinetic model for quantum gases in the normal phase has been developed by Wu, Meng and Zhang \cite{Wu2012}. This new model mimics the classical ellipsoidal statistical (ES) model of Holway \cite{Holway1658} and was derived by maximizing the corresponding entropy function under some constraints.   It posseses all the desirable features of a kinetic model and yields a correct Prandtl number for Fermi gases.   The main purpose of the present work to develop direct solver in phase space for the semiclassical ellipsoidal statistical Boltzmann model equation and calculate rarefied gas flows of arbitrary statistics governing by the semiclassical ES Boltzmann model equation.
 
 In this work, we aim at developing an accurate direct solver for the semiclassical Boltzmann-ES equation in phase space that can treat particles of three statistics on equal foot and in a parallel manner.   Such a method will allow one to examine the same physical flow problems but with different gas of particles.   Also, if the classical limit situations of the same flow problem are considered, then one expect to obtain similar or identical flow structures for the three statistics.   It is noted that even with the classical Maxwell-Boltzmann statistics, the present formulation includes the fugacity which is not seen in the original Boltzmann-BGK equation \cite{PhysRev.94.511} and most other existing works based on it.   First, depending on the carrier particles, the discrete ordinate method is used to discretize the velocity (or momentum or wave number) space in the semiclassical Boltzmann-BGK equation into a set of equations for the discrete distribution functions which are continuous in physical space with source terms \cite{Yang1995323}.  Second, the resulting equations can be treated as scalar hyperbolic conservation law with stiff source term whose evolution in space and time can be modeled by existing shock-capturing schemes such as total variation diminishing (TVD) schemes \cite{Harten1983357} and weighted essentially non-oscillatory (WENO) schemes \cite{Xu2005458}.  The latter is adopted in this paper to describe the evolution of these equations.   We develop the method in two space dimensions and validate the method using flow problems of one and two space dimensions.  Three main aspects of the developed method are examined and emphasized, namely, the range of relaxation time, the range of Knudsen numbers and the recovery of the classical limit.  After the success of these tests, the present method can provide a viable robust tool for treating many modern mesoscale carrier transport phenomena covering electrons and phonons in addition to the usual classical gas molecules.
 In the area of classical gas flows, the implementation of discrete ordinate method to nonlinear model Boltzmann equations has been developed by Yang and Huang \cite{Yang1995323} for the rarefied flow computations and has been able to cover broad range of flow regimes.  A WENO-solver
@@ -131,7 +132,7 @@ To avoid the mathematical difficulty caused by the nonlinear integral collision 
 \left(\frac{\partial f}{\partial t}+\frac{\bf p}{m}\cdot {\bf\nabla }_x-{\bf \nabla}_{\bf x} U({\bf x},t)\cdot {\bf\nabla }_{\bf p}\right)f\left({\bf p},{\bf x},t\right) =\left(\frac{\delta f}{\delta t}\right)_{coll.}= -\ \frac{f-f^{eq}}{\tau }
 \end{equation}
 where $\tau$ is the relaxation time and and needs to be specified for each carrier scattering.
-Using the maximum entropy principle, a new kinetic model equation has been proposed for dilute quantum gases in the normal phase [22].  This kinetic model equation preserves the main properties of the semiclassical Boltzmann equation, including conservation of mass, momentum and energy, the entropy dissipation property and the rotational invariance.   It also can provide correct Prandtl numbers.   This semiclaasical ellipsoidal-statistical BGK-Boltzmann equation can be expressed as
+Using the maximum entropy principle, a new kinetic model equation has been proposed for dilute quantum gases in the normal phase \cite{Holway1658}.  This kinetic model equation preserves the main properties of the semiclassical Boltzmann equation, including conservation of mass, momentum and energy, the entropy dissipation property and the rotational invariance.   It also can provide correct Prandtl numbers.   This semiclaasical ellipsoidal-statistical BGK-Boltzmann equation can be expressed as
 \begin{equation}
 \left(\frac{\partial f}{\partial t}+\frac{\bf p}{m}\cdot {\bf\nabla }_x-{\bf \nabla}_{\bf x} U({\bf x},t)\cdot {\bf\nabla }_{\bf p}\right)f\left({\bf p},{\bf x},t\right) = -\ \frac{f-f^{ES}}{\tau }
 \end{equation}
@@ -142,20 +143,24 @@ f^{ES}\left({\bf p},{\bf x},t\right) =\frac{1}{z^{-1}\,exp\left\{{\left[ {1\over
 In Eq. (6), $\lambda_{\alpha \beta}$ is a matrix and $\lambda_{\alpha \beta}^{-1}$ is its inverse and $C_{\alpha} = {p_{\alpha} \over m - u_{\alpha}}$ are the components of the thermal velocity.
 It is noted that in Eq. (4), when $f^{ES}$ reduces to $f^{eq}$, Eq. (3), it returns to the BGK model equation.
 The reference distribution function is derived by the maximum entropy principle under some constraints that the mass, momentum and energy are conserved and the following relations are satisfied,
+\begin{subequations}
 \begin{align}
 n\left({\bf x},t\right) &= \int{\frac{\ d{\bf p}}{h^D}}\,f_{ES} \left({\bf p},{\bf x}, t\right), \\
 \vec u \left({\bf x},t\right) &= \frac{1}{n(\bf x, t)}\int{\frac{\ d{\bf p}}{h^D}\,\frac{\bf p}{m}}\,f_{ES}\left({\bf p},{\bf x}, t\right), \\
 P_{\alpha \alpha} \left({\bf x},t\right) &= \int{\frac{\ d{\bf p}}{h^D}\, m C_{\alpha} C_{\alpha} \,f_{ES}\left({\bf p},{\bf x}, t\right)}, \\
 W_{\alpha \beta} \left({\bf x},t\right) &= \int{\frac{\ d{\bf p}}{h^D}\,m C_{\alpha} C_{\beta} \,f_{ES} \left({\bf p},{\bf x}, t\right)} 
 \end{align}
+\end{subequations}
 where $D$ is the dimension of momentum space and $W_{\alpha \alpha} = P_{\alpha \alpha}$ is required for the conservation of energy.
 
 The macroscopic dynamic variables of interest such as number density, momentum density and energy density are low order moments of of the distribution function and are defined by:
+\begin{subequations}
 \begin{align}
 n\left({\bf x},t\right) &= \int{\frac{\ d{\bf p}}{h^D}}\,f\left({\bf p},{\bf x}, t\right), \\
 \vec u \left({\bf x},t\right) &= {1\over n(\bf x, t) }\int{\frac{\ d{\bf p}}{h^D}\,\frac{\bf p}{m}}\,f\left({\bf p},{\bf x}, t\right), \\
 {\epsilon}\left({\bf x},t\right) &= \int{\frac{\ d{\bf p}}{h^D}\,\frac{{\bf p}^2}{2m}}\,f\left({\bf p},{\bf x}, t\right).
 \end{align}
+\end{subequations}
 Other higher-order moments such as pressure tensor $P_{ij}$ and the heat flux vector $Q_i({\bf x},t)$ can also be defined accordingly as
 \begin{align}
 P_{ij}({\bf x},t) &= \int{\frac{d{\bf p}}{h^D}(\frac{p_i}{m}-u_i)(\frac{p_j}{m}-u_j)\,f\,({\bf p},{\bf x},t)}, \\
@@ -197,18 +202,22 @@ formulated.   The semiclassical Boltzmann-ES model equation in two space dimensi
 \end{align}
 %%
 with ${\upsilon}_x$ and ${\upsilon}_y$ as particle velocities.   The macroscopic properties are the various moments of $f^{ES}({\upsilon}_x,{\upsilon}_y,x,y,t)$,
-\begin {align}
+\begin{subequations} 
+\begin{align}
 \rho (x,y,t) 			&= \int \frac{ d p_x}{h} \frac{ d p_y}{h} \, f^{ES}(p_x, p_y, x, y, t), \\
 u_x (x,y,t) 			&= \frac{1}{\rho} \int 	 \frac{ d p_x}{h} \, \frac{ d p_y}{h}  p_x \, f^{ES}(p_x, p_y, x, y, t), \\
 u_y (x,y,t) 			&= \frac{1}{\rho} \int 	 \frac{ d p_x}{h} \, \frac{ d p_y}{h}  p_y \, f^{ES}(p_x, p_y, x, y, t), \\
 \epsilon (x,y,t) 	&= \int \frac{ d p_x}{h} \frac{ d p_y}{h} \, \frac{(p_x^2 + p_y^2)}{2m} \, f^{ES}(p_x, p_y, x, y, t).
 \end{align}
+\end{subequations}
 Additional information from $f^{ES}$ can also be defined accordingly to
+\begin{subequations}
 \begin{align}
 W_{x x}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_x}{m}-u_x)(\frac{p_x}{m}-u_x)\,f^{ES}(p_x, p_y, x, y, t), \\
 W_{x y}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_x}{m}-u_x)(\frac{p_y}{m}-u_y)\,f^{ES}(p_x, p_y, x, y, t), \\
 W_{y y}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_y}{m}-u_y)(\frac{p_y}{m}-u_y)\,f^{ES}(p_x, p_y, x, y, t). 
 \end{align}
+\end{subequations}
 We also have the gas pressure $p(x,y,t) = {W_{xx} + W_{yy} \over 2}$.  The pressure tensor $P_{\alpha \beta}(x,y,t)$ can be obtained through
 \begin{equation}
 P_{xx} = [W_{xx} - (1-b)p]/b, \,\, P_{xy} = W_{xx}/b, \,\, P_{yy} = [W_{yy} - (1-b)p]/b.
@@ -468,20 +477,23 @@ We can then substitute the above values to the $f^{ES}$ distribution function.
 
 In this section we present the results of selected computational tests.  Here, we test our algorithm to solve two-dimensional Riemann's problems of semiclassical gas dynamics.
 
-\begin{figure}[hbt]
-\centering
-\begin{tabular}{cc}
-\includegraphics[trim = 30mm 23mm 35mm 25mm,clip,width=0.5\textwidth]{BGK_BE_n} \label{TVDp} & 
-\includegraphics[trim = 30mm 23mm 35mm 25mm,clip,width=0.5\textwidth]{BGK_BE_n} \label{WENOp} \\
-\end{tabular}
-\caption{Comparison with TVD scheme on finer grid points}
-\label{WENOTVD2D}
-\end{figure}
-
 \subsection{Two-dimensional Riemann problems}
 \label{Riemannp}
 Following the works of Lax and Liu, \cite{Laxliu95} and Schultz-Rinne et al. \cite{schultzrinne}, we selected several configurations to be tested among those of the above-cited papers. In the Riemann problems of two-dimensional gas dynamics, the initial state is in equilibrium and kept constant in each of the four quadrants. See the illustration in Fig. \ref{4quads}. The set up is made so that only one elementary wave, a 1-D  shock, $\vec{S}$, a 1-D rarefaction wave, $\vec{R}$, or a 2-D contact discontinuity, $J$, appears at each interface.
 To satisfy these constraints, the set initial data must satisfy the Rankine-Hugoniot relations i.e., for a given left an right state (denoted by the indices $l$ and $r$), we define
+
+
+\begin{figure}[hbt]
+\centering
+\begin{tabular}{cc}
+\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{BGK_BE_n} \label{TVDp} & 
+\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{BGK_MB_n} \label{WENOp} \\
+\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{BGK_FD_n} \label{TVDp2} & 
+\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{ESBGK_MB_n} \label{WENOp2}
+\end{tabular}
+\caption{Comparison with TVD scheme on finer grid points}
+\label{WENOTVD2D}
+\end{figure}
 
 \subsubsection{Tests on the three statistics with the setup of config. 13}
 \label{configuration13}
@@ -497,7 +509,7 @@ In Fig. \ref{WENOTVD2D}, we can see the comparison in which WENO3 outperform TVD
 
 \section{Concluding Remarks}
 \label{remarks}
-The new semiclassical ellipsoidal statistical equilibrium distribution of Wu et al. [22] has been derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Bose-Einstein or Fermi-Dirac distribution.  This ES distribution is anisotropic thus it can possess additional high order moments, thus its gas dynamical features are not well known and are worth exploring.   In this work, the unsteady quantum gas dynamical flow features as dictated by the semiclassical ellipsoidal statistical equilibrium distribution function is numerically studied.   The computational method treats the governing equation in phase space and employs the discrete ordinate method and high resolution shock capturing schemes.  Specifically, we describe the solution method in details for the equation in two space dimensions.   The present decoding method for the semiclassical ellipsoidal statistical distribution is different from the that for Bose-Einstein or Fermi-Dirac distribution.   Computations of two-dimensional Riemann problems for gas flows of arbitrary particle statistics are presented.  These computational examples serve the purpose of exploring the nonlinear manifestation of shock wave, contact line and rarefaction wave and testing the robustness of the present method.   All the expected flow profiles comprising shock, rarefaction wave and contact discontinuities and their nonlinear interactions can be observed with considerably good detail and are in consistency with available results.   The present work emphasizes on building the unified and parallel framework for treating semiclassical gas dynamics.   Direct extension to three-dimensional cases and more complex geometries in general coordinates are straightforward and will be reported elsewhere.
+The new semiclassical ellipsoidal statistical equilibrium distribution of Wu et al. \cite{Wu2012} has been derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Bose-Einstein or Fermi-Dirac distribution.  This ES distribution is anisotropic thus it can possess additional high order moments, thus its gas dynamical features are not well known and are worth exploring.   In this work, the unsteady quantum gas dynamical flow features as dictated by the semiclassical ellipsoidal statistical equilibrium distribution function is numerically studied.   The computational method treats the governing equation in phase space and employs the discrete ordinate method and high resolution shock capturing schemes.  Specifically, we describe the solution method in details for the equation in two space dimensions.   The present decoding method for the semiclassical ellipsoidal statistical distribution is different from the that for Bose-Einstein or Fermi-Dirac distribution.   Computations of two-dimensional Riemann problems for gas flows of arbitrary particle statistics are presented.  These computational examples serve the purpose of exploring the nonlinear manifestation of shock wave, contact line and rarefaction wave and testing the robustness of the present method.   All the expected flow profiles comprising shock, rarefaction wave and contact discontinuities and their nonlinear interactions can be observed with considerably good detail and are in consistency with available results.   The present work emphasizes on building the unified and parallel framework for treating semiclassical gas dynamics.   Direct extension to three-dimensional cases and more complex geometries in general coordinates are straightforward and will be reported elsewhere.
 
 %%Hsieh & Yang (2009) T. Y. Hsieh and J. Y. Yang, Thermal conductivity modeling of nanowire composites, J. Applied Physics, 108, 023528 (2010).
 
