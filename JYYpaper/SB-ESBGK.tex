@@ -468,6 +468,16 @@ We can then substitute the above values to the $f^{ES}$ distribution function.
 
 In this section we present the results of selected computational tests.  Here, we test our algorithm to solve two-dimensional Riemann's problems of semiclassical gas dynamics.
 
+\begin{figure}[hbt]
+\centering
+\begin{tabular}{cc}
+\includegraphics[trim = 30mm 23mm 35mm 25mm,clip,width=0.5\textwidth]{BGK_BE_n} \label{TVDp} & 
+\includegraphics[trim = 30mm 23mm 35mm 25mm,clip,width=0.5\textwidth]{BGK_BE_n} \label{WENOp} \\
+\end{tabular}
+\caption{Comparison with TVD scheme on finer grid points}
+\label{WENOTVD2D}
+\end{figure}
+
 \subsection{Two-dimensional Riemann problems}
 \label{Riemannp}
 Following the works of Lax and Liu, \cite{Laxliu95} and Schultz-Rinne et al. \cite{schultzrinne}, we selected several configurations to be tested among those of the above-cited papers. In the Riemann problems of two-dimensional gas dynamics, the initial state is in equilibrium and kept constant in each of the four quadrants. See the illustration in Fig. \ref{4quads}. The set up is made so that only one elementary wave, a 1-D  shock, $\vec{S}$, a 1-D rarefaction wave, $\vec{R}$, or a 2-D contact discontinuity, $J$, appears at each interface.
