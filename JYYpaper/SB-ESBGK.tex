@@ -8,6 +8,9 @@
 \documentclass{rsproca}%%%%where rsproca is the template name
 
 \RequirePackage{fix-cm}
+\usepackage{caption}
+\usepackage{subcaption}
+
 %%%% *** Do not adjust lengths that control margins, column widths, etc. ***
 
 %%%%%%%%%%% Defining Enunciations  %%%%%%%%%%%
@@ -480,30 +483,335 @@ In this section we present the results of selected computational tests.  Here, w
 \subsection{Two-dimensional Riemann problems}
 \label{Riemannp}
 Following the works of Lax and Liu, \cite{Laxliu95} and Schultz-Rinne et al. \cite{schultzrinne}, we selected several configurations to be tested among those of the above-cited papers. In the Riemann problems of two-dimensional gas dynamics, the initial state is in equilibrium and kept constant in each of the four quadrants. See the illustration in Fig. \ref{4quads}. The set up is made so that only one elementary wave, a 1-D  shock, $\vec{S}$, a 1-D rarefaction wave, $\vec{R}$, or a 2-D contact discontinuity, $J$, appears at each interface.
-To satisfy these constraints, the set initial data must satisfy the Rankine-Hugoniot relations i.e., for a given left an right state (denoted by the indices $l$ and $r$), we define
+To satisfy these constraints, the set initial data must satisfy the Rankine-Hugoniot relations i.e., for a given left an right state (denoted by the indices $l$ and $r$), we define \\
 
+{\em Configuration 5}.
 
-\begin{figure}[hbt]
-\centering
-\begin{tabular}{cc}
-\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{BGK_BE_n} \label{TVDp} & 
-\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{BGK_MB_n} \label{WENOp} \\
-\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{BGK_FD_n} \label{TVDp2} & 
-\includegraphics[trim = 10mm 10mm 20mm 20mm,clip,width=0.5\textwidth]{ESBGK_MB_n} \label{WENOp2}
-\end{tabular}
-\caption{Comparison with TVD scheme on finer grid points}
-\label{WENOTVD2D}
+\begin{eqnarray*}
+&{J_{21}},J_{32},J_{34},{J_{41}},\hspace{0.1in}P_1=P_2=P_3=P_4&\\
+&u_{x1}=u_{x2}<u_{x3}=u_{x4},\hspace{0.2in}u_{y1}=u_{y4}<u_{y3}=u_{y2}&
+\label{con5setup}
+\end{eqnarray*}
+
+\begin{align*} 
+z_2	&=0.4253& 	u_{y2}&=0.5& 	z_1&=0.142& 		u_{y1}&=-0.5& \\
+u_{x2}&=-0.75&	T_2&=1.1494& 	u_{x1}&=-0.75& 	T_1&=2.078&		\\
+z_3&=0.142&			u_{y3}&=0.5& 	z_4&=0.6635& 		u_{y4}&=-0.5&	\\
+u_{x3}&=0.75&		T_3&=2.078& 	u_{x4}&=0.75& 	T_4&=0.8768&
+\end{align*}
+Here, only slip discontinuities are expected to propagate from each interfaces. \\
+
+{\em Configuration 17}.
+
+\begin{eqnarray*}
+J_{21},\stackrel{\leftarrow}{S_{32}},J_{34},\stackrel{\rightarrow}{R_{41}},\hspace{0.1in}P_1=P_2>P_3=P_4&\\
+u_{x1}=u_{x2}=u_{x3}=u_{x4}\\
+u_{y4}-u_{y1}=\Phi_{41},\hspace{0.2in}u_{y3}-u_{y2}=\Psi_{32}&
+\label{con17setup}
+\end{eqnarray*}
+
+\begin{align*} 
+z_2		&=0.37& u_{y2}	&=-0.3& z_1		 	&=0.14& 	u_{y1}	&=-0.4& 	\\
+u_{x2}&=0& 		T_2			&=1.25& u_{x1}	&=0.1& 		T_1			&=2.08&		\\
+z_3		&=0.38& u_{y3}	&=0.12& z_4			&=0.14&		u_{y4}	&=-0.98& 	\\
+u_{x3}&=0& 		T_3			&=0.77& u_{x4}	&=0& 			T_4			&=1.31&		\\
+\end{align*}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_BE_n}
+                \caption{Density contour, \\ \it{BE statistic}}
+                \label{fig:5ESBGK_BE_n}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+				\begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_BE_p}
+                \caption{Pressure contour, \\ \it{BE statistic}}
+                \label{fig:5ESBGK_BE_p}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_BE_z}
+                \caption{Fugacity contour, \\ \it{BE statistic}}
+                \label{fig:5ESBGK_BE_z}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_MB_n}
+                \caption{Density contour, \\ \it{MB statistic}}
+                \label{fig:5ESBGK_MB_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_MB_p}
+                \caption{Pressure contour, \\ \it{MB statistic}}
+                \label{fig:5ESBGK_MB_p}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_MB_z}
+                \caption{Fugacity contour, \\ \it{MB statistic}}
+                \label{fig:5ESBGK_MB_z}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_FD_n}
+                \caption{Density contour, \\ \it{FD statistic}}
+                \label{fig:5ESBGK_FD_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_FD_p}
+                \caption{Pressure contour, \\ \it{FD statistic}}
+                \label{fig:5ESBGK_FD_p}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_FD_z}
+                \caption{Fugacity contour, \\ \it{FD statistic}}
+                \label{fig:5ESBGK_FD_z}
+        \end{subfigure}
+				\caption{Test on configuration 5 using ES equilibrium distribution function with dimensionless parameter $b=0.5$ and TVD spatial discretization method} \label{fig:test_configuration5}
 \end{figure}
 
-\subsubsection{Tests on the three statistics with the setup of config. 13}
-\label{configuration13}
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_BE_n}
+                \caption{Density contour using BE statistic}
+                \label{fig:17ESBGK_BE_n}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_BE_p}
+                \caption{Pressure contour using BE statistic}
+                \label{fig:17ESBGK_BE_p}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_BE_z}
+                \caption{Fugacity contour using BE statistic}
+                \label{fig:17ESBGK_BE_z}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_MB_n}
+                \caption{Density contour using MB statistic}
+                \label{fig:17ESBGK_MB_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_MB_p}
+                \caption{Pressure contour using MB statistic}
+                \label{fig:17ESBGK_MB_p}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_MB_z}
+                \caption{Fugacity contour using MB statistic}
+                \label{fig:17ESBGK_MB_z}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_FD_n}
+                \caption{Density contour using FD statistic}
+                \label{fig:17ESBGK_FD_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_FD_p}
+                \caption{Pressure contour using FD statistic}
+                \label{fig:17ESBGK_FD_p}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_FD_z}
+                \caption{Fugacity contour using FD statistic}
+                \label{fig:17ESBGK_FD_z}
+        \end{subfigure}
+				\caption{Test on configuration 17 using ES equilibrium distribution function with dimensionless parameter $b=0.5$ and TVD spatial discretization method} \label{fig:test_configuration17}
+\end{figure}
 
-\subsubsection{Application of various constant relaxation times}
-\label{difftau}
-We now test the algorithm with the application of varying constant relaxation times. Although an application of constant relaxation times is more of a numerical test rather than physical, we can still show that, based on the relation $\tau = \eta/P$ that this present algorithm can yield an analysis that includes the effect of physical viscosity. In this test, $200 \times 200$ grid points in $x$ and $y$ along with WENO3 scheme are used in the computation. $20 \times 20$ points of abscissas following Gauss-Hermite quadrature rule is applied. Two configurations i.e., Config. 5 and Config. 17 are used with the following initial setup:
 
-\subsection{Mesh refinement and comparison to TVD scheme}
-In this subsection, we present the result using refined grid mesh of $400 \times 400$ points using (i) WENO3 scheme and (ii) TVD scheme for the purpose of comparison. Here, the usage of TVD scheme instead of WENO3 scheme is the only difference between the two cases, while other initial attributes are applied similarly. Note that all the previous two dimensional examples shown are generated using $200 \times 200$ grid points. Thus this example also gives us illustration of high mesh points convergence. The problem is initially set for Bose gas with $\tau = 0.0001$. The initial condition of Bose gas is set following Eq. \ref{init5} (Config. 5). The CFL numbers are set to be 0.1. The quadrature rule used is Gauss-Hermite rule with 20 abscissas both in $\upsilon_x$ and $\upsilon_y$ directions.
+In this configuration, shock, slip discontinuity and rarefaction fan are expected to be seen propagating from interfaces of the four quadrants. A shock shall be seen propagating through quadrants 3 and 2, rarefaction fan through quadrants 4 and 1 and slip discontinuities through quadrants 2 and 1 and through quadrants 4 and 1.
+
+In Figs. \ref{differenttau} and \ref{differenttaub}  we can see the density plot of Configuration 5 and 17 respectively for Bose-Einstein,  Maxwell-Boltzmann and Fermi-Diract gases with the application of $\tau=0.0005$ and $\tau=0.01$. In these figures, we see more of the effect of dissipation as the value of $\tau$ increases. For example, at $\tau=0.01$ we can see how the flow profiles become very smeared compared to the results with smaller relaxation time values.
+
+\subsection{Comparison of Kinetic Equilibrium Distribution Functions}
+Here we test our Algorithm using three statistics using ES and traditional Equilibrium distribution functions.
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_BE_n}
+                \caption{Fugacity contour using BE statistic and \it{b=0.5}. (Conf. 5)}
+                \label{fig:ESBGK_BE_n}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_MB_n}
+                \caption{Fugacity contour using MB statistic and \it{b=0.5}. (Conf. 5)}
+                \label{fig:ESBGK_MB_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_FD_n}
+                \caption{Fugacity contour using FD statistic and \it{b=0.5}. (Conf. 5)}
+                \label{fig:ESBGK_FD_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{BGK_BE_n}
+                \caption{Fugacity contour using BE statistic and \it{b=0}. (Conf. 5)}
+                \label{fig:BGK_BE_n}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{BGK_MB_n}
+                \caption{Fugacity contour using MB statistic and \it{b=0}. (Conf. 5)}
+                \label{fig:BGK_MB_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{BGK_FD_n}
+                \caption{Fugacity contour using FD statistic and \it{b=0}. (Conf. 5)}
+                \label{fig:BGK_FD_n}
+        \end{subfigure}
+        \caption{Comparison of kinetic results between traditional and ES equilibrium distribution functions}\label{fig:compare_feq}
+\end{figure}
+
+\subsection{Comparison of Prant Numbers}
+In this subsection, we present the result using refined grid mesh of $200 \times 200$ points using (i) WENO3 scheme and (ii) TVD scheme for the purpose of comparison. Here, the usage of TVD scheme instead of WENO3 scheme is the only difference between the two cases, while other initial attributes are applied similarly. Note that all the previous two dimensional examples shown are generated using $200 \times 200$ grid points. Thus this example also gives us illustration of high mesh points convergence. The problem is initially set for Bose gas with $\tau = 0.0001$. The initial condition of Bose gas is set following Eq. \ref{init5} (Config. 5). The CFL numbers are set to be 0.1. The quadrature rule used is Gauss-Hermite rule with 20 abscissas both in $\upsilon_x$ and $\upsilon_y$ directions.
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_FD_bn05_n}
+                \caption{Density contour using MB statistic and ES model with $\it{b=-0.5}$.}
+                \label{fig:ESBGK_FD_bn05_n}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{BGK_FD_b0_n}
+                \caption{Density contour using MB statistic and ES model with $\it{b=0}$.}
+                \label{fig:BGK_FD_b0_n}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_FD_bp05_n}
+                \caption{Density contour using MB statistic and ES model with $\it{b=0.5}$.}
+                \label{fig:ESBGK_FD_bp05_n}
+        \end{subfigure}
+        \caption{Using Configuration 5 to test kinetic influence of dimensionales parameter \it{b}.}\label{fig:test_b_parameter}
+\end{figure}
+
+\subsection{Observations of the pressure tensor components}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_MB_pxx}
+                \caption{$P_{xx}$ contour using MB statistic and $\it{b=0.5}$.}
+                \label{fig:5ESBGK_MB_pxx}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_MB_pxy}
+                \caption{$P_{xy}$ contour using MB statistic and $\it{b=0.5}$.}
+                \label{fig:5ESBGK_MB_pxy}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{ESBGK_MB_pyy}
+                \caption{$P_{yy}$ contour using MB statistic and $\it{b=0.5}$.}
+                \label{fig:5ESBGK_MB_pyy}
+        \end{subfigure}
+        \caption{Pressure Tensor components of configuration 5}\label{fig:conf5_pTensor}
+\end{figure}
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_FD_pxx}
+                \caption{$P_{xx}$ contour using FD statistic and $\it{b=0.5}$.}
+                \label{fig:17ESBGK_FD_pxx}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_FD_pxy}
+                \caption{$P_{xy}$ contour using FD statistic and $\it{b=0.5}$.}
+                \label{fig:17ESBGK_FD_pxy}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{17ESBGK_FD_pyy}
+                \caption{$P_{yy}$ contour using FD statistic and $\it{b=0.5}$.}
+                \label{fig:17ESBGK_FD_pyy}
+        \end{subfigure}
+        \caption{Pressure Tensor components of configuration 17}\label{fig:conf5_pTensor}
+\end{figure}
+
 
 In Fig. \ref{WENOTVD2D}, we can see the comparison in which WENO3 outperform TVD in terms of flow profiles sharpness when set within the same numerical treatment. Although the kind of gas used in this example is Bose gas, the results are comparable to the earlier work of Lax \cite{Laxliu95} (classical gas) in terms of the expected form of flows. Note that the application of constant relaxation time, although small, contribute to a more diffusive form of flows.
 

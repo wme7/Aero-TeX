@@ -302,37 +302,157 @@ Then Boltzmann - BGK equation using DDOM becomes,
 %\subsection{Numerical Results with DDOM}
 
 \begin{frame}
-	\frametitle{Numerical Results with DDOM}
+	\frametitle{Right Expansion}
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.90\textwidth]{2RE_upwind_DDOM1}
-			\caption{Right Expansion case. Using MB distribution, Upwind method for all space differentials with 100 points in physical space and DDOM with 5 velocity points in velocity space}
-			\label{fig:2RE_upwind_DDOM1}
+			\caption{Result using MB distribution, Upwind method for all space differentials with 100 points in physical space and DDOM with 5 velocity points in velocity space}
+			\label{fig:MB_RE_DDOM}
 		\end{figure}
 		
 \end{frame}
 
 \begin{frame}
-	\frametitle{Numerical Results with DDOM}
+	\frametitle{Right Expansion}
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.90\textwidth]{2RE_upwind_DDOM}
-			\caption{Right Expansion case. Using MB distribution, Upwind method for all space differentials with 200 points in physical space and DDOM with 5 velocity points in velocity space}
-			\label{fig:MB_RE}
+			\caption{Result using MB distribution, Upwind method for all space differentials with 200 points in physical space and DDOM with 5 velocity points in velocity space}
+			\label{fig:MB_RE_DDOM_2}
 		\end{figure}
 		
 \end{frame}
 
 \begin{frame}
-	\frametitle{Numerical Results with DDOM}
+	\frametitle{Right Expansion}
 		
 		\begin{figure}
 			\centering
 				\includegraphics[width=0.90\textwidth]{2RE_WENO3_DDOM}
-			\caption{Right Expansion case. Using MB distribution, WENO3 method for all space differentials with 100 points in physical space and DDOM with 5 velocity points in velocity space}
-			\label{fig:MB_RE}
+			\caption{Result using MB distribution, WENO3 discretization for all space differentials with 100 points in physical space and DDOM with 5 velocity points in velocity space}
+			\label{fig:MB_RE_WENO_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lax case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{LAX_upwind_DDOM}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 100 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Lax_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lax case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{LAX_upwind_DDOM_2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Lax_DDOM_2}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lax case with DG and DOM}
+			
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.85\textwidth]{LAXsDG100N3}
+			\caption{Sod's classical Socktube Problem. Solving with MB distribution function, advecting information with Nodal DG method with 100 elements (legendre-gauss-lobato polynomials of degree 3) in physical space, RK3 in time and DOM with 200 velocity points.}
+			\label{fig:LAXsDG100N3}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sjogreen case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sjogreen_upwind_DDOM}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 100 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Sjogreen_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sjogreen case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sjogreen_upwind_DDOM_2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Sjogreen_DDOM_2}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Sod_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM_2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Sod_DDOM2}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case with DG and DOM}
+			
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.85\textwidth]{SODsDG200N3}
+			\caption{Sod's classical Socktube Problem. Solving with MB distribution function, advecting information with Nodal DG method with 200 elements (legendre-gauss-lobato polynomials of degree 3) in physical space, RK3 in time and DOM with 81 velocity points.}
+			\label{fig:SODsDG200N3}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM_wfix}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Sods_DDOM_wfix}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM_wfix2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space and DDOM with 3 velocity points in velocity space}
+			\label{fig:MB_Sods_DDOM_wfix2}
 		\end{figure}
 		
 \end{frame}

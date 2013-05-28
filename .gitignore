@@ -183,3 +183,4 @@ pip-log.txt
 *.bbl
 *.blg
 *.bib~
+*.eps

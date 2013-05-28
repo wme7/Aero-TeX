@@ -67,3 +67,25 @@ We can also do the same for the semi-classical equilibrium distribution function
 		\end{figure}
 	
 \end{frame}
+
+\begin{frame}[allowframebreaks]
+
+	\begin{algorithm}[H]
+	\SetAlgoLined
+	\KwData{IC: $z_0(x,t)$,$u_0(x,t)$,$T_0(x,t)$}
+	\KwResult{One-dimensional Euler solution}
+	\BlankLine
+		
+	initialization\;
+	\While{ $time \geq t_{end}$ }{
+	define $\it{dt}$ \;
+		\eIf{ $\it{fmodel}=1$}{
+		Evaluate Relaxation Scheme\;
+		}{
+		Evaluate Euler Limit\;
+		}
+	}
+	 	
+	 \caption{Semiclassical Boltzmann-BGK 1D}
+	\end{algorithm}
+\end{frame}

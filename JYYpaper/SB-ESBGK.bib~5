@@ -1,0 +1,179 @@
+@comment{x-kbibtex-personnameformatting=<%l><, %f>}
+
+@article{Fatemi1993209,
+	author = "Fatemi, Emad and Odeh, Faroukh",
+	doi = "10.1006/jcph.1993.1176",
+	issn = "0021-9991",
+	journal = "Journal of Computational Physics",
+	note = "",
+	number = "2",
+	pages = "209--217",
+	title = "{Upwind Finite Difference Solution of Boltzmann Equation Applied to Electron Transport in Semiconductor Devices}",
+	url = "http://www.sciencedirect.com/science/article/pii/S0021999183711769",
+	volume = "108",
+	year = "1993"
+}
+
+@article{Majorana2001649,
+	author = "Majorana, A. and Pidatella, R.M.",
+	doi = "10.1006/jcph.2001.6929",
+	issn = "0021-9991",
+	journal = "Journal of Computational Physics",
+	note = "",
+	number = "2",
+	pages = "649--668",
+	title = "{A Finite Difference Scheme Solving the Boltzmann{\^a}{\^a}‚¬``Poisson System for Semiconductor Devices}",
+	url = "http://www.sciencedirect.com/science/article/pii/S0021999101969293",
+	volume = "174",
+	year = "2001"
+}
+
+@article{Carrillo2002,
+	author = "Carrillo, Jos{\~A}{\^A}©A. and Gamba, IreneM. and Majorana, Armando and Shu, Chi-Wang",
+	doi = "10.1023/A:1020751624960",
+	issn = "1569-8025",
+	journal = "Journal of Computational Electronics",
+	keywords = "Boltzmann equation for semiconductors; WENO scheme; spherical coordinate system",
+	language = "English",
+	number = "3",
+	pages = "365--370",
+	publisher = "Kluwer Academic Publishers",
+	title = "{A WENO-Solver for the 1D Non-Stationary Boltzmann{\^a}{\^a}‚¬``Poisson System for Semiconductor Devices}",
+	url = "http://dx.doi.org/10.1023/A:1020751624960",
+	volume = "1",
+	year = "2002"
+}
+
+@article{Carrillo2003a,
+	author = "Carrillo, Jos{\~A}{\AE}{\rq}{\AE}{\rq}{\~A}{\^a}€\v{s}{\^A}{\^A}©A. and Gamba, IreneM. and Majorana, Armando and Shu, Chi-Wang",
+	doi = "10.1023/B:JCEL.0000011455.74817.35",
+	issn = "1569-8025",
+	journal = "Journal of Computational Electronics",
+	keywords = "Boltzmann-Poisson system for semiconductors; WENO scheme; spherical coordinate system",
+	language = "English",
+	number = "2-4",
+	pages = "375{\~A}{\^A}¢{\^a}{\^a}€\v{s}{\^A}¬{\^a}{\^a}‚¬{\oe}380",
+	publisher = "Kluwer Academic Publishers",
+	title = "{A Direct Solver for 2D Non-Stationary Boltzmann-Poisson Systems for Semiconductor Devices: A MESFET Simulation by WENO-Boltzmann Schemes}",
+	url = "http://dx.doi.org/10.1023/B:JCEL.0000011455.74817.35",
+	volume = "2",
+	year = "2003"
+}
+
+@article{Carrillo2003b,
+	author = "Carrillo, Jos{\~A}{\AE}{\rq}{\AE}{\rq}{\~A}{\^a}€\v{s}{\^A}{\^A}©A. and Gamba, IreneM. and Majorana, Armando and Shu, Chi-Wang",
+	doi = "10.1023/B:JCEL.0000011455.74817.35",
+	issn = "1569-8025",
+	journal = "Journal of Computational Electronics",
+	keywords = "Boltzmann-Poisson system for semiconductors; WENO scheme; spherical coordinate system",
+	language = "English",
+	number = "2-4",
+	pages = "375{\~A}{\^A}¢{\^a}{\^a}€\v{s}{\^A}¬{\^a}{\^a}‚¬{\oe}380",
+	publisher = "Kluwer Academic Publishers",
+	title = "{A Direct Solver for 2D Non-Stationary Boltzmann-Poisson Systems for Semiconductor Devices: A MESFET Simulation by WENO-Boltzmann Schemes}",
+	url = "http://dx.doi.org/10.1023/B:JCEL.0000011455.74817.35",
+	volume = "2",
+	year = "2003"
+}
+
+@book{MAR90,
+	added-at = "2009-03-03T17:19:04.000+0100",
+	address = "Wien",
+	author = "Markovich, P. A. and Ringhofer, C. A. and Schmeiser, C.",
+	biburl = "http://www.bibsonomy.org/bibtex/2994d72e2642fb290645f2dbb01effa46/bronckobuster",
+	interhash = "b38331016a13d2addd52d38565505222",
+	intrahash = "994d72e2642fb290645f2dbb01effa46",
+	keywords = "imported",
+	nota = "rw:",
+	publisher = "Springer",
+	title = "{Semiconductor Equations}",
+	x-fetchedfrom = "Bibsonomy",
+	year = 1990
+}
+
+@article{Wu2012,
+	author = "Wu, Lei and Meng, Jian-Ping and Zhang, Yonghao",
+	issn = "1364-5021",
+	journal = "Proceedings of the Royal Society Part A - Mathematical, Physical and Engineering Sciences",
+	number = "2142",
+	pages = "1799{\~A}{\^A}¢{\^a}{\^a}€\v{s}{\^A}¬{\^a}{\^a}‚¬{\oe}1823",
+	title = "{Kinetic modelling of the quantum gases in the normal phase}",
+	volume = "468",
+	year = "2012"
+}
+
+@article{Pattamatta2009,
+	author = "Pattamatta, Arvind and Madnia, Cyrus K.",
+	journal = "Journal of Heat Transfer",
+	month = aug,
+	number = "082401-1",
+	publisher = "ASME",
+	title = "{Modeling Electron-Phonon Nonequilibrium in Gold Films Using Boltzmann Transport Model}",
+	volume = "131",
+	year = "2009"
+}
+
+@article{Scaldaferri2007,
+	author = "Scaldaferri, S. and Curatola, G. and Iannaccone, G.",
+	issn = "0018-9383",
+	journal = "IEEE TRANSACTIONS ON ELECTRON DEVICES",
+	month = nov,
+	number = "11",
+	pages = "2901--2909",
+	title = "{Direct Solution of the Boltzmann Transport Equation and Poisson Schrodinger Equation for Nanoscale MOSFETs}",
+	volume = "54",
+	year = "2007"
+}
+
+@article{Harten1983,
+	author = "Harten, A.",
+	issn = "0021-9991",
+	journal = "Journal of Computational Physics",
+	keywords = "differential-eqs; numerical-methods",
+	month = aug,
+	pages = "260--278",
+	publisher = "Academic Press",
+	title = "{High Resolution Schemes for Hyperbolic Conservation Laws}",
+	year = "1997"
+}
+
+@article{PhysRev.94.511,
+	author = "Bhatnagar, P. L. and Gross, E. P. and Krook, M.",
+	doi = "10.1103/PhysRev.94.511",
+	issue = "3",
+	journal = "Phys. Rev.",
+	month = "May",
+	pages = "511--525",
+	publisher = "American Physical Society",
+	title = "{A Model for Collision Processes in Gases. I. Small Amplitude Processes in Charged and Neutral One-Component Systems}",
+	url = "http://link.aps.org/doi/10.1103/PhysRev.94.511",
+	volume = "94",
+	year = "1954"
+}
+
+@book{mit2005nanoscale,
+	author = "Chen, Gang",
+	isbn = "9780195159424",
+	lccn = "2004052066",
+	publisher = "Oxford University Press, USA",
+	series = "{MIT Pappalardo Series in Mechanical Engineering}",
+	title = "{Nanoscale Energy Transport and Conversion : A Parallel Treatment of Electrons, Molecules, Phonons, and Photons: A Parallel Treatment of Electrons, Molecules, Phonons, and Photons}",
+	year = "2005"
+}
+
+@article{Cowling1970,
+	added-at = "2010-10-28T12:25:27.000+0200",
+	author = "Cowling, S. and Chapman, T.G.",
+	biburl = "http://www.bibsonomy.org/bibtex/218b5cfb8856e5e72971ea63a23b850bb/euh_de",
+	interhash = "962e559493d56462d164bad2ac01f224",
+	intrahash = "18b5cfb8856e5e72971ea63a23b850bb",
+	keywords = "imported",
+	owner = "vt1ha",
+	pages = "--",
+	refid = "314",
+	timestamp = "2010.05.09",
+	title = "{The Mathematical Theory of Non-uniform Gases: An Account of the Kinetic Theory of Viscosity, Thermal Conduction and Diffusion in Gases}",
+	x-fetchedfrom = "Bibsonomy",
+	year = 1970
+}
+
