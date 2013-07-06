@@ -1,0 +1,345 @@
+\documentclass[doublecol]{epl2}
+% or \documentclass[page-classic]{epl2} for one column style
+
+\usepackage{bm}% bold math
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{subcaption}
+
+\title{Semiclassical Lattice Boltzmann Ellipsoidal Statistical BGK Hydrodynamics}
+\shorttitle{Lattice Boltzmann-ES-BGK Hydrodynamics of Quantum Gases}
+%Insert here a short version of the title if it exceeds 70 characters
+
+\author{Jaw-Yen Yang\inst{1,2} \and Po-Chen Tsai\inst{1} \and Manuel Diaz\inst{1} \and Zhihui Li\inst{3}}
+\shortauthor{J. Y. Yang \etal}
+
+\institute{
+  \inst{1} Institute of Applied Mechanics - National Taiwan University, Taipei 106, TAIWAN\\
+  \inst{2} Center of Advanced Studies in Theoretical Sciences - National Taiwan University, Taipei 106, TAIWAN\\
+  \inst{3} China Aerodynamics Research and Development Center, Mianyang, 621000, CHINA
+	}
+	
+\pacs{47.11.-j}{First pacs description}
+\pacs{51.10.+y}{Second pacs description}
+\pacs{47.45.Ab}{Third pacs description}
+\pacs{67.10.Jn}{fourth pacs description}
+
+\abstract{A lattice Boltzmann method is presented based on the Uehling-Uhlenbeck Boltzmann ellipsoidal statistical (ES) kinetic model equation proposed by Wu et al. \cite{Wu2012}. The method is directly derived by projecting the kinetic governing equation onto the tensor Hermite polynomials basis and various hydrodynamic approximation orders can be achieved.  To determine the anisotropic ellipsoidal statistical distribution, additional moment information is needed and a corresponding decoding procedure is required.  The semiclassical lattice Boltzmann-ES-BGK method can give correct Prandtl number and the semiclassical incompressible Navier-Stokes equations can be recovered via a Chapman-Enskog multi-scale expansion.  Simulations of the lid-driven square cavity flows in semiclassical viscous fluids based on D2Q9 lattice model for different particle statistics are shown to illustrate the method.  Distinct characteristics of the effects of particle statistics is also depicted.}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\label{sec:1}
+Over the past thirty years, significant advance in the developments of lattice Boltzmann method (LBM), based on the classical Boltzmann equation and its model equation due to Bhatnagar, Gross and Krook (BGK) \cite{BGK1954}, for flow simulations have been achieved \cite{ChenD1998, Succi2001, Aidun2010}.
+The LBM originated from its predecessor, the lattice gas cellular automata (LGCA) models \cite{Frisch1, McN1988}.
+The LBMs have demonstrated its broad capability to simulate hydrodynamic, magnetohydrodynamic systems, multi-phase and multi-component fluids, multi-component
+flow through porous media, and complex fluid systems.
+% deleted: \cite{Qian2}
+Despite of the great success mentioned above, however, most of the existing LBMs are confined to hydrodynamics of classical thermal fluids.
+Modern development in nanoscale carrier transport requires carriers of particles of arbitrary statistics, e.g., phonon Boltzmann transport in nanocomposites and electron transport in semiconductors. The extension and generalization of the successful classical LBM to semiclassical lattice Boltzmann method for particles of arbitrary statistics can be potentially important in nanoscale transport applications.  Indeed, analogous to the classical Boltzmann equations, a semiclassical Boltzmann equation for transport phenomenon in quantum gases was developed by Uehling and Uhlenbeck (UUB) \cite{Ueh1933}.
+The semiclassical Boltzmann equation is difficult to solve due to the collision integrals in different types of collisions. To simplify the collision integral,
+the relaxation time approximation originally proposed in \cite{BGK1954} for the classical neutral and charged gases has been widely used.  Several other kinetic models including the ellipsoidal statistical (ES) model of Holway \cite{Holway1966} have been proposed to improve the BGK model to obtain the correct Prandtl number.  Also, BGK-type relaxation time models to capture the essential properties of carrier scattering mechanisms can be similarly devised for the semiclassical Uehling-Uhlenbeck Boltzmann (UUB) equation for various carriers and indeed have been widely used in carrier transports \cite{Lund2000, Chen2005}. In \cite{Yang2009}, a semiclassical lattice Boltzmann method based on the UUB-BGK equation for one- and two-dimensional problems using D1Q3 and D2Q9 lattice models has been presented.  Applications to 2-D microchannel flow and axisymmetric Poiseuille flow and 3-D lid-driven cubic cavity flow have been presented.  Recently, a new kinetic model equation is proposed \cite{Wu2012} for dilute quantum gases in the normal phase based on the maximum entropy principle. This new model keeps the main properties of the semiclassical Boltzmann equation, including conservation of mass, momentum and energy, the entropy dissipation property, and rotational invariance. It can be considered as a generalization of the classical ellipsoidal statistical model \cite{Holway1966}. It also produces the correct Prandtl numbers for the quantum gases.
+
+In this study, based on the new Uehling-Uhlenbeck Boltzmann-ES-BGK (UUB-ES-BGK) equation \cite{Wu2012} and following \cite{Yang2009}, we
+derive a semiclassical lattice UUB-ES-BGK method based on Grad's moment expansion method by projecting the UUB-ES-BGK equation onto tensor Hermite polynomial basis.  Although the development is parallel to \cite{Yang2009}, however, there are two major features in the present derivation which are markedly different from \cite{Yang2009}. Firstly, additional moment information needs to be satisfied by the semiclassical anisotropic ellipsoidal statistical equilibrium distribution. Secondly, the decoding procedure to determine the Lagrange's multipliers required to supply to the anisotropic ellipsoidal statistical distribution is quite different from that of semiclassical UUB-BGK model.  The hydrodynamic equations simulated by the present semiclassical UUB-ES-BGK LBM is studied through the Chapman-Enskog analysis as well as the relations between the relaxation time and viscosity and thermal conductivity which provide the basis for determining relaxation time used in the present semiclassical lattice UUB-ES-BGK method.  Hydrodynamics based on moments up to second and third order expansions are presented. Computations of 2-D lid-driven square cavity flows for several Reynolds numbers for three particle statistics are given to illustrate the methods and the effects due to particle statistics are delineated.  A comprehensive comparison on single relaxation time, multiple relaxation time and entropic LBM based on lid-driven square cavity flows has been presented recently. %\cite{Luo2012}.
+
+\section{Semiclassical Boltzmann-ES-BGK Equation}
+
+The semiclassical Uehling-Uhlenbeck Boltzmann equation with the relaxation time approximation and ellipsoidal statistical model can be expressed as
+\begin{align}
+\frac{\partial f}{\partial t} + \frac{\vec p}{m} \cdot \nabla_{\vec x} f  =  -\frac{(f - f_{ES})}{\tau},
+\end{align}
+where  $f(\vec p, \vec x, t)$ is the distribution function which represents the average density of particles with momentum $\vec p$ at the space-time point $(\vec x, t)$, $m$ is the particle mass, $\tau$ is the relaxation time and $f_{ES}$ is the local equilibrium distribution given by
+\begin{align}
+f_{ES} &=\left\{ \frac{1}{z(\vec x,t)} \exp[ \frac{1}{2} \lambda_{i j}^{-1} C_{i} C_{j} ] - \chi \right\}^{-1},
+\end{align}
+where $\vec C=\vec p/m -\vec u(\vec x,t)$, $\vec u(\vec x,t)$ is the mean macroscopic velocity, $\lambda_{i j}$ is a matrix to be defined later, $z(\vec x, t)= e^{ \mu(\vec x, t) /k_B T }$ is the fugacity where $\mu(\vec x,t)$ is the chemical potential, $k_B$ is the Boltzmann constant, $T$ is the temperature, $\chi = -1$ denotes the Fermi-Dirac (FD) statistics, $\chi = +1$ the Bose-Einstein (BE) and $\chi = 0$, the Maxwell-Boltzmann (MB) statistics.
+
+The anisotropic equilibrium distribution function $f_{ES}$ can be obtained by the maximum entropy principle under the constraints that the mass, momentum and energy are conserved and we have the following
+\begin{align}
+\rho(\vec x, t) &= \int \frac{d \vec p}{h^d}   f_{ES}(\vec p, \vec x, t), \\
+\rho \vec u(\vec x, t) &= \int \frac{d \vec p}{h^d} \vec p  f_{ES}(\vec p, \vec x, t), \\
+W_{i j}(\vec x, t) &= \int \frac{d \vec p}{h^d} C_{i} C_{j} f_{ES}(\vec p, \vec x, t),
+\end{align}
+where $d$ is the number of dimension of velocity space and we require $W_{i i}=P_{i i}$ for the conservation of energy where $P_{ij}$ is the pressure tensor, see \cite{Wu2012}.  Here the repeated indices denote Einstein summation convention is applied.
+
+Once the ellipsoidal statistical distribution function $f_{ES}$ is known and the governing equation Eq. (1) is solved for $f$, then the macroscopic quantities, such as the number density $n$, number density flux $n\vec u$, energy density $\epsilon$, etc, can be defined, respectively, by
+\begin{align}
+\Phi (\vec x, t) = \int \frac{d \vec p }{ h^d} \phi(\vec p) f(\vec p, \vec x, t),
+\end{align}
+where $\Phi = (n, n\vec u, \epsilon, P_{ij}, Q_{i})^T$ and $\phi = (1, \vec p/m, \frac{m}{2} C^2, m C_{i} $ $C_{j}, \frac{m}{2}C^2 C_{i} )^T$.  The gas pressure is defined by $p(\vec x, t) = P_{i i}/d = 2 \epsilon /d$, $P_{ij}$ is the pressure tensor, $Q_{i}$ the heat flux vector.
+
+The fugacity $z(\vec x,t)$ and the matrix $\lambda_{i j}$ are the Lagrange's parameters for determining $f_{ES}$ and are obtained from the following equations
+\begin{align}
+\left(\frac{m}{h}\right)^d \sqrt{ \|2 \pi \lambda_{i j}\| } \mathcal{G}_{d/2}(z) = \frac{\rho}{m}, \\
+\left(\frac{m}{h}\right)^d \sqrt{ \|2 \pi \lambda_{i j}\| } \mathcal{G}_{d/2 +1}(z) \lambda_{i j} = \frac{W_{i j}}{m}
+\end{align}
+where $\| \cdot \|$ denotes the determinant of a matrix and $\mathcal{G}_{\nu}(z)$ is the Bose (or Fermi) function defined as
+\begin{align}
+\mathcal{G}_{\nu}(z) \equiv \frac{1}{\Gamma(\nu)} \int^{\infty}_0 \frac{ x^{\nu
+-1} }{ {z^{-1} e^x - \chi}}dx = \sum^{\infty}_{l=1}
+(-\chi)^{l-1} \frac{z^l}{l^{\nu}},
+\end{align}
+where $\Gamma(\nu)$ is the Gamma function.
+
+It can be seen that to determine $W_{i j} $ to completely obtain the $f_{ES}$, we need expressions for $W_{i j}$.   There are many possible values for $W_{i j}$ so long as $W_{i i}=P_{i i}$.   A natural choice leading to the rotational invariance of the kinetic model equation is \cite{Holway1966}
+\begin{align}
+W_{i j}(\vec x, t) = (1 - b) p(\vec x, t) \delta_{i j} + b P_{i j}(\vec x, t), \\
+\lambda_{i j} = \left[\frac{(1-b)p}{\rho} \delta_{i j}+ \frac{b}{\rho}P_{i j } \right] \frac{\mathcal{G}_{d/2+1}(z)}{\mathcal{G}_{d/2}(z)} = \frac{W_{i j}}{\rho}
+\end{align}
+where $b$ is a dimensionless parameter that is bounded by the $d$-dimension space assumed as, $\frac{-1}{d-1} \le b \le 1$.
+
+Multiplying Eq. (1) by $1, \vec p$, or $\vec p^2/2m$, and integrating the resulting equations over all $\vec p$, then one obtains the general hydrodynamical equations as usual.
+\begin{align}
+\frac{\partial n}{\partial t} &+ \nabla_{\vec x} \cdot (n \vec u) = 0 \\
+\frac{\partial \rho}{\partial t} &+ \vec u \cdot \nabla_{\vec x} \rho u_{i} + \frac{\partial P_{ij}}{\partial x_{j} } = 0, \\
+\frac{\partial \epsilon}{\partial t} &+ \nabla_{\vec x} \cdot (\epsilon \vec u) + \nabla_{\vec x} \cdot \vec Q + S_{ij} P_{ij} = 0.
+\end{align}
+where $\rho=m n$ is the mass density and $S_{ij}=(\partial u_{i}/\partial x_{j} + \partial u_{j}/\partial x_{i})/2$ is the rate of strain tensor.
+
+The viscosity $\eta$ and thermal conductivity $\kappa$ for a quantum gas from the ES-BGK model can be respectively derived as
+\begin{align}
+\eta &= \frac{\tau n  k_B T}{1-b} \frac{\mathcal{G}_{d/2+1}(z)}{\mathcal{G}_{d/2}(z) }, \\
+\kappa &= \tau \frac{d+2}{2m} n k_B^2 T [\frac{d+4}{2} \frac{\mathcal{G}_{d/2+2}(z)}{\mathcal{G}_{d/2}(z) } -\frac{d+2}{2}\frac{\mathcal{G}^2_{d/2+1}(z)}{\mathcal{G}^2_{d/2}(z)}].
+\end{align}
+The relaxation times for various scattering mechanisms of different carrier transport in semiconductor devices including electrons, holes and phonons and others have been proposed \cite{Lund2000, Chen2005}.  The expressions of $\eta$ and $\kappa$ for the semiclassical Boltzmann-BGK equation were given in \cite{Shi2008} and can also be obtained here by setting $b=0$.
+
+\section{A lattice UUB-ES-BGK method}
+
+To solve Eq.(1), the distribution function is first projected onto a functional space spanned by the Hermite tensor polynomials basis.
+Here, as in \cite{Yang2009}, we adopt the approaches in [11,12] and seek solutions to Eq. (1) by expanding the distribution function $f(\vec x,\vec \zeta, t)$ and the equilibrium distribution function $f_{ES}(\vec x, \vec\zeta, t)$ in terms of tensor Hermite polynomials.  First, we have
+\begin{align}
+ f(\vec x,\vec\zeta ,t) =\omega (\vec\zeta )\sum _{n=0}^{\infty}
+\frac{1}{n!} {\bf a}^{(n)}(x,t) {{\mathcal H}}^{(n)} (\vec\zeta )
+\end{align}
+and the expansion coefficients ${\bf a}^{(n)}$ are given by
+\begin{align}
+{\bf a}^{(n)} (\vec x,t)&=\int f(\vec x,\vec\zeta ,t) {{\mathcal H}}^{(n)}(\vec\zeta) d\vec\zeta
+\label{eq:expasion_coefs}
+\end{align}
+where $\omega (\vec\zeta) = \frac{1}{(2\pi)^{3/2} } e^{-\vec\zeta^2/2}$ is the weighting function, $\vec\zeta \equiv \frac{\vec p}{h^3}$ and ${\bf a}^{(n)}$ and ${{\mathcal H} }^{(n)} (\vec\zeta )$ are rank-n tensors and the product on the right-hand side denotes full contraction.   The shorthand notations of Grad [14] for fully symmetric tensors have been adopted.
+Some of the first few tensor Hermite polynomials are given here, ${{\mathcal H}}^{(0)} (\vec\zeta ) = 1, {{\mathcal H}} _{i}^{(1)} (\vec\zeta )=\zeta _{i}, {{\mathcal H}}_{ij}^{(2)} (\vec\zeta ) =\zeta _{i} \zeta _{j} - \delta _{ij}$, and ${{\mathcal H}}_{ijk}^{(3)} (\vec\zeta ) =\zeta _{i} \zeta _{j} \zeta _{k}-\zeta _{i}\delta_{jk} -\zeta _{j}\delta _{ik} -\zeta _{k} \delta _{ij}$, etc.
+
+It is evident from Eq. (\ref{eq:expasion_coefs}) that all the expansion coefficients are linear combinations of the velocity moments of $f$.  The macroscopic hydrodynamic variables can also be expressed in terms of the first few Hermite expansion coefficients.  Depending on the hydrodynamic level intended to be simulated, one can expand $f$ and $f_{ES}$ to the desirable order $N$ such as $f^N$ and $f_{ES}^N$.
+
+The $N$-th order expansion of $f$, $f^N$, can be obtained directly from Eq. (20) by replacing the infinite number of terms with finite $N$ terms.  Next we denote the $N$-th order expansion of $f_{ES}(\vec x,\vec\zeta ,t)$ as
+\begin{align}
+ f^N_{ES}(\vec x,\vec\zeta ,t) =\omega (\vec\zeta )\sum _{n=0}^N
+\frac{1}{n!} {\bf a}^{(n)}_{ES}(x,t) {{\mathcal H}}^{(n)} (\vec\zeta ),
+\end{align}
+and the coefficients (when the Gauss-Hermite quadrature is used) are given by
+\begin{align}
+{\bf a}^{(n)}_{ES} (\vec x,t) &=\int f_{ES}(\vec x,\vec\zeta ,t) {{\mathcal H}}^{(n)} d\vec\zeta \nonumber \\
+&= \sum_1^l \frac{w_a}{\omega (\vec\zeta_a )} f^N_{ES}(\vec x,\vec \zeta_a ,t) {{\mathcal H}}^{(n)} (\vec\zeta_a ),
+\end{align}
+where $w_a$ and $\vec \zeta_a, a=1,...,l$, are, respectively, the weights and abscissae of a Gauss-Hermite quadrature of degree $ \ge 2N$.
+These coefficients ${\bf a}^{(n)}_{ES}$ can be evaluated exactly and we have
+\begin{subequations}
+\begin{align}
+{\bf a}_{ES}^{(0)} &= n = \frac{ \mathcal{G}_{d/2}(z)}{\Lambda^d}, \\
+{\bf a}_{ES}^{(1)} &= n u_{i},  \\
+{\bf a}_{ES}^{(2)} &= n [u_{i} u_{j} + \frac{d}{D} \lambda_{i j} - \delta_{i j}] \\
+{\bf a}_{ES}^{(3)} &= n [u_{i} u_{j} u_{k} + \frac{d}{D}(\lambda_{i j} u_{k} + \lambda_{i k} u_{j} + \lambda_{j k} u_{i}) \nonumber \\																				 & - \delta_{i j} u_{k}  - \delta_{i k} u_{j}  - \delta_{j k} u_{i} ]
+\end{align}
+\end{subequations}
+where $\Lambda$ is the de Broglie thermal wavelength, $d$ is the dimension of velocity space and $D$ the dimension of physical space and $n$, $u_{i}$ and $\lambda_{i j}$ are in non-dimensional form hereinafter. Here, we choose $T_0$, $u_0=\sqrt{ RT_0}$ and $\Lambda_0=h/m\sqrt{2\pi RT_0}$ as the reference temperature, velocity, and length, respectively, for non-dimensionalizing the variables.  We emphasize that the $\lambda_{i j}$ here are obtained from Eqs. (8) and (9).
+
+The set of discrete distribution functions $f^N_{ES}(\vec{x},\vec{\zeta_a} ,t)$; $a =1,...,l$ now serve as a new set of fundamental variables (in physical space) for defining the fluid system in place of the conventional hydrodynamic variables.  Denote $f_{ES,a} \equiv w_{a} f_{ES}(\vec\zeta_a )/{\omega(\vec{\zeta_a})}$ and based on D2Q9 lattice model specified below ($d=2$, $D=2$), we get the explicit Hermite expansion of $f^N_{ES,a}$ for $N=2$ as:
+\begin{align}
+\begin{split}
+f_{ES,a}^{2} &=  \\
+w_a \rho \{ 1 &+ \vec \zeta_a \cdot \vec u + \frac{1}{2} [( u_i u_j +\lambda_{ij} -\delta_{ij})(\zeta_i \zeta_j - \delta_{ij}) \}
+\end{split}
+\end{align}
+and for $N=3$, we have
+\begin{align}
+\begin{split}
+&f_{ES,a}^{3} =  \\
+w_a &\rho \{ 1 + \vec \zeta_a \cdot \vec u + \frac{1}{2} ( u_i u_j +\lambda_{ij} -\delta_{ij})(\zeta_i \zeta_j - \delta_{ij}) \\
+&+ \frac{1}{6} (u_{i} u_{j} u_{k} + \lambda_{i j} u_{k} + \lambda_{i k} u_{j} + \lambda_{j k} u_{i} - \delta_{i j} u_{k} \\
+&- \delta_{i k} u_{j} - \delta_{j k} u_{i})(\zeta _{i} \zeta _{j} \zeta _{k}-\zeta _{i}\delta_{jk} -\zeta _{j}\delta _{ik} -\zeta _{k} \delta _{ij}) \}
+\end{split}
+\end{align}
+where $D=\delta_{ii}=d$.
+
+A direct approach to select the lattice model is to utilize the roots of the Hermite polynomial. In one-dimension, the discrete velocities $\zeta_a$ are just the roots of the Hermite polynomials.  Given one-dimensional velocity sets, those of the higher-dimension can be constructed using the production formulae (Shan et al. 2006).  The D2Q9 lattice model is one of such models that can be derived using Gauss-Hermite quadrature rule and is specified by
+\begin{equation}
+\vec \zeta_a =
+  \begin{cases}
+   (0, 0), & a =0; \\
+   (\pm 1, 0) \bar{c}, &  a=1-4; \\
+   (\pm 1, \pm 1) \bar{c}, & a=5-8.
+  \end{cases}
+\end{equation}
+where $\bar{c} = \delta_x/\delta_t$. The corresponding weights $w_a$ of D2Q9 are $w_0=4/9$, $w_{1,2,3,4}=1/9$ and $w_{5,6,7,8}=1/36$.
+Once the discrete lattice velocity set is chosen, we have the set of governing equations of the semiclassical lattice ES-BGK model for $f_a, a=0, ..., 8$,
+\begin{align}
+\frac{\partial f_a (\vec x, t)}{\partial t} + \vec \zeta_a \cdot
+\nabla_{\vec x} f_a( \vec x, t) =  -\frac{(f_a(\vec x, t) - f^{N}_{ES,a})}{\tau}.
+\end{align}
+We discretize Eq. (11) in configuration space $(\vec x,t)$ by employing first-order upwind finite-difference approximation for
+the time derivative on the left-hand side and choose the time step $\delta_t = 1$, we then have the following standard form of the
+semiclassical lattice UUB-ES-BGK method:
+\begin{align}
+f_a(\vec x+ \vec \zeta_a, t+\delta_t)- f_a(\vec x,t)=\Omega_a,\nonumber \\
+\Omega_a = -\frac{1}{\tau^*}[f_a - f_{ES,a}],
+\end{align}
+where $f_a(\vec x,t)$ is the distribution function at node $\vec x$ at time $t$, $f_a(\vec x+ \vec \zeta_a, t+\delta_t)$ is the state of the distribution function after advection and collision due to $\Omega_a$, $f_{ES,a} \approx f_{ES,a}^{2}$ and $\tau^*= \tau/\delta_t$.  The collision term $\Omega_a$ must satisfy conservation laws and be compatible with some symmetry of the model approximated by the SRT lattice ES-BGK model.
+
+The relaxation time $\tau$ in Eq. (15) can be related to the kinematic viscosity $\nu$ through the standard
+Chapman-Enskog analysis [26,27] of the semiclassical lattice Boltzmann-ES-BGK method with the D2Q9 lattice model.  We have
+\begin{align}
+ \nu =\delta_t \frac{1}{3(1-b)}( \tau^* - \frac{1}{2}) \theta \frac{\mathcal{G}_{2}(z)}{\mathcal{G}_{1}(z)}.
+\end{align}
+The macroscopic variables are calculated via:
+\begin{align}
+n(\vec x, t) = \sum_{a=1}^l  f_a(\vec x, t), \,\,
+n\vec u = \sum_{a=1}^l  f_a \vec \zeta_a, \nonumber \\
+ %P + \rho \vec u \vec u = \sum_{a=1}^l  f_a \vec
+%\zeta_a \vec \zeta_a, \,\,
+ n (2 T \frac{\mathcal{G}_{2}(z)}{\mathcal{G}_{1}(z)} + u^2) = \sum_{a=1}^l f_a \zeta_a^2.
+\end{align}
+A decoding procedure is needed to obtain the $z$ and $\lambda_{ij}$ by using a root finding method for solving $z$
+\begin{align}
+4 \pi^2 \left(\frac{m}{h}\right)^4 \frac{\mathcal{G}^4_{1}(z)}{ \mathcal{G}^2_{2}(z)}= \frac{\rho^4}{W_{xx}W_{yy}-W_{xy}^2}.
+\end{align}
+Once $z$ is obtained then the $\lambda_{ij}$ can be obtained and one can go on to obtain $f^N_{ES,a}$.
+
+\section{Results and Discussion}
+
+\begin{figure*}[ht]
+\centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/BE_ST_bn05}
+                \caption{ }
+                \label{fig:BE_Streamlines_bn05}
+        \end{subfigure}%
+				~
+				\begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/MB_ST_bn05}
+                \caption{ }
+                \label{fig:MB_Streamlines_bn05}
+        \end{subfigure}%
+				~
+				\begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/FD_ST_bn05}
+                \caption{ }
+                \label{fig:FD_Streamlines_bn05}
+        \end{subfigure}%
+	\caption{Streamline distributions of lid-driven cavity flow, $Re=1,000$ and parameter $b=-0.5$ for three statistics:
+	(\subref{fig:BE_Streamlines_bn05}) Bose-Einstein (\subref{fig:MB_Streamlines_bn05}) Maxwell-Boltzmann and
+ 	(\subref{fig:FD_Streamlines_bn05}) Fermi-Dirac.}
+	\label{fig:Streamlines_bn05}
+\end{figure*}
+
+Here, we report some computational examples to test the theory and to illustrate the present 2-D semiclassical lattice Boltzmann-ES-BGK method. We consider a 2-D lid-driven cavity flow filled with a semiclassical fluid. The lid-driven cavity flow problem in classical fluid is one of the most studied benchmarks for numerical incompressible Navier-Stokes solvers.  The lid-driven cavity flow exhibits several interesting physical features including the primary vortex, flow separation from the stationary wall and the existence of a sequence of viscous corner eddies in the rigid 90 degree-corners. This lid-driven cavity flow is usually laminar when the Reynolds number is small and can become unsteady when the Reynolds number is beyond a critical value and eventually the flow can become turbulent.
+
+The $N=2$ expansion order is used for this 2-D problem. The computational domain is $(x,y) \in  (-0.5,0.5)\times(-0.5,0.5)$ and is divided into $N_c^2$ uniform lattices.   The driven wall velocity is $u_{lid}=0.1$ in the top $y=+1/2$ plane and moves in the $x$-direction, the free stream temperature is $T_{0}=0.5$ and the Reynolds number is defined as $Re =u_{lid} L/\nu$, where $L$ is the length of the cavity and $\nu$ is the kinematic viscosity.   The kinetic viscosity $\nu$ of the fluid could be obtained from the given Reynolds number and the relaxation time $\tau$ is calculated according to $\tau_c^* =\frac{\nu}{T}+\frac{\delta t}{2}$.  The equilibrium density distribution function with the given lid-driven velocity and density is used to implement the boundary conditions at top wall.  A bounce back boundary treatment which enforcing the physical boundary condition is also adopted on all the walls except the top wall.
+The convergence condition for steady state solution is set as $ \sqrt{ \frac{ \sum_i |\bf{u} (\bf{x}_i, t)-\bf{u} (\bf{x}_i, t-\delta_t)|^2}{\sum_i |\bf{u} (\bf{x}_i, t^n)|^2 } } \leq 10^{-9}$.
+The grid convergence is tested for the case of $Re=1,000$ for three grid sizes $N_c=48, 64$ and $96$ and it is found that $N_c=81$ will give accurate and convergent results.  We have simulated three different Reynolds numbers, $Re=100$, $Re=400$ and $Re=1,000$ for semiclassical gases and the results are in good agreement with available data.  Several values of parameter $b$ (e.g., b=-0.5, b=0, and b=0.5) have been calculated. Here we only show the results for $Re=1,000$ and with $200 \times 200$ lattices for $b=-0.5$ which corresponding to $Pr=2/3$.
+The streamlines patterns are shown in Fig. 1, for the case of $Re=1,000$ for the Bose-Einstein, Maxwell-Boltzmann and Fermi-Dirac statistics, respectively.
+\begin{figure*}[ht]
+\centering
+        \begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/BE_Pxx_bn05}
+                \caption{ }
+                \label{fig:BE_Pxx_bn05}
+        \end{subfigure}%
+				~
+				\begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/MB_Pxx_bn05}
+                \caption{ }
+                \label{fig:MB_Pxx_bn05}
+        \end{subfigure}%
+				~
+				\begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/FD_Pxx_bn05}
+                \caption{ }
+                \label{fig:FD_Pxx_bn05}
+        \end{subfigure}%
+				
+				\begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/BE_Pxy_bn05}
+                \caption{ }
+                \label{fig:BE_Pxy_bn05}
+        \end{subfigure}%
+				~
+				\begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/MB_Pxy_bn05}
+                \caption{ }
+                \label{fig:MB_Pxy_bn05}
+        \end{subfigure}%
+				~
+				\begin{subfigure}[b]{0.3\textwidth}
+                \centering
+                \includegraphics[trim = 17mm 16mm 20mm 20mm,clip,width=0.9\textwidth]{figures/FD_Pxy_bn05}
+                \caption{ }
+                \label{fig:FD_Pxy_bn05}
+        \end{subfigure}%
+	\caption{Pressure tensor fields $P_{xx}$ (upper row) and $P_{xy}$ (lower row) of lid-driven cavity flow, $Re=1,000$ and parameter $b=-0.5$ for three statistics:
+	(\subref{fig:BE_Pxx_bn05},\subref{fig:BE_Pxy_bn05}) Bose-Einstein (\subref{fig:MB_Pxx_bn05},\subref{fig:MB_Pxy_bn05}) Maxwell-Boltzmann and
+ 	(\subref{fig:FD_Pxx_bn05},\subref{fig:FD_Pxy_bn05}) Fermi-Dirac.}
+	\label{fig:Pressure_Tensor_bn05}
+\end{figure*}
+
+As the Reynolds number increases from 100 to 1,000, the primary vortex becomes larger and moves toward the center and its strength is also intensified. A downstream secondary vortex is formed at the lower right corner for $Re=400$.  At $Re=1,000$, in addition to the small vortex at the lower right corner, another small vortex is formed at the lower left corner. It is observed from the plots that when $Re \ge 400$, a pair of transversal vortices are produced near the lower right and left corners, and with further increase of the Reynolds number, their locations gradually move to the lower bottom wall. The above classical LBM results based on Eq. (24) are in good agreement with previous works \cite{Yang1998,Alben2005} using different methods.
+
+Next, we show the results for the pressure tensor components $P_{xx}$ and $P_{xy}$ in Fig. 2 for $RE=1,000$ and $b=-0.5$.  The overall structures for the three statistics are similar, however, distinguishable differences can be detected.  For example, the vortex structure at the left, lower region for the Fermi-Dirac is more refined as compared with the other two. The results for $P_{yy}$ (not shown) are similar to $P_{xx}$ and the values of $P_{xy}$ is three order of magnitude smaller than that of $P_{xx}$.  It is noted that the values of Maxwell-Boltzmann statistics always lie between the other two as dictated by the values of $\chi$.
+
+Finally, we note that to assess quantitatively the effects of particle statistics in such a lid-driven cavity flow setting, as compared to the much simpler system considered in usual texts on statistical physics, is quite challenging. In general, the correction that is introduced by particle statistics appears as an attractive potential for Bose-Einstein statistics and as a repulsive potential for Fermi-Dirac statistics, for example, in the interpretation of the second virial coefficient of an ideal gas. Another line of interpretation of the effects of particle statistics can be found in \cite{Mullin2003}.
+It is stated that the effect of particle statistics is purely a geometric consequence of the symmetrization requirement. This geometrical interpretation leads directly to the changes in the average particle separation as compared to distinguishable particles. The identical FD particles are on average farther apart than distinguishable classical particles would be under the same circumstances. Consequently, the FD particles interact less and are less likely to scatter. Similarly, one can argue that identical BE particles are closer together on average than distinguishable particles, interact more and are more likely to scatter. For further details, see \cite{Mullin2003}. How to relate the above argument to the present 2-D cavity flow problem is not clear although distinguishable difference in flow patterns between the BE and FD statistics in such a flow environment has been clearly depicted.
+
+\section{Concluding Remarks}
+A semiclassical lattice Boltzmann-ES-BGK method is derived for hydrodynamics of gases of three statistics. The method is obtained by first projecting the UUB-ES-BGK equation onto the Hermite polynomial basis.  The lattice equilibrium distribution of the lattice Boltzmann equation for simulating semiclassical hydrodynamic flows is derived through expanding ellipsoidal statistical equilibrium distribution onto tensor Hermite polynomial basis to the desired finite order which is done in {\sl a priori} manner and is free of usual {\sl ad hoc} parameter-matching. The D2Q9 lattice model is used and the $N=2$ and $N=3$ expansion orders of semiclassical ES distribution are formulated. Computations of a two-dimensional lid-driven cavity flow for several Reynolds numbers ranging from Re=100 to Re=1000 and for all three particle statistics have been successfully carried out and the results exhibit all the main flow features such as primary vortex and secondary vortices. The results of BE and FD particle statistics depict similar flow structures of their corresponding classical results. The effect of particle statistics on the hydrodynamics can be qualitatively delineated, however, the quantitative assess of this effect due to particle statistics warrants further study.  The present construction provides semiclassical 2-D Navier-Stokes order solutions. Lastly, the present development of semiclassical lattice Boltzmann method provides a unified framework for a parallel treatment of gas systems of particles of arbitrary statistics.
+
+\acknowledgments
+This work is sponsored by NSC 99-2221-E002-084-MY3, CQSE Subproject \#5 97R0066-69 and CASTS Subproject \#4.
+
+\begin{thebibliography}{0}
+
+\bibitem{BGK1954} P. L. Bhatnagar, E. P. Gross and M. Krook, Phys. Rev. {\bf 94}, 511 (1954).
+\bibitem{ChenD1998} S. Chen and G. Doolen, Annu. Rev. Fluid Mech. {\bf 30}, 329 (1998).
+\bibitem{Succi2001} S. Succi, {\sl The lattice Boltzmann equation for fluid dynamics and beyond}, (Clarendon Press, Oxford, 2001).
+\bibitem{Aidun2010} C. K. Aidun and J. R. Clausen, Annu. Rev. Fluid Mech. {\bf 42}, 439-472 (2010).
+\bibitem{Frisch1} U. Frisch, B. Hasslacher, and Y. Pomeau, Pyhs. Rev. Lett. {\bf 56}, 1505 (1986).
+\bibitem{McN1988} G. McNamara and G. Zanetti, Phys. Rev. Lett. {\bf 61}, 2332 (1988).
+\bibitem{Qian1} Y. H Qian, D. D'Humieres, and P. Lallemand, Europhys. Lett. {\bf 17}, 479 (1992).
+\bibitem{Chen1992} H. Chen, S. Chen, and W. H. Matthaeus, Phys. Rev. A {\bf 45}, R5339 (1992).
+\bibitem{Rot1994} D. H. Rothman and S. Zaleski, Rev. Mod. Phys. {\bf 66}, 1417 (1994).
+\bibitem{Shan2006} X. Shan, X.-F. Yuan, and H. Chen, J. Fluid Mech. {\bf 550}, 413 (2006).
+\bibitem{Grad1} H. Grad, Commun. Pure Appl. Maths. {\bf 2}, 331 (1949).
+\bibitem{Ueh1933} E. A. Uehling and G. E. Uhlenbeck, Phys. Rev. {\bf 43}, 552 (1933 ).
+\bibitem{Holway1966} L. H. Holway, Phys. Fluids {\bf 21}:593-630 (1966).
+\bibitem{Lund2000} M. Lundstrom, {\sl Fundamentals of carrier transport}, (Cambridge University Press, 2000), 2nd ed.
+\bibitem{Chen2005} G. Chen, {\sl Nanoscale Energy Transfer}, (Oxford University Press, 2005).
+\bibitem{Yang2009} J. Y. Yang and L. H. Hung, Phys. Rev. E {\bf 99}, 54 (2009).
+\bibitem{Mrt2002} D. d'Humi\'{e}res, I. Ginzburg, M. Krafczyk, P. Lallemand, and L.-S. Luo, Philo. Trans. R. Soc. London A {\bf 360}:437-451 (2002).
+\bibitem{Meyer} D. A. Meyer, J. Stat. Phys. {\bf 85}, 551 (1996).
+\bibitem{Boghosian} B.M. Boghosian and W. Taylor, Phys. Rev. E {\bf 57}, 54 (1998).
+\bibitem{Yepez} J. Yepez, Phys. Rev. E {\bf 63}, 046702 (2001).
+\bibitem{Palpacelli} S. Palpacelli and S. Succi, Commun. Comput. Phys. {\bf 4}, 980 (2008).
+\bibitem{Chapcow} S. Chapman and  T. G. Cowling, {\sl The mathematical theory of non-uniform gases}, (Cambridge University Press, 1970), 3rd ed.
+\bibitem{Shi2008} Y. H. Shi and J. Y. Yang, J. Comput. Phys. {\bf 343}, 552 (2008).
+\bibitem{Henon87} M. Henon, Complex Systems, {\bf 1}, 649 (1987).
+\bibitem{Yang1998} J. Y. Yang, S. C. Yang, Y. N. Chen, and C. A. Hsu, J. Comput. Phys. {\bf 146}, 464 (1998).
+\bibitem{Alben2005} S. Albensoeder and H. C. Kuhlmann, J. Comput. Phys., {\bf 206}, 536 (2005).
+\bibitem{YuD2003} D.Yu, D., R. Mei, L.-S. Luo, and W. Shyy, W., Prog. Aerospace Sci. {\bf 39}:329-367(2003).
+\bibitem{Wu2012} L. Wu, J.P. Meng  and Y.H. Zhang, Proc. R. Soc. A {\bf 468}:1799-1823(2012).
+\bibitem{Zhang2013} J. P. Meng, Y. H. Zhang, N. Hadjiconstantinou, G. A. Radtke, and X. Shan, J. Fluid Mech., 718, 347-370 (2013).
+\bibitem{Mullin2003} W. J. Mullin and and G. Blaylock, Am. J. Phys., {\bf 71}, 1223 (2003).
+
+\end{thebibliography}
+
+\end{document}
+
