@@ -25,7 +25,7 @@
 \begin{document}
 
 %%%% Article title to be placed here
-\title{Numerical Solutions of Ideal Quantum Gas Dynamical Flows Governed by Semi-classical Ellipsoidal-Statistical Distribution}
+\title{Numerical Solutions of the Semi-classical Boltzmann Ellipsoidal-Statistical BGK Equation}
 
 \author{%%%% Author details
 Jaw-Yen Yang$^{1,2}$, Chin-Yuan Yan$^{1}$, Manuel Diaz$^{1}$, Juan-Chen Huang$^{3}$, Zhihui Li$^{4}$ and Hanxin Zhang$^{4}$}
@@ -38,10 +38,10 @@ $^{4}$China Aerodynamics Research and Development Center, Mianyang, 621000, CHIN
 
 
 %%%% Subject entries to be placed here %%%%
-\subject{Semi-classical Boltzmann equation, Semi-classical Ellipsoidal Statistical Model, Kinetic Numerical Method, Quantum Gas Dynamical Flows}
+\subject{Semi-classical Boltzmann equation, Semi-classical Ellipsoidal Statistical Model, Kinetic Numerical Method, Dilute Quantum Gas Flows}
 
 %%%% Keyword entries to be placed here %%%%
-\keywords{Semi-classical Boltzmann equation, Ellipsoidal statistical Bhatnagar-Gross-Krook, Total variation diminishing (TVD), Discrete ordinate method, Two-dimensional Riemann problems}
+\keywords{Semi-classical Boltzmann equation, Ellipsoidal statistical Bhatnagar-Gross-Krook, Total variation diminishing (TVD), Discrete ordinate method, Rarefied quantum gas flows}
 
 %%%% Insert corresponding author and its email address}
 \corres{Jaw-Yen Yang\\
@@ -49,7 +49,7 @@ $^{4}$China Aerodynamics Research and Development Center, Mianyang, 621000, CHIN
 
 %%%% Abstract text to be placed here %%%%%%%%%%%%
 \begin{abstract}
-The ideal quantum gas dynamics as manifested by the semiclassical ellipsoidal statistical equilibrium distribution as derived in \cite{Wu2012} is numerically studied for particles of three statistics.  This anisotropic ellipsoidal statistical (ES) equilibrium distribution was derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Fermi-Dirac or Bose-Einstein distribution. The present numerical method combines the discrete velocity (or momentum) ordinate method in momentum space and high resolution shock capturing method in physical space.   A decoding procedure to obtain the necessary parameters for determining the ellipsoidal statistic distribution is also devised.  Computations of two-dimensional Riemann problems are presented and various contours of the quantities unique to this ES model are illustrated.  The main flow features such as shock wave, expansion wave and slip line and their complex nonlinear interaction are depicted and are found to be consistent with existing calculations for classical gas.
+Computations of rarefied gas dynamical flows governed by the semiclassical Boltzmann ellipsoidal statistical Bhatnagar-Gross-Krook equation are presented for wide range of Knudsen numbers using an accurate numerical method.   The semiclassical anisotropic ellipsoidal statistical (ES) equilibrium distribution proposed by \cite{Wu2012} was derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Fermi-Dirac or Bose-Einstein distribution.  The present numerical method combines the discrete velocity (or momentum) ordinate method in momentum space and high resolution shock capturing method in physical space.   The semiclassical ES kinetic model contains additional higher order moments beyond the normal solution variables and a different decoding procedure to obtain the necessary parameters for determining the ellipsoidal statistical distribution is also devised.  Computations of two-dimensional Riemann problems covering various degree of rarefaction are presented and various contours of the quantities unique to this ES model are illustrated.  The main flow features such as shock wave, expansion wave and slip line and their complex nonlinear interaction are depicted and are found to be consistent with existing calculations for classical gas.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -67,16 +67,15 @@ The ideal quantum gas dynamics as manifested by the semiclassical ellipsoidal st
 \section{Introduction}
 \label{sec:1}
 
-The kinetic Boltzmann equation has been commonly used to describe various transport phenomena in classical dilute gases covering wide range of flow parameters such as Reynolds number, Mach number and Knudsen number.   Analogous to the classical Boltzmann equation, a semiclassical Boltzmann equation, which generalizing the collision term to treat collision of particles of quantum statistics, has been developed by Uehling and Uhlenbeck \cite{PhysRev.43.552}, see \cite{KadanoffBaym,PhysRev.43.552}.
-In recent years, due to the rapid advancements of nanotechnology, the device or structure characteristic length scales become comparable to the mean free path and the wavelength of energy and information carriers (mainly electrons, photons, phonons, and molecules), some of the classical continuum transport laws are no longer applicable.   It is generally believed that the microscopic description of Boltzmann equation (classical or semiclassical) is adequate to treat transport phenomena in the mesoscale range.  Hydrodynamic behaviour of quantum gases has been the subject of some prominent researches, see \cite{nikuni98,PhysRev.40.749,PhysRevB.35.7959}, and the application of quantum Boltzmann hydrodynamic equations have been implemented in the analysis of electron flows in quantum semiconductor devices, see \cite{Gardner1994,PhysRevB.39.9536,Woolard5146296}.  Besides, due to the different types of carriers may involve simultaneously in a single problem, it is desirable to have a method that can allow one to treat them in a unified and parallel manner.   With the semiclassical Boltzmann equation, it is possible to describe adequately the mesoscale transport of particles of arbitrary statistics.
+In recent years, due to the rapid advancements of nanotechnology, the device or structure characteristic length scales become comparable to the mean free path and the wavelength of energy and information carriers (mainly electrons, photons, phonons, and molecules), and the use of classical continuum and kinetic  descriptions to treat the transport phenomena may no longer be adequate.   Analogous to the classical Boltzmann equation, a semiclassical Boltzmann equation, which generalizing the collision term to treat collision of particles of quantum statistics, has been developed by Uehling and Uhlenbeck \cite{PhysRev.43.552}, see \cite{KadanoffBaym,PhysRev.43.552}.  It is generally believed that the microscopic description of semiclassical Boltzmann equation is adequate to treat semiclassical transport phenomena in the mesoscale range.  Hydrodynamic behaviour of quantum gases has been the subject of some prominent researches, see \cite{nikuni98,PhysRev.40.749,PhysRevB.35.7959}, and the application of quantum Boltzmann hydrodynamic equations have been implemented in the analysis of electron flows in quantum semiconductor devices, see \cite{Gardner1994,PhysRevB.39.9536,Woolard5146296}.  Besides, due to the different types of carriers may involve simultaneously in a single problem, it is desirable to have a method that can allow one to treat them in a unified and parallel manner.   With the semiclassical Boltzmann equation, it is possible to describe adequately the mesoscale transport of particles of arbitrary statistics covering wide range of flow parameters such as Reynolds number, Mach number and Knudsen number.
 
-The main difficulty encountered in solving the semiclassical Boltzmann equation is similar to that encountered in the classical counterpart and is mainly due to the complicated integral nature of its collision term.  The relaxation time approximation proposed by Bhatnagar, Gross and Krook (BGK) \cite{PhysRev.94.511} for the classical Boltzmann equation provides a simpler form of collision term and retains the principal effects of particle collisions and enables more tractable solution methods.  The relaxation time approximation is quite general and is applicable to the semiclassical Boltzmann equation.   The only change is that the equilibrium Maxwell-Boltzmann distribution in the classical case is replaced by the Bose-Einstein or Fermi-Dirac distribution depending on the types of carrier particles considered.  Indeed, the semiclassical Boltzmann-BGK equation has been widely used in electron carrier transport in semiconductor \cite{Lundstrom:2000,Fatemi1993209,Carrillo2003498,Majorana2001649,Carrillo2003JCEL,Carrillo2003b,Markowich2002,Pattamatta2009,Scaldaferri2007} and phonon energy transport in thermoelectric materials \cite{mit2005nanoscale}.   The main shortcoming of the classical BGK model is that the Prandtl number is equal to one while it is $2/3$ from the full Boltzmann equation.  In order to improve the classical Boltzmann-BGK model equation which does not produce correct Prandtl numbers, a new kinetic model called the ellipsoidal statistical model was proposed by Holway \cite{Holway1966}.  Analogously, a semiclassical ellipsoidal statistical kinetic model for quantum gases in the normal phase has been recently developed by Wu, Meng and Zhang \cite{Wu2012}.  This new model mimics the classical ellipsoidal statistical (ES) model of Holway \cite{Holway1966} and was derived by maximizing the corresponding entropy function under some constraints.   It possesses all the desirable features of a kinetic model and yields a correct Prandtl number for Fermi gases.   In the semiclassical Boltzmann-BGK equation, if the equilibrium Bose-Einstein or Fermi-Dirac distribution is replaced by the semiclassical ES distribution, then one has the semiclassical Boltzmann-ES-BGK equation \cite{Wu2012}.
+The main difficulty encountered in solving the semiclassical Boltzmann equation is similar to that encountered in the classical counterpart and is mainly due to its scattering or collision term.  The relaxation time approximation proposed by Bhatnagar, Gross and Krook (BGK) \cite{PhysRev.94.511} for the classical Boltzmann equation provides a simpler and useful model of collision term and retains the principal effects of particle collisions and enables more tractable solution methods.  The concept of the BGK relaxation time approximation, which takes into account the effect of the conservations of mass, momentum and energy of the two elastically colliding particles and eventually reaching an equilibrium state after some time, is quite general and is applicable to the semiclassical Boltzmann equation.   The only change needed is to replace the Maxwell-Boltzmann distribution in the classical case by the Bose-Einstein or Fermi-Dirac distribution depending on the types of carrier particles considered.  Indeed, the semiclassical Boltzmann-BGK equation has been widely used in electron carrier transport in semiconductor \cite{Lundstrom:2000,Fatemi1993209,Carrillo2003498,Majorana2001649,Carrillo2003JCEL,Carrillo2003b,Markowich2002,Pattamatta2009,Scaldaferri2007} and phonon energy transport in thermoelectric materials \cite{mit2005nanoscale}.   The main shortcoming of the classical BGK model is that the Prandtl number is fixed and equal to one which is quite different from the realistic problems.  In order to improve the classical Boltzmann-BGK model equation which does not produce correct Prandtl numbers, a new kinetic model called the ellipsoidal statistical (ES) model was proposed by Holway \cite{Holway1966}.  A H-theorem for the ES model has been proved \cite{Andrian2001}.   Analogously, a semiclassical ellipsoidal statistical kinetic model for quantum gases in the normal phase has been recently developed by Wu, Meng and Zhang \cite{Wu2012}.  This new model mimics the classical ellipsoidal statistical (ES) model of Holway \cite{Holway1966} and was derived by maximizing the corresponding entropy function under some constraints.   It possesses all the desirable features of a kinetic model and yields adjustable Prandtl numbers.   In the semiclassical Boltzmann-BGK equation, if the Bose-Einstein or Fermi-Dirac distribution is replaced by the semiclassical ES distribution, then one has the semiclassical Boltzmann-ES-BGK equation \cite{Wu2012}.   It is emphasized here that in the Fermi-Dirac or Bose-Einstein statistics, only the normal solution variables such number density, mean velocity, temperature and chemical potential (or fugacity) are involved; however, in the semiclassical ES distribution, additional pressure tensor variables are also involved.
 
-Theoretically, the Chapman-Enskog expansion method is usually applied to the full Boltzmann or model Boltzmann equation (classical or semiclassical) to yield sets of governing hydrodynamic transport equations, such as Euler, Navier-Stokes and Burnett equations which are respectively the zeroth order, first order and second order expansions in the parameter Knudsen number,  see \cite{Cowling1970}.   The zeroth order solution yields the equilibrium distribution in phase space and the Euler equations in physical space and governs the ideal gas dynamics.  The semiclassical ES equilibrium distribution is the zeroth order solution of the semiclassical Boltzmann-ES-BGK equation.  It is the main objective of this work to investigate the ideal gas dynamics as governed by the semiclassical ellipsoidal statistical equilibrium distribution as it has not been well explored before.   The main numerical method adopted is a direct solver in phase space for the semiclassical ellipsoidal statistical equilibrium distribution function.  The direct solver consists of two methods; one is the discrete ordinate method and the other the high resolution shock-capturing methods.   In the classical rarefied gas flow computation, the implementation of discrete ordinate method to nonlinear model Boltzmann equations has been developed by Yang and Huang \cite{Yang1995323}.  Such a direct method will allow one to examine the same physical flow problems but with different gas of particles.   Also, if the classical limit situations of the same flow problem are considered, then one expect to obtain similar or identical flow structures for the three statistics.   It is noted that even with the classical Maxwell-Boltzmann statistics, the present formulation includes the fugacity which is not seen in the original Boltzmann-BGK equation \cite{PhysRev.94.511} and most other existing works based on it.  Computer simulations of several two-dimensional Riemann problems in gas flows of arbitrary statistics are shown to illustrate the complex nonlinear wave manifestation of ideal quantum gas dynamics as governed by the semiclassical ES equilibrium distribution.
+Theoretically, the Chapman-Enskog expansion method is usually applied to the full Boltzmann or model Boltzmann equation (classical or semiclassical) to yield sets of governing hydrodynamic transport equations, such as Euler, Navier-Stokes and Burnett equations which are respectively the zeroth order, first order and second order expansions in the parameter Knudsen number,  see \cite{Cowling1970}.   The zeroth order solution yields the classical (or quantum) equilibrium distribution in phase space and the classical (or quantum) Euler equations in physical space and governs the ideal gas dynamics.  The semiclassical ES equilibrium distribution is the zeroth order solution of the semiclassical Boltzmann-ES-BGK equation.  In recent years, several works on the ideal quantum gas dynamics as governed by the Bose-Einstein and Fermi-Dirac equilibrium distribution have been presented \cite{Yang2005, Yang 2007}.    The objectives of this study are two fold. First, we present an accurate numerical method for solving the semiclassical Boltzmann-ES-BGK equation in phase space.  Second, we investigate the effect of different range of relaxation times which corresponding to different Knudsen numbers thus different degree of gas rarefaction.  The accurate numerical method consists of two parts; one is the discrete ordinate method and the other high resolution shock-capturing methods.   In the classical rarefied gas flow computation, the implementation of discrete ordinate method to nonlinear model Boltzmann equations has been developed by Yang and Huang \cite{Yang1995323}.  Extension to semiclassical Boltzmann-BGK equation has been reported \cite{Yang2013}.  Such a direct method will allow one to examine the same physical flow problems but with different gas of particles.   Also, if the classical limit situations of the same flow problem are considered, then one expects to obtain similar or identical flow structures for the three statistics.   It is noted that even taking the classical limit of the present equation, the fugacity is present which is not seen in the traditional Boltzmann-BGK equation \cite{PhysRev.94.511} and most other existing works based on it.  Computations of several two-dimensional Riemann problems in gas flows of arbitrary statistics for different range of relaxation times are shown to illustrate the complex rarefied gas dynamics as governed by the semiclassical Boltzmann-ES-BGK equation.
 
 % L. Wu, J. Meng and Y. Zhang, Kinetic modelling of the quantum gases in the normal phase, Proc. R. Soc. A, 2012, doi: 10.1098/rspa.2011.0673.
 
-The present paper is organized as follows.  Elements of semiclassical Boltzmann-ES-BGK equation is briefly described in Section \ref{sec:2}. Its relation with hydrodynamic equations is outlined. In Section \ref{sec:3}, governing equations in two space dimensions and their non-dimensional forms are detailed. In Section \ref{sec:4}, the present direct solution method in phase space is described.   The implementation of the discrete ordinate method and total variation diminishing schemes and the numerical quadrature to evaluate the macroscopic properties are detailed.   A decoding procedure to determine the key parameters for determining the equilibrium ES distribution is given.  In Section \ref{results}, numerical experiments of two-dimensional semiclassical Riemann problems of ideal gas dynamical flows are presented to illustrate the present method as well as the flow physics. Finally, concluding remarks will be given in Section \ref{remarks}.
+The present paper is organized as follows.  In Section \ref{sec:2}, the element of semiclassical Boltzmann-ES-BGK equation is briefly described  Its relation with hydrodynamic equations is outlined.  In Section \ref{sec:3}, governing equations in two space dimensions and their non-dimensional forms are detailed. In Section \ref{sec:4}, the present numerical solution method in phase space is described.   A decoding procedure to determine the parameters for determining the equilibrium ES distribution is given.  In Section \ref{results}, computations of two-dimensional semiclassical Riemann problems of ideal gas dynamical flows are presented for several relaxation times to illustrate the present method as well as the rarefied gas flows.  Finally, concluding remarks are given in Section \ref{remarks}.
 
 \section{Semiclassical Boltzmann-ES-BGK Equation}
 \label{sec:2}
@@ -85,9 +84,8 @@ In this section, the elements of semiclassical Boltzmann kinetic equation are br
 \begin{equation}
 \left(\frac{\partial f}{\partial t}+\frac{\bf p}{m}\cdot {\bf\nabla }_x-{\bf \nabla}_{\bf x} U({\bf x},t)\cdot {\bf\nabla }_{\bf p}\right)f\left({\bf p},{\bf x},t\right)=\left(\frac{\delta f}{\delta t}\right)^{UU}_{coll.}
 \end{equation}
-where $m$ is the particle mass, $U$ is the mean field potential and $f(\vec p, \vec x, t)$ is the distribution function
-which represents the average density of particles with momentum $\vec p$ at the space-time point $\vec x, t$. The $(\delta f
-/\delta t)_{coll.}$ denotes the collision term and according to Uehling and Uhlenbeck \cite{PhysRev.43.552}, it takes the form,
+where $f(\vec p, \vec x, t)$ is the distribution function which represents the average number density of particles with momentum $\vec p$ at the space-time point $\vec x, t$, $m$ is the particle mass, $U$ is the mean field potential.   The $(\delta f
+/\delta t)_{coll.}$ denotes the scattering or collision term and according to Uehling and Uhlenbeck \cite{PhysRev.43.552}, it takes the form,
 \begin{align}
 (\frac{\delta f} {\delta t})^{UU}_{coll.} &= \int d {\bf p} \int d\Omega
 K({\bf p}, {\bf q}, \Omega) \{ [ 1+ \theta f({\bf p}, t)][1+ \theta f({\bf q})]f({\bf p}^*, t)f({\bf q}^*, t) \nonumber \\
@@ -98,12 +96,12 @@ where $K({\bf p}, {\bf q}, \Omega)$ denotes the collision kernel and $\Omega$ is
 f^{eq}\left({\bf p},{\bf x},t\right) =\frac{1}{z^{-1}\,exp\left\{{\left[{\bf p}-m\,{\bf u}({\bf x},t) \right]}^2/2mk_BT({\bf x},t)\right\} -\theta }
 \label{eq:Semiclassical_equilibrium_PDF}
 \end{equation}
-where $ {\bf u}({\bf x},t)$ is the, mean velocity, $T({\bf x},t)$ is temperature, $k_B$ is the Boltzmann constant and $z\left({\bf x},t\right)= exp\left({\mu ({\bf x},t)/k_BT({\bf x},t)}\right)$ is the fugacity, where $\mu$ is the chemical potential.  In (\ref{eq:Semiclassical_equilibrium_PDF}), again, \(\theta=-1\), denotes the Fermi-Dirac statistics, \(\theta=+1\), the Bose-Einstein statistics and \(\theta=0\) denotes the Maxwell-Boltzmann statistics.
-To avoid the mathematical difficulty caused by the nonlinear integral collision term, the relaxation time approximation of Bhatnagar, Gross and Krook (BGK) is generally applied to replace the collision term of Uehling and Uhlenbeck, thus the semiclassical Boltzmann-BGK equation reads
+where ${\bf u}({\bf x},t)$ is the, mean velocity, $T({\bf x},t)$ is temperature, $k_B$ is the Boltzmann constant and $z\left({\bf x},t\right)= exp\left({\mu ({\bf x},t)/k_BT({\bf x},t)}\right)$ is the fugacity, where $\mu$ is the chemical potential.  In (\ref{eq:Semiclassical_equilibrium_PDF}), again, \(\theta=-1\), denotes the Fermi-Dirac statistics, \(\theta=+1\), the Bose-Einstein statistics and \(\theta=0\) denotes the Maxwell-Boltzmann statistics.
+To avoid the mathematical difficulty caused by the nonlinear integral collision term, the relaxation time approximation of Bhatnagar, Gross and Krook (BGK) is generally applied to yield the semiclassical Boltzmann-BGK equation
 \begin{equation}
 \left(\frac{\partial f}{\partial t}+\frac{\bf p}{m}\cdot {\bf\nabla }_x-{\bf \nabla}_{\bf x} U({\bf x},t)\cdot {\bf\nabla }_{\bf p}\right)f\left({\bf p},{\bf x},t\right) =\left(\frac{\delta f}{\delta t}\right)_{coll.}= -\ \frac{f-f^{eq}}{\tau }
 \end{equation}
-where $\tau$ is the relaxation time and needs to be specified for each carrier scattering and $f^{eq}$ is given by Eq. (\ref{eq:Semiclassical_equilibrium_PDF}). Inspired by the classical ES kinetic model \cite{Holway1966} and using the maximum entropy principle, a new kinetic model equation has been proposed for dilute quantum gases in the normal phase \cite{Wu2012}.  This semiclassical ellipsoidal statistical (ES) kinetic model equation preserves the main properties of the semiclassical Boltzmann equation, including conservation of mass, momentum and energy, the entropy dissipation property and the rotational invariance.   It also can provide correct Prandtl numbers.   This semiclaasical Boltzmann-ES-BGK equation can be expressed as
+where $\tau$ is the relaxation time and needs to be specified for each carrier scattering and $f^{eq}$ is given by Eq. (\ref{eq:Semiclassical_equilibrium_PDF}). Inspired by the classical ES kinetic model \cite{Holway1966} and using the maximum entropy principle, a new kinetic model equation has been proposed for dilute quantum gases in the normal phase \cite{Wu2012}.  This semiclassical ellipsoidal statistical (ES) kinetic model equation preserves the main properties of the semiclassical Boltzmann equation, including conservation of mass, momentum and energy, the entropy dissipation property and the rotational invariance.   It also can provide adjustable and correct Prandtl numbers.   This semiclaasical Boltzmann-ES-BGK equation can be expressed as
 \begin{equation}
 \left(\frac{\partial f}{\partial t}+\frac{\bf p}{m}\cdot {\bf\nabla }_x-{\bf \nabla}_{\bf x} U({\bf x},t)\cdot {\bf\nabla }_{\bf p}\right)f\left({\bf p},{\bf x},t\right) = -\ \frac{f-f^{ES}}{\tau }
 \label{eq:semiclassical_B_ESBGK}
@@ -122,7 +120,7 @@ n\left({\bf x},t\right) &= \int{\frac{\ d{\bf p}}{h^D}}\,f^{ES} \left({\bf p},{\
 W_{\alpha \beta} \left({\bf x},t\right) &= \int{\frac{\ d{\bf p}}{h^D}\,m C_{\alpha} C_{\beta} \,f^{ES} \left({\bf p},{\bf x}, t\right)}
 \end{align}
 \end{subequations}
-where $D$ is the dimension of momentum space. and $W_{\alpha \alpha} = P_{\alpha \alpha}$ is required for the conservation of energy.
+where $D$ is the dimension of momentum space and $W_{\alpha \alpha} = P_{\alpha \alpha}$ is required for the conservation of energy. For further details, see \cite{Wu2012}.
 
 In principle, after solving the semiclassical Boltzmann-ES-BGK equation for the (non-equilibrium) distribution function $f$, all the macroscopic dynamic variables of interest such as number density, momentum density and energy density are low order moments of the distribution function and are defined by:
 \begin{subequations}
@@ -164,37 +162,37 @@ The conservation laws of macroscopic properties can be obtained by multiplying E
 \label{eq:semiclassical_ES_Euler}
 \end{subequations}
 
-In this work, we will focus our effort on the case of {\em semiclassical ES Euler} limit in which the particle distribution function is always in reference equilibrium, i.e., $f=f^{ES}$ and the collision term of Eq. (\ref{eq:semiclassical_B_ESBGK}) vanishes automatically and the set of governing equations, Eqs. (\ref{eq:semiclassical_ES_Euler}) will be termed semiclassical ellipsoidal statistical (ES) Euler equations in order to distinguish it from the semiclassical Euler equations as governed by $f=f^{eq}$.  It is noted that $f^{ES}$ is not isotropic and has quantities like $W_{\alpha \beta}$ and is quite different from $f^{eq}$, the standard Bose-Einstein and Fermi-Dirac distributions, thus it is worth some detailed study to explore the gas dynamical flow features inherent in this peculiar equilibrium distribution before we take on the non-equilibrium gas flows as governed by semiclassical Boltzmann-ES-BGK equation, i.e., Eq. (\ref{eq:semiclassical_B_ESBGK}). In the later section, we will present the comparison of results with these two semiclassical Euler solutions.  In recent years, notable numerical methods to describe the ideal quantum gas flows have been developed, see \cite{1272832,Shi20089389,Jaw-YenYang05082006}.
+We note that in the {\em semiclassical ES Euler} limit in which the particle distribution function is always in reference equilibrium, i.e., $f=f^{ES}$ and the collision term of Eq. (\ref{eq:semiclassical_B_ESBGK}) vanishes automatically, the set of governing equations, Eqs. (\ref{eq:semiclassical_ES_Euler}) will be termed semiclassical ES Euler equations in order to distinguish it from the semiclassical Euler equations as governed by $f=f^{eq}$.  We also point out that $f^{ES}$ is not isotropic and has quantities like $W_{\alpha \beta}$ and is quite different from $f^{eq}$, the standard Bose-Einstein and Fermi-Dirac distributions.  In recent years, notable numerical methods to describe the ideal quantum gas flows have been developed, see \cite{JYY1272832,Shi20089389,JYY05082006}.
 
 \section{Governing Equations in Two Space Dimensions}
 \label{sec:3}
 Here, we give detailed description of the theory and governing equation in two space dimensions.  Without losing generality, we also neglect the influence of externally applied field \(U({\bf x},t)\).  It is noted that quantum statistics of ideal gases in two dimensions has striking features such as the specific heat for an ideal gas of Fermi particles is identical with that for an ideal Bose gas \cite{May1964}. The general method in three space dimensions can also be similarly formulated.   When $f=f^{ES}$, the semiclassical Boltzmann-ES-BGK equation in two space dimensions can be expressed as
 %%
 \begin{align}
-\frac{\partial f^{ES}({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial t} + {\upsilon}_x\,\frac{\partial f^{ES}({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial x } + {\upsilon}_y\,\frac{\partial f^{ES}({\upsilon}_x,{\upsilon}_y, x, y, t)} {\partial y} =0,
+\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial t} + {\upsilon}_x\,\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial x } + {\upsilon}_y\,\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)} {\partial y} =-\ \frac{f-f^{ES}}{\tau },
 \label{eq:normalized_B_ES_BGK}
 \end{align}
 %%
 with ${\upsilon}_x$ and ${\upsilon}_y$ as particle velocities.   The macroscopic properties are the various moments of $f^{ES}({\upsilon}_x,{\upsilon}_y,x,y,t)$,
 \begin{subequations}
 \begin{align}
-\rho (x,y,t) 			&= \int \frac{ d p_x}{h} \frac{ d p_y}{h} \, f^{ES}(p_x, p_y, x, y, t), \\
-u_x (x,y,t) 			&= \frac{1}{\rho} \int 	 \frac{ d p_x}{h} \, \frac{ d p_y}{h}  p_x \, f^{ES}(p_x, p_y, x, y, t), \\
-u_y (x,y,t) 			&= \frac{1}{\rho} \int 	 \frac{ d p_x}{h} \, \frac{ d p_y}{h}  p_y \, f^{ES}(p_x, p_y, x, y, t), \\
-\epsilon (x,y,t) 	&= \int \frac{ d p_x}{h} \frac{ d p_y}{h} \, \frac{(p_x^2 + p_y^2)}{2m} \, f^{ES}(p_x, p_y, x, y, t).
+\rho (x,y,t) 			&= \int \frac{ d p_x}{h} \frac{ d p_y}{h} \, f(p_x, p_y, x, y, t), \\
+u_x (x,y,t) 			&= \frac{1}{\rho} \int 	 \frac{ d p_x}{h} \, \frac{ d p_y}{h}  p_x \, f(p_x, p_y, x, y, t), \\
+u_y (x,y,t) 			&= \frac{1}{\rho} \int 	 \frac{ d p_x}{h} \, \frac{ d p_y}{h}  p_y \, f(p_x, p_y, x, y, t), \\
+\epsilon (x,y,t) 	&= \int \frac{ d p_x}{h} \frac{ d p_y}{h} \, \frac{(p_x^2 + p_y^2)}{2m} \, f(p_x, p_y, x, y, t).
 \end{align}
 \end{subequations}
 Additional information from $f^{ES}$ can also be defined accordingly to
 \begin{subequations}
 \begin{align}
-W_{x x}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_x}{m}-u_x)(\frac{p_x}{m}-u_x)\,f^{ES}(p_x, p_y, x, y, t), \\
-W_{x y}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_x}{m}-u_x)(\frac{p_y}{m}-u_y)\,f^{ES}(p_x, p_y, x, y, t), \\
-W_{y y}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_y}{m}-u_y)(\frac{p_y}{m}-u_y)\,f^{ES}(p_x, p_y, x, y, t).
+P_{x x}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_x}{m}-u_x)(\frac{p_x}{m}-u_x)\,f(p_x, p_y, x, y, t), \\
+P_{x y}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_x}{m}-u_x)(\frac{p_y}{m}-u_y)\,f(p_x, p_y, x, y, t), \\
+P_{y y}(x,y,t)	&=	\int \frac{ d p_x}{h} \frac{ d p_y}{h} \, (\frac{p_y}{m}-u_y)(\frac{p_y}{m}-u_y)\,f(p_x, p_y, x, y, t).
 \end{align}
 \end{subequations}
-We also have the gas pressure $p(x,y,t) = \frac{W_{xx} + W_{yy}}{2}$.  The pressure tensor $P_{\alpha \beta}(x,y,t)$ can be obtained through
+We also have the gas pressure $p(x,y,t) = \frac{P_{xx} + P_{yy}}{2}$.  The tensor $W_{\alpha \beta}(x,y,t)$ can be obtained through
 \begin{align}
-&P_{xx} = [W_{xx} - (1-b)p]/b,&  &P_{xy} = W_{xx}/b,&  &P_{yy} = [W_{yy} - (1-b)p]/b.&
+&W_{xx} =(1-b)p + b P_{xx},&  &W_{xy} = b P_{xx},&  &W_{yy} = (1-b)p + bP_{yy}.&
 \label{eq:pressure_tensor_variables}
 \end{align}
 For the conservation of energy, $W_{xx} +W_{yy} = P_{xx} + P_{yy}$ is required.
@@ -206,8 +204,6 @@ To obtain the new $f^{ES}$, one needs $z$ and $\lambda_{xx}, \lambda_{xy}\lambda
 \end{align}
 \end{subequations}
 Computationally, this requires a root finding procedure and either Newton-Ralphson method or bisector method can be employed.
-
-It is emphasized here that in the semiclassical ellipsoidal statistical equilibrium flows, the main concern here is the $f^{ES}$ and the macroscopic properties generated from the moments of $f^{ES}$, thus we first have $W_{\alpha \beta}$ instead of $P_{\alpha \beta}$ and the pressure tensor quantities are computed from $W_{\alpha \beta}$ and specified by parameter $b$.  In the semiclassical Boltzmann-ES-BGK non-equilibrium flows, our concern will be $f$ and we will have pressure tensor $P_{\alpha \beta}$ instead of $W_{\alpha \beta}$.
 
 \subsection{Governing Equations in Non-Dimensional Form}
 \label{subsec:3_1}
@@ -231,7 +227,7 @@ with $L$ defined as the characteristic length of the problem. Hence the definiti
 After non-dimensionalizing the equation, we have the normalized semiclassical Boltzmann-ES equation in two space dimensions as follow.
 %%
 \begin{equation}
-\frac{\partial\hat{f}^{ES}(\hat{\upsilon}_x,\hat{\upsilon}_y,\hat{x},\hat{y},\hat{t})}{\partial\hat{t}} + \hat{\upsilon}_x\,\frac{\partial\hat{f}^{ES}(\hat{\upsilon}_x,\hat{\upsilon}_y,\hat{x},\hat{y},\hat{t})}{\partial\hat{x}} + \hat{\upsilon}_y\,\frac{\partial\hat{f}^{ES}(\hat{\upsilon}_x,\hat{\upsilon}_y,\hat{x},\hat{y},\hat{t})}{\partial\hat{y}} = 0,
+\frac{\partial\hat{f}(\hat{\upsilon}_x,\hat{\upsilon}_y,\hat{x},\hat{y},\hat{t})}{\partial\hat{t}} + \hat{\upsilon}_x\,\frac{\partial\hat{f}(\hat{\upsilon}_x,\hat{\upsilon}_y,\hat{x},\hat{y},\hat{t})}{\partial\hat{x}} + \hat{\upsilon}_y\,\frac{\partial\hat{f}(\hat{\upsilon}_x,\hat{\upsilon}_y,\hat{x},\hat{y},\hat{t})}{\partial\hat{y}} = -\ \frac{\hat{f}-\hat{f}^{ES}}{\hat{\tau} },
 \label{eq:normalized_B_ES_BGK_2D}
 \end{equation}
 %%
@@ -254,7 +250,7 @@ For the sake of completeness and for later comparison, we also describe the case
 %%
 \begin{align}
 f^{eq}(p_x,p_y,x,y,t) =
-\frac{1}{z^{-1}\,\exp\left\{ \left[ (\hat{p}_x- \hat{u}_x)^2 + (\hat{p}_y- \hat{u}_y)^2 \right]/2\hat{T} \right\} -\theta}
+\frac{1}{z^{-1}\,\exp\left\{ \left[ \hat{C}_x^2 + \hat{C}_y^2 \right]/2\hat{T} \right\} -\theta}
 \end{align}
 The macroscopic moments, i.e., number density \(n(x,y,t)\), momentum \(j(x,y,t)\) and energy density \(\epsilon(x,y,t)\) can now be expressed in terms of quantum functions and are given by
 %%
@@ -267,7 +263,7 @@ j_x(x,y,t) &= \int\int{\frac{dp_x\,dp_y}{h^2}\frac{p_x}{m}f^{eq}(p_x,p_y,x,y,t)}
 j_y(x,y,t) &= \int\int{\frac{dp_x\,dp_y}{h^2}\frac{p_y}{m}f^{eq}(p_x,p_y,x,y,t)}\nonumber \\
 &= n(x,y,t)u_y(x,y,t)  \\
 \epsilon(x,y,t) &= \int\int{\frac{dp_x\,dp_y}{h^2}\frac{{p_x}^2+{p_x}^2}{2m}f^{eq}(p_x,p_y,x,y,t)}\nonumber \\
-&= \frac{\mathcal{Q}_{2}(z)}{\beta\lambda^2}+\frac{1}{2}mn({u_x}^2+{u_y}^2)
+&= \frac{\mathcal{Q}_{2}(z)}{\beta\lambda^2}+\frac{1}{2}m n({u_x}^2+{u_y}^2)
 \end{align}
 \end{subequations}
 where \(\lambda=\sqrt{\frac{\beta h^2}{2\pi m}}\) is the thermal wavelength and \(\beta=1/k_{B} T(x,t)\).  The functions $\mathcal{Q}_{\nu}(z)$ of order $\nu$ are respectively defined for either the Fermi-Dirac or the Bose-Einstein statistics as
@@ -290,10 +286,10 @@ In two-dimensional case, we may apply Gauss-Hermite quadrature rule over the int
 The discrete points $\upsilon_\alpha$ and the corresponding weights $W_\alpha$, with $\alpha=\sigma,\delta$, are tabulated in the table of the Gauss-Hermite quadrature, see \cite{abramowitz+stegun}.
 Applying the discrete ordinate method to Eq. (\ref{eq:normalized_B_ES_BGK_2D}) with $(\upsilon_\alpha)$, then we have a set of partial differential equations in physical space $(x,y,t)$  instead of a single equation in phase space.
 \begin{equation}
-\frac{\partial f^{ES}_{\sigma,\delta}(x,y,t)}{\partial t} + {\upsilon}_{\sigma}\,\frac{\partial f^{ES}_{\sigma,\delta} (x,y,t)}{\partial x} + \upsilon_{\delta}\,\frac{\partial f^{ES}_{\sigma,\delta} (x,y,t)}{\partial y} = 0.
+\frac{\partial f_{\sigma,\delta}(x,y,t)}{\partial t} + {\upsilon}_{\sigma}\,\frac{\partial f_{\sigma,\delta} (x,y,t)}{\partial x} + \upsilon_{\delta}\,\frac{\partial f_{\sigma,\delta} (x,y,t)}{\partial y} = -\ \frac{f_{\sigma,\delta} - f_{\sigma,\delta}^{ES}}{\tau},
 \label{eq:normalized_B_ES_BGK_2D_withDOM}
 \end{equation}
-where $f^{ES}_{\sigma,\delta}(x,y,t)$ is the value of $f^{ES}(\upsilon_x,\upsilon_y,x,y,t)$ at discrete velocity point $(\upsilon_x=\upsilon_\sigma,\upsilon_y=\upsilon_\delta)$.
+where $f_{\sigma,\delta}(x,y,t)=f(\upsilon_x,\upsilon_y,x,y,t)$ and similarly for $f^{ES}{\sigma,\delta}(x,y,t)$.
 Once the discrete distribution functions $f_{\sigma,\delta}(x,y,t)$ are solved, for every time level we can acquire and update the macroscopic moments in the physical space using a selected quadrature method as described below.
 % Macroscopic Moments
 \begin{subequations}
@@ -301,72 +297,62 @@ Once the discrete distribution functions $f_{\sigma,\delta}(x,y,t)$ are solved, 
 \begin{align}
 	\begin{split}
 % Number Density
-\rho(x,y,t) &= \int^{\infty}_{-\infty}{[f^{ES}(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}]e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y}  \\
-&=\sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f^{ES}_{\sigma,\delta}} \\
+\rho(x,y,t) &= \int^{\infty}_{-\infty}{[f(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}]e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y}  \\
+&=\sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f_{\sigma,\delta}} \\
 	\end{split}
 \end{align}
 
 \begin{align}
 	\begin{split}
 % x-Velocity
-u_x(x,y,t) &= \frac{1}{\rho} \int^{\infty}_{-\infty}{[\upsilon_x\,f^{ES}(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}]e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y}  \\
-&= \frac{1}{\rho} \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{\upsilon_\sigma\,W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2} e^{{\upsilon_\delta}^2}f^{ES}_{\sigma,\delta}}  \\
+u_x(x,y,t) &= \frac{1}{\rho} \int^{\infty}_{-\infty}{[\upsilon_x\,f(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}]e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y}  \\
+&= \frac{1}{\rho} \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{\upsilon_\sigma\,W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2} e^{{\upsilon_\delta}^2}f_{\sigma,\delta}}  \\
 	\end{split}
 \end{align}
 
 \begin{align}
 	\begin{split}
 % y-Velocity
-u_y(x,y,t) &= \frac{1}{\rho} \int^{\infty}_{-\infty}{[\upsilon_y\,f^{ES}(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}]e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y}  \\
-&= \frac{1}{\rho} \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{\upsilon_\delta\,W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2} e^{{\upsilon_\delta}^2}f^{ES}_{\sigma,\delta}} \\
+u_y(x,y,t) &= \frac{1}{\rho} \int^{\infty}_{-\infty}{[\upsilon_y\,f(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}]e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y}  \\
+&= \frac{1}{\rho} \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{\upsilon_\delta\,W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2} e^{{\upsilon_\delta}^2}f_{\sigma,\delta}} \\
 	\end{split}
 \end{align}
 
 \begin{align}
 	\begin{split}
 % Energy Density
-\epsilon(x,y,t) &= \int^{\infty}_{-\infty}{[\frac{\upsilon^2_x+\upsilon^2_y}{2}\,f^{ES}(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}] e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y} \\
-&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{(\frac{\upsilon^2_\sigma+\upsilon^2_\delta}{2})W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2} e^{{\upsilon_\delta}^2}f^{ES}_{\sigma,\delta}}
+\epsilon(x,y,t) &= \int^{\infty}_{-\infty}{[\frac{\upsilon^2_x+\upsilon^2_y}{2}\,f(\upsilon_x,\upsilon_y,x,y,t)e^{{\upsilon_x}^2}\,e^{{\upsilon_y}^2}] e^{-{\upsilon_x}^2}e^{-{\upsilon_y}^2}d\upsilon_x d\upsilon_y} \\
+&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2}{(\frac{\upsilon^2_\sigma+\upsilon^2_\delta}{2})W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2} e^{{\upsilon_\delta}^2}f_{\sigma,\delta}}
 	\end{split}
 \end{align}
 
 \begin{align}
 	\begin{split}
 % xx-Pressure Tensor component
-W_{xx}(x,y,t) &= \int^{\infty}_{-\infty} (\upsilon_x - u_x)^2 \, f^{ES}(\upsilon_x,\upsilon_y,x,y,t) e^{\upsilon_x^2}\,e^{\upsilon_y^2}] e^{-{\upsilon_x}^2} e^{-{\upsilon_y}^2} d\upsilon_x d\upsilon_y \\
-&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2} (\upsilon_{\sigma} - u_x)^2 W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f^{ES}_{\sigma,\delta}
+P_{xx}(x,y,t) &= \int^{\infty}_{-\infty} (\upsilon_x - u_x)^2 \, f(\upsilon_x,\upsilon_y,x,y,t) e^{\upsilon_x^2}\,e^{\upsilon_y^2}] e^{-{\upsilon_x}^2} e^{-{\upsilon_y}^2} d\upsilon_x d\upsilon_y \\
+&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2} (\upsilon_{\sigma} - u_x)^2 W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f_{\sigma,\delta}
 	\end{split}
 \end{align}
 
 \begin{align}
 	\begin{split}
 % xy-Pressure Tensor component
-W_{xy}(x,y,t) &= \int^{\infty}_{-\infty} (\upsilon_x - u_x) (\upsilon_y - u_y) \, f^{ES}(\upsilon_x,\upsilon_y,x,y,t) e^{\upsilon_x^2}\,e^{\upsilon_y^2}] e^{-{\upsilon_x}^2} e^{-{\upsilon_y}^2} d\upsilon_x d\upsilon_y \\
-&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2} (\upsilon_{\sigma} - u_x) (\upsilon_{\delta} - u_y) W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f^{ES}_{\sigma,\delta}
+P_{xy}(x,y,t) &= \int^{\infty}_{-\infty} (\upsilon_x - u_x) (\upsilon_y - u_y) \, f(\upsilon_x,\upsilon_y,x,y,t) e^{\upsilon_x^2}\,e^{\upsilon_y^2}] e^{-{\upsilon_x}^2} e^{-{\upsilon_y}^2} d\upsilon_x d\upsilon_y \\
+&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2} (\upsilon_{\sigma} - u_x) (\upsilon_{\delta} - u_y) W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f_{\sigma,\delta}
 	\end{split}
 \end{align}
 
 \begin{align}
 	\begin{split}
 % yy-Pressure Tensor component
-W_{yy}(x,y,t) &= \int^{\infty}_{-\infty} (\upsilon_x - u_x)^2 \, f^{ES}(\upsilon_x,\upsilon_y,x,y,t) e^{\upsilon_x^2}\,e^{\upsilon_y^2}] e^{-{\upsilon_x}^2} e^{-{\upsilon_y}^2} d\upsilon_x d\upsilon_y \\
-&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2} (\upsilon_{\sigma} - u_y)^2 W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f^{ES}_{\sigma,\delta}  \\
+P_{yy}(x,y,t) &= \int^{\infty}_{-\infty} (\upsilon_x - u_x)^2 \, f(\upsilon_x,\upsilon_y,x,y,t) e^{\upsilon_x^2}\,e^{\upsilon_y^2}] e^{-{\upsilon_x}^2} e^{-{\upsilon_y}^2} d\upsilon_x d\upsilon_y \\
+&= \sum^{N_1}_{\sigma=-N_1}\sum^{N_2}_{\sigma=-N_2} (\upsilon_{\sigma} - u_y)^2 W_\sigma\,W_\delta\,e^{{\upsilon_\sigma}^2}e^{{\upsilon_\delta}^2}f_{\sigma,\delta}  \\
 	\end{split}
 \end{align}
 
 \end{subequations}
 
-Once the values of $W_{\alpha \beta}$ have been obtained, the gas pressure can be computed by doing $p(x,y,t) = \frac{W_{xx} + W_{yy}}{2}$ and the pressure tensor components by following relations (\ref{eq:pressure_tensor_variables}). \\
-
-%Once the values of $W_{\alpha \beta}$ have been obtained, the pressure and pressure tensor are given by
-%\begin{subequations}
-%\begin{align}
-%p(x,y,t) 	&= (W_{xx} + W_{yy})/2, \\
-%P_{xx} 		&= [W_{xx} - (1-b)p]/b, \\
-%P_{yy} 		&= [W_{yy} - (1-b)p]/b, \\
-%P_{xy} 		&= W_{xx}/b.
-%\end{align}
-%\end{subequations}
+Once the values of $P_{\alpha \beta}$ have been obtained, the gas pressure can be computed by doing $p(x,y,t) = \frac{P_{xx} + P_{yy}}{2}$ and the tensor components $W_{\alpha \beta}$ by Eq.(25) (\ref{eq:pressure_tensor_variables}). \\
 
 Here, note that the selection criteria of a suitable quadratures is to guarantee that the macroscopic moments can be accurately computed by requiring the accurate representation of the distribution function with suitable velocity range being covered. In the present work Gauss-Hermite quadrature was employed, however the equally spaced Newton-Cotes formula can also be used if one needs to cover the high energy tail of the distribution function.
 
@@ -375,9 +361,10 @@ Here, note that the selection criteria of a suitable quadratures is to guarantee
 In this subsection, we describe the numerical algorithm to solve the set  of Eq. (\ref{eq:normalized_B_ES_BGK_2D_withDOM}).  A class of total variation diminishing (TVD) schemes is implemented to solve the set of conservation laws.   We firstly discretize the space $x,y$  and time $t$ into a number of cells centered at $i,j$ at time $n$, hence we approximate $f^{ES}_{\sigma,\delta}(x,y,t)$ by ${f^{ES}_{\sigma,\delta}}_{i,j}^{n}$. In terms of numerical fluxes, the evolution from $n^{th}$ time level to $(n+1)^{th}$ time level is expressed by
 \begin{align}
 	\begin{split}
-{f^{ES}_{\sigma,\delta}}_{i,j}^{n+1} = {f^{ES}_{\sigma,\delta}}_{i,j}^{n}
+f_{\sigma,\delta,i,j}^{n+1} = f_{\sigma,\delta, i,j}^{n}
 &-\frac{\Delta t}{\Delta x}\left(F_{i+1/2,j}^N-F_{i-1/2,j}^N\right) \\
-&-\frac{\Delta t}{\Delta y}\left(G_{i,j+1/2}^N - G_{i,j-1/2}^N\right)
+&-\frac{\Delta t}{\Delta y}\left(G_{i,j+1/2}^N - G_{i,j-1/2}^N\right) \\
+&-\frac{f_{\sigma,\delta,i,j}^n - f_{\sigma,\delta,i,j}^{ES,n}}{\tau}
 	\end{split}
 \end{align}
 where the numerical fluxes are defined by
@@ -386,8 +373,8 @@ where the numerical fluxes are defined by
 \end{align}
 The split flux vectors in Eq. (4.6) are defined by
 \begin{align}
-&F_{i,j}^{+} = \upsilon_\sigma^+ f^{ES}_{\sigma,\delta;i,j},& &F_{i,j}^{-} = \upsilon_\sigma^-f^{ES}_{\sigma,\delta;i,j},& \nonumber \\
-&G_{i,j}^{+} = \upsilon_\delta^+ f^{ES}_{\sigma,\delta;i,j},& &G_{i,j}^{-} = \upsilon_\delta^-f^{ES}_{\sigma,\delta;i,j}.&
+&F_{i,j}^{+} = \upsilon_\sigma^+ f_{\sigma,\delta;i,j},& &F_{i,j}^{-} = \upsilon_\sigma^-f_{\sigma,\delta;i,j},& \nonumber \\
+&G_{i,j}^{+} = \upsilon_\delta^+ f_{\sigma,\delta;i,j},& &G_{i,j}^{-} = \upsilon_\delta^-f_{\sigma,\delta;i,j}.&
 \end{align}
 Here, $\upsilon_\sigma^{\pm} = (\upsilon_\sigma \pm |\upsilon_\sigma |)/2$ and $\upsilon_\delta^{\pm} = (\upsilon_\delta \pm |\upsilon_\delta |)/2$. \\ The numerical flux for a TVD scheme can be given by
 \begin{eqnarray}
@@ -397,8 +384,9 @@ F_{i+1/2,j}^N &=& \left(F_{i+1/2,j}^++F_{i+1/2,j}^-\right)\nonumber\\
 with $\phi({\theta_x}_{i,j})$ chosen to be the van Leer limiter \cite{vanLeer1979101} given by
 \begin{eqnarray}
 \phi({\theta_x}_{i,j})&=&\frac{(|{\theta_x}_{i,j}|+{\theta_x}_{i,j})}{1+|{\theta_x}_{i,j}|}\nonumber\\
-{\theta_x}_{i,j}&=&\frac{{f_{\sigma,\delta}}_{i'+1,j}^{n}-{f_{\sigma,\delta}}_{i',j}^{n}}{{f_{\sigma,\delta}}_{i+1,j}^{n}-{f_{\sigma,\delta}}_{i,j}^{n}}\,,\hspace{0.1in} i'=i-{\mbox{sgn}}\left(\upsilon_\sigma\frac{\Delta t}{\Delta x}\right)
+{\theta_x}_{i,j}&=&\frac{{f_{\sigma,\delta}}_{i'+1,j}^{n}-{f_{\sigma,\delta}}_{i',j}^{n}}{{f_{\sigma,\delta}}_{i+1,j}^{n}-{f_{\sigma,\delta}}_{i,j}^{n}}\,hspace{0.1in} i'=i-{\mbox{sgn}}\left(\upsilon_\sigma\frac{\Delta t}{\Delta x}\right)
 \end{eqnarray}
+
 
 The expression of $G_{i,j+1/2}^N$ can be derived similarly.
 
@@ -421,12 +409,12 @@ We can then substitute the above quantities to the $f^{ES}$ distribution functio
 \section{Computational Results}
 \label{results}
 
-In this section we present the results of selected computational tests.  Here, we test our algorithm to solve two-dimensional Riemann problems of semiclassical gas dynamics.
+In this section we present the results of selected computational tests.  Here, we test our solution method by solving two-dimensional Riemann problems of semiclassical rarefied gas dynamics.
 
 \subsection{Two-dimensional Riemann problems}
 \label{Riemannp}
 
-We computationally study the two-dimensional Riemann problems for ideal quantum gas dynamics using the present direct solver for the semiclassical Boltzmann-ES-BGK in the $Kn =0$ limit, i.e., $f=f^{ES}$.  Following the works of Lax and Liu \cite{Laxliu95}, Schultz-Rinne et al. \cite{schultzrinne} and  \cite{ZhangZheng90}, we selected several configurations to be tested among those 19 configurations classified.  We also follow the notations used there, namely, $J$, denotes slip line, $R$, rarefaction wave and $S$, shocks and forward arrow indicates forward waves and backward arrow indicates backward waves. In the Riemann problems of two-dimensional gas dynamics, the initial state is in equilibrium and kept constant in each of the four quadrants. See the illustration in Fig. \ref{fig:quadrants}.
+We numerically study the two-dimensional Riemann problems for rarefied quantum gas dynamics for several relaxation times using the present direct solver for the semiclassical Boltzmann-ES-BGK equation.   In the $\tau \approx 0$, i.e.,  $Kn \approx 0$ limit, then $f \approx f^{ES}$, we can recover the ideal gas dynamics governed by the Euler solution.  Following the works of Lax and Liu \cite{Laxliu95}, Schultz-Rinne et al. \cite{schultzrinne} and  \cite{ZhangZheng90}, we selected several configurations to be tested among those 19 configurations classified.  We also follow the notations used there, namely, $J$, denotes slip line, $R$, rarefaction wave and $S$, shocks and forward arrow indicates forward waves and backward arrow indicates backward waves. In the Riemann problems of two-dimensional gas dynamics, the initial state in each of the four quadrants is in equilibrium and kept constant. See the illustration in Fig. \ref{fig:quadrants}.
 The set up is made so that only one elementary wave, a one-dimensional shock, $\vec{S}$, a one-dimensional rarefaction wave, $\vec{R}$, or a two-dimensional slip line (or contact discontinuity), $J$, appears at each interface.  The computational domain is $(x,y) \in [0,1]\times [0,1]$ and is divided into equal intervals with $\Delta x= \Delta y$.  After some mesh refinement tests, we found that $200\times 200$ grids with $\Delta x=\Delta y=0.005$ and the Gauss-Hermite quadrature rule with 20 abscissas both in $\upsilon_x$ and $\upsilon_y$ directions will yield good resolution of the major flow features and all the results below are obtained with these mesh and discrete velocity system.
 Specifically, we consider two configurations, namely the \emph{Configuration 5} and \emph{Configuration 17} among the 19 genuinely different configurations classified in \cite{Laxliu95}\cite{schultzrinne}\cite{ZhangZheng90}. To satisfy these constraints, the set initial data must satisfy the Rankine-Hugoniot relations i.e., for given a pair of left and right states (denoted by the indices $l$ and $r$), we define the two configurations as follows.\\
 
@@ -443,7 +431,7 @@ This is the four slip lines case with motion in the opposite directions.  We hav
 {J_{21}},J_{32},J_{34},{J_{41}},&\hspace{0.1in}P_1=P_2=P_3=P_4\\
 u_{x1}=u_{x2}<u_{x3}=u_{x4},&\hspace{0.2in}u_{y1}=u_{y4}<u_{y3}=u_{y2}
 \end{align*}
-ithHere, $E_{ij}$ denotes an elementary wave $E$ between the $i$th and $j$th quadrant and$E$ can be either $J$, $\vec{S}$ or $\vec{R}$.  The initial constant states at the four quadrants are specified as
+Here, $E_{ij}$ denotes an elementary wave $E$ between the $i$th and $j$th quadrant and$E$ can be either $J$, $\vec{S}$ or $\vec{R}$.  The initial constant states at the four quadrants are specified as
 
 \begin{align*}
 z_2	&=0.4253& 	u_{y2}&=0.5& 	z_1&=0.142& 		u_{y1}&=-0.5& \\
@@ -469,6 +457,115 @@ z_3		&=0.38& u_{y3}	&=0.12& z_4			&=0.14&		u_{y4}	&=-0.98& 	\\
 u_{x3}&=0& 		T_3			&=0.77& u_{x4}	&=0& 			T_4			&=1.31&		\\
 \end{align*}
 It is noted that with the macroscopic quantities $(z, \vec u, T)$ specified for each quadrant at time $t=0$, one can then define the equilibrium distribution $f^{ES}=f^{eq}$ for each quadrant at $t=0$ as the initial condition.  Thus the 2-D Riemann problem is completely specified on the distribution function and one starts marching in time the solution of distribution function.  This is rather different from the traditional 2-D Riemann problems, \cite{Laxliu95}  \cite{schultzrinne}.
+
+In this configuration, shock, slip line, and rarefaction fan are conjectured to be propagating from interfaces of the four quadrants. A shock shall be seen propagating through quadrants 3 and 2, rarefaction fan through quadrants 4 and 1 and slip discontinuities through quadrants 2 and 1 and through quadrants 4 and 1. \\
+
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_n}
+                \caption{$\tau = 1/10,000$}
+                \label{fig:5ESBGK_FD_n_tau0001}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_n}
+                \caption{$\tau = 1/1,000$}
+                \label{fig:5ESBGK_FD_n_tau001}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_n}
+                \caption{$\tau = 1/100$}
+                \label{fig:5ESBGK_FD_n_tau01}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_p}
+                \caption{$\tau = 1/10,000$}
+                \label{fig:5ESBGK_FD_p_tau0001}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_p}
+                \caption{$\tau = 1/1,000$}
+                \label{fig:5ESBGK_FD_p_tau001}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_p}
+                \caption{$\tau = 1/100$}
+                \label{fig:5ESBGK_FD_p_tau01}
+        \end{subfigure}
+        \caption{Comparison of results for \emph{Configuration 5} for FD gas and three relaxation times with parameter $\it{b=0.5}$ and TVD method.}
+				\label{fig:FD_config5_tau_comparison}
+\end{figure}
+
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_pxx}
+                \caption{$\tau = 1/10,000$}
+                \label{fig:5ESBGK_FD_pxx_tau0001}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_pxx}
+                \caption{$\tau = 1/1,000$}
+                \label{fig:5ESBGK_FD_pxx_tau001}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_pxx}
+                \caption{$\tau = 1/100$}
+                \label{fig:5ESBGK_FD_pxx_tau01}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_pxy}
+                \caption{$\tau = 1/10,000$}
+                \label{fig:5ESBGK_FD_pxy_tau0001}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_pxy}
+                \caption{$\tau = 1/1,000$}
+                \label{fig:5ESBGK_FD_pxy_tau001}
+        \end{subfigure}
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.32\textwidth}
+                \centering
+                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_pxy}
+                \caption{$\tau = 1/100$}
+                \label{fig:5ESBGK_FD_pxy_tau01}
+        \end{subfigure}
+        \caption{Comparison of pressure tensor for \emph{Configuration 5} with FD gas and three relaxation times with parameter $\it{b=0.5}$ and TVD method.}
+				\label{fig:FD_config5_Ptensor_comparison}
+\end{figure}
+
 
 \begin{figure}
         \centering
@@ -622,61 +719,9 @@ It is noted that with the macroscopic quantities $(z, \vec u, T)$ specified for 
 				\label{fig:test_configuration5_tau001}
 \end{figure}
 
-In this configuration, shock, slip line, and rarefaction fan are conjectured to be propagating from interfaces of the four quadrants. A shock shall be seen propagating through quadrants 3 and 2, rarefaction fan through quadrants 4 and 1 and slip discontinuities through quadrants 2 and 1 and through quadrants 4 and 1. \\
 
-We first report the results for the \emph{Configuration 5} for three statistics with parameter $b=0.5$. In Fig. \ref{fig:test_configuration5}, the number density, pressure and fugacity contours are shown for the three statistics at about the time instant similar to that reported in \cite{Laxliu95}\cite{schultzrinne}. From the density and pressure contours, one can identify the interesting and complicated wave patterns.   At the right top corner, the two slip lines $J_{21}$ and $J_{32}$ meet the sonic circle of the constant state in the second quadrant and continue as almost straight lines so that a quarter of the sonic circle lies in between.  Our results are consistent with calculations in \cite{Laxliu95}\cite{schultzrinne} and with the theoretical conjecture in \cite{ZhangZheng90} for the same configuration and with the same initial data.   There are detectable differences among the three statistics although the overall wave patterns are similar. Quantitatively, comparing the same contours for the three statistics, the numerical values of number density and pressure for the Bose-Einstein statistics are the largest among the three statistics and the Maxwell-Boltzmann statistics always lie between the other two as dictated by the $\theta$ values. \\
+We first report the results for the \emph{Configuration 5} for three statistics with $\tau=0.01$ and parameter $b=0.5$. In Fig. \ref{fig:FD_config5_tau_comparison} \ref{fig:test_configuration5 tau01}, the number density and pressure contours are shown for the FD statistics for three different relaxation times.  The output time is at about the time instant similar to that reported in \cite{Laxliu95}\cite{schultzrinne}.  From the density and pressure contours, one can identify the interesting and complicated wave patterns.   At the right top corner, the two slip lines $J_{21}$ and $J_{32}$ meet the sonic circle of the constant state in the second quadrant and continue as almost straight lines so that a quarter of the sonic circle lies in between.  Our results are consistent with calculations in \cite{Laxliu95}\cite{schultzrinne} and with the theoretical conjecture in \cite{ZhangZheng90} for the same configuration and with the same initial data.   There are detectable differences among the three statistics although the overall wave patterns are similar. Quantitatively, comparing the same contours for the three statistics, the numerical values of number density and pressure for the Bose-Einstein statistics are the largest among the three statistics and the Maxwell-Boltzmann statistics always lie between the other two as dictated by the $\theta$ values. \\
 
-\begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_n}
-                \caption{$\tau = 1/10,000$}
-                \label{fig:5ESBGK_FD_n_tau0001}
-        \end{subfigure}%
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_n}
-                \caption{$\tau = 1/1,000$}
-                \label{fig:5ESBGK_FD_n_tau001}
-        \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_n}
-                \caption{$\tau = 1/100$}
-                \label{fig:5ESBGK_FD_n_tau01}
-        \end{subfigure}
-				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_p}
-                \caption{$\tau = 1/10,000$}
-                \label{fig:5ESBGK_FD_p_tau0001}
-        \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_p}
-                \caption{$\tau = 1/1,000$}
-                \label{fig:5ESBGK_FD_p_tau001}
-        \end{subfigure}
-				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_p}
-                \caption{$\tau = 1/100$}
-                \label{fig:5ESBGK_FD_p_tau01}
-        \end{subfigure}
-        \caption{Comparison of results for \emph{Configuration 5} for FD using semiclassical ES equilibrium distribution with parameter $\it{b=0.5}$ and TVD method.}
-				\label{fig:FD_config5_tau_comparison}
-\end{figure}
 
 \begin{figure}
         \centering
@@ -730,57 +775,6 @@ We first report the results for the \emph{Configuration 5} for three statistics 
 				\label{fig:FD_config5_Wtensor_comparison}
 \end{figure}
 
-\begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_pxx}
-                \caption{$\tau = 1/10,000$}
-                \label{fig:5ESBGK_FD_pxx_tau0001}
-        \end{subfigure}%
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_pxx}
-                \caption{$\tau = 1/1,000$}
-                \label{fig:5ESBGK_FD_pxx_tau001}
-        \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_pxx}
-                \caption{$\tau = 1/100$}
-                \label{fig:5ESBGK_FD_pxx_tau01}
-        \end{subfigure}
-				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_pxy}
-                \caption{$\tau = 1/10,000$}
-                \label{fig:5ESBGK_FD_pxy_tau0001}
-        \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_pxy}
-                \caption{$\tau = 1/1,000$}
-                \label{fig:5ESBGK_FD_pxy_tau001}
-        \end{subfigure}
-				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_pxy}
-                \caption{$\tau = 1/100$}
-                \label{fig:5ESBGK_FD_pxy_tau01}
-        \end{subfigure}
-        \caption{Comparison of results for \emph{Configuration 5} for FD using semiclassical ES equilibrium distribution with parameter $\it{b=0.5}$ and TVD method.}
-				\label{fig:FD_config5_Ptensor_comparison}
-\end{figure}
 
 \begin{figure}
 \centering
@@ -825,7 +819,7 @@ Here, we investigate quantitatively and qualitatively the effects of dimensionle
 
 
 
-\subsection{Observations on \texorpdfstring{$W_{\alpha \beta}$}{Lg} and pressure tensor components}
+\subsection{Pressure tensor and \texorpdfstring{$W_{\alpha \beta}$}{Lg}}
 In Figs. \ref{fig:conf5_W_p_Tensor} \& \ref{fig:conf5_W_p_Tensor2} the contours of $W_{\alpha \beta}$ and $P_{\alpha \beta}$ tensor components of the ES model are depicted for \emph{Configuration 5} with $b=0.5$ using ideal gases following Bose-Einstein and Fermi-Dirac statistics, respectively. It is readily noticed that contours of diagonal tensor components, $W_{xx}$ and $W_{yy}$, are very similar but a closer look reveals that both differ slightly numerically. In contrast $W_{xy}$ component as depicted in Figs. \ref{fig:5ESBGK_BE_bp05_Wxy} and \ref{fig:5ESBGK_FD_bp05_Wxy} are numerically small compared to the former ones. However, this component contribution can not be neglected in the present anisotropic model. \\
 By looking at pressure tensor components in Figs. \ref{fig:conf5_W_p_Tensor} \& \ref{fig:conf5_W_p_Tensor2}, it is evident that $W_{\alpha \beta}$ and $P_{\alpha \beta}$ tensor quantities are closely related. This was expected by recalling relations (\ref{eq:pressure_tensor_variables}), moreover, it is also easy to notice that the contribution of main diagonal tensor components generally will be greater than the rest of the tensor components. \\
 Comparing the pressure components, as before, we observe that the main diagonal components, $P_{xx}$ and $P_{yy}$, exhibit similar flow patterns but again slight numerical differences can be identified.  Notice that the main diagonal components will be equal when the dimensionless parameter $\it{b = 0}$, i.e. $f^{eq}$ is used.  Based on the quantitative observations on several tested configurations, it is safe to conjecture that due to the slight differences on $P_{xx}$ \& $P_{yy}$ and the contribution of $P_{xy}$ components, as triggered by the dimensionless parameter $\it{b}$ of the ES distribution function, the anisotropic ES model contributes to relax the fixed Prandtl number condition of the traditional equilibrium distribution model, $f^{eq}$. \\
@@ -833,7 +827,7 @@ Notice the similar patterns between pressure contours in Figs. \ref{fig:conf5_W_
 
 \section{Concluding Remarks}
 \label{remarks}
-The semiclassical ellipsoidal statistical equilibrium distribution of Wu et al. \cite{Wu2012} has been derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Bose-Einstein or Fermi-Dirac distribution. This ES distribution is anisotropic thus it can possess additional high order moments, therefore, its gas dynamical features are not well known and are worth exploring. In this work, the unsteady quantum gas dynamical flow features as dictated by the semiclassical ellipsoidal statistical equilibrium distribution is numerically studied.  The computational method treats the governing equation in phase space and employs the discrete ordinate method and high resolution shock capturing schemes. Specifically, we describe the solution method in details for the equation in two space dimensions.   A decoding procedure is devised for the semiclassical ellipsoidal statistical distribution which is different from that for standard Bose-Einstein or Fermi-Dirac distribution.  Computations of two-dimensional Riemann problems for gas flows of arbitrary particle statistics are presented and all our results are in good agreement with the calculations in \cite{Laxliu95}\cite{schultzrinne} and consistent with the theoretical conjecture in \cite{ZhangZheng90}.  The effect of the parameter $\it{b}$ of the ES model is studied.  Results showed how this parameter interacts with the pressure tensor and this can influence the Prandtl number in the non-equilibrium flows and therefore the transport properties of classical and quantum gases when the full semiclassical Boltzmann-ES-BGK equation is considered. These computational examples serve the purpose of exploring the nonlinear manifestation of shock wave, contact line and rarefaction wave and testing the robustness of the present method. All the expected flow profiles comprising shock, rarefaction wave and contact discontinuities of semiclassical ideal gases and their nonlinear interactions can be observed with considerably good detail and are in consistency with available results. The present work emphasizes on building the unified and parallel framework for treating semiclassical gas dynamics of three statistics. Extensions to three space dimensions and more complex geometries in general coordinates are straightforward and can be done following the same framework presented here.
+Computations of two-dimensional rarefied gas flows based on the semiclassical Boltzmann ellipsoidal statistical BGK equation proposed by Wu et al. \cite{Wu2012} have been presented.  The semiclassical ES model was derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Bose-Einstein or Fermi-Dirac distribution. This ES distribution is anisotropic thus it can possess additional high order moments, therefore, its gas dynamical features are not well known. In this work, the unsteady rarefied quantum gas dynamical flow features are numerically studied.  The computational method treats the governing equation in phase space and employs the discrete ordinate method and high resolution shock capturing schemes. Specifically, we describe the solution method in details for the equation in two space dimensions.   A decoding procedure is devised for the semiclassical ES distribution which is different from that for standard Bose-Einstein or Fermi-Dirac distribution.  Computations of two-dimensional Riemann problems for rarefied gas flows of arbitrary particle statistics are presented for several relaxation times which corresponding to various range of Knudsen numbers.  Mesh refinement test for solution convergence and  Our results for small Knudsen number (Euler limit) are in good agreement with the calculations in \cite{Laxliu95}\cite{schultzrinne} and consistent with the theoretical conjecture in \cite{ZhangZheng90}.  The effect of the parameter $\it{b}$ of the ES model on flow fields is studied.  Results showed how this parameter interacts with the pressure tensor and this can influence the Prandtl number in the non-equilibrium flows and therefore the transport properties of classical and quantum gases.  These computational examples serve the purpose of exploring the nonlinear manifestation of shock wave, contact line and rarefaction wave and testing the robustness of the present method. All the expected flow profiles comprising shock, rarefaction wave and contact discontinuities of semiclassical ideal gases and their nonlinear interactions can be observed with considerably good detail and are in consistency with available results. The present work emphasizes on building the unified and parallel framework for treating semiclassical gas dynamics of three statistics. Extensions to three space dimensions and more complex geometries in general coordinates are straightforward and can be done following the same framework presented here.
 
 \section{Acknowledgement*}
 \label{Acknowledgements}
