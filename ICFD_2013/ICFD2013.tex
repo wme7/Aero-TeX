@@ -1,33 +1,35 @@
-% Template article for preprint document class `elsart'
-% with harvard style bibliographic references
-% SP 2001/01/05
+%*************************************************************
+% Intented for ICFD2013
+% Format modifications by Manuel Diaz, NTU, 2013.07.28
+%*************************************************************
+\documentclass[twoside,twocolumn,prc,floats,amsmath,amssymb]{revtex4} %for publication
+\usepackage[paperwidth=210mm,paperheight=297mm,centering,hmargin=2cm,vmargin=2.5cm]{geometry}
+\usepackage{graphicx}		% Include figure files
+\usepackage{dcolumn}		% equations table columns on decimal point
+\usepackage{bm}					% bold math
+\RequirePackage{fix-cm}
+\usepackage{subcaption}	% Subfigures package
+\captionsetup{compatibility=false}
 
-%\documentclass[twocolumn,showpacs,preprintnumbers,amsmath,amssymb]{revtex4}
-%\documentclass[preprint,prX]{revtex4} %for review
-\documentclass[twocolumn,prX]{revtex4} %for publication
-\usepackage{graphicx}% Include figure files
-\usepackage{dcolumn}% equations table columns on decimal point
-\usepackage{bm}% bold math
-\usepackage{amssymb}
-\usepackage{amsmath}
+% Modifications to the style
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
 
+% Begin document
 \begin{document}
-\title{Computations of Rarefied Gas Flows Using Semiclassical Boltzmann-ES-BGK Equation}
-\author{J. Y. Yang$^{1,2}$ and} %[label1]
-\author{ Shi-Yen Chen$^{1}$} %[label2]
-\author{ Manuel Diaz$^{1}$}
-\author{Juan-Chen Huang}
+\title{Towards a General Purpose Algorithm for Applications on Rarefied Gas Flows Using Semi-classical Boltzmann-ES-BGK Equation}
+\author{ Jaw-Yen Yang$^{1,2}$ } 
+\author{ \underline{Manuel Diaz$^{1}$} }
+\author{ Ming-Hung Chen$^{3}$ }
 \date{\today}
 
 \begin{abstract}
-Computations of rarefied gas dynamical flows governed by the semiclassical Boltzmann ellipsoidal statistical (ES) BGK equation are presented using an accurate numerical method.  The semiclassical anisotropic ES equilibrium distribution differs from the standard Fermi-Dirac or Bose-Einstein distribution.  The present numerical method combines the discrete velocity (or momentum) ordinate method in momentum space and high resolution shock capturing method in physical space.  Computations of 2-D Riemann problems covering various degree of rarefaction are presented.  
+We report the current progress on the development of a general purpose algorithm for dealing with applications for rarefied gas dynamics that follows classical and quantum statisticas by using a parallel treatment of the semiclassical Boltzmann ellipsoidad statisitical (ES) BGK equation. Computation of various degrees of rarefaction and Hydrodynamic limits are presented using a numerical method that combines the Discrete velocity (or momentum) Ordinate Method (DOM) in momentum space and Discontinuous Galerkin-Finite Element Method (DG-FEM) as high resolution methods for shock capturing in physical space.
 \end{abstract}
 
-\address{$^{1}$Institute of Applied Mechanics, National Taiwan
-University, Taipei 106, TAIWAN}
-\address{$^{2}$Center of Advanced Study in Theoretical Science, National Taiwan
-University, Taipei 106, TAIWAN}
-\address{$^{1}$Department of Merchant Marine, National Taiwan Ocean University, Keelung, TAIWAN}
+\address{$^{1}$Institute of Applied Mechanics, National Taiwan University, Taipei 106, TAIWAN}
+\address{$^{2}$Center of Advanced Study in Theoretical Science, National Taiwan University, Taipei 106, TAIWAN}
+\address{$^{3}$Department of Mathematics, National Cheng Kung University, Tainan 70101, TAIWAN}
 
 %\keywords{Suggested keywords}%Use showkeys class option if keyword
                               %display desired
@@ -37,31 +39,38 @@ University, Taipei 106, TAIWAN}
 
 \label{sec:1}   
 
-The classical Boltzmann equation has been generalized to quantum gas \cite{Ueh1933}.  The relaxation time approximation is usually applied \cite{BGK1954}. Recently, a new semiclassical Boltzmann-ES-BGK equation has been derived \cite{Lei2012}. The objectives of this study are two fold. First, we present an accurate numerical method for solving the semiclassical Boltzmann-ES-BGK equation in phase space.  Second, we investigate the effect of different range of relaxation times which corresponding to different Knudsen numbers thus different degree of gas rarefaction.  The numerical method consists of two parts; one is the discrete ordinate method and the other high resolution shock-capturing methods.   In the classical rarefied gas flow computation, the implementation of discrete ordinate method to nonlinear model Boltzmann equations has been developed by Yang and Huang \cite{Yang1995}.  Extension to semiclassical Boltzmann-BGK equation has been reported \cite{Yang2013}.  Such a direct method will allow one to examine the same physical flow problems but with different gas of particles.   Also, if the classical limit situations of the same flow problem are considered, then one expects to obtain similar or identical flow structures for the three statistics.   Computations of several 2-D Riemann problems \cite{Rinne1993, Lax1995} in gas flows of arbitrary statistics for different range of relaxation times are shown to illustrate the complex rarefied gas dynamics as governed by the semiclassical Boltzmann-ES-BGK equation.
+%The classical Boltzmann equation has been generalized to quantum gas \cite{Ueh1933}.  The relaxation time approximation is usually applied \cite{BGK1954}. Recently, a new semiclassical Boltzmann-ES-BGK equation has been derived \cite{Lei2012}. The objectives of this study are two fold. First, we present an accurate numerical method for solving the semiclassical Boltzmann-ES-BGK equation in phase space.  Second, we investigate the effect of different range of relaxation times which corresponding to different Knudsen numbers thus different degree of gas rarefaction.  The numerical method consists of two parts; one is the discrete ordinate method and the other high resolution shock-capturing methods.   In the classical rarefied gas flow computation, the implementation of discrete ordinate method to nonlinear model Boltzmann equations has been developed by Yang and Huang \cite{Yang1995}.  Extension to semiclassical Boltzmann-BGK equation has been reported \cite{Yang2013}.  Such a direct method will allow one to examine the same physical flow problems but with different gas of particles.   Also, if the classical limit situations of the same flow problem are considered, then one expects to obtain similar or identical flow structures for the three statistics.   Computations of several 2-D Riemann problems \cite{Rinne1993, Lax1995} in gas flows of arbitrary statistics for different range of relaxation times are shown to illustrate the complex rarefied gas dynamics as governed by the semiclassical Boltzmann-ES-BGK equation.
 
 \section{Governing Equations in Two Space Dimensions}
 \label{sec:3}
 The semiclassical Boltzmann-ES-BGK equation in two space dimensions can be expressed as
 %%
 \begin{align}
-\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial t} + {\upsilon}_x\,\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial x } + {\upsilon}_y\,\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)} {\partial y} =-\ \frac{f-f^{ES}_{2d}}{\tau },
+\begin{split}
+&\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial t} + {\upsilon}_x\,\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)}{\partial x } \\
+&+{\upsilon}_y\,\frac{\partial f({\upsilon}_x,{\upsilon}_y, x, y, t)} {\partial y} =-\ \frac{f-f^{ES}_{2d}}{\tau },
+\end{split}
 \label{eq:normalized_B_ES_BGK}
 \end{align}
 where ${\upsilon}_x$ and ${\upsilon}_y$ as particle velocity components and the two-dimensional ES equilibrium distribution, $f^{ES}_{2d}$, is
 \begin{equation}
-f^{ES}_{2d}\left({\upsilon}_x,{\upsilon}_y, x, y, t\right) =
-\frac{1}{z^{-1}\,exp\left\{ \frac{1}{2 \Omega} \left[ \lambda}_{yy} C_x^2 - 2
-\lambda_{xy} C_x C_y + \lambda_{xx} C_y^2 \right]  \right\} - \theta }
+\begin{split}
+&f^{ES}_{2d}\left({\upsilon}_x,{\upsilon}_y, x, y, t\right) = \\
+&\frac{1}{z^{-1}\,exp\left\{ \frac{1}{2 \Omega} \left[ \lambda_{yy} C_x^2 - 2 \lambda_{xy} C_x C_y + \lambda_{xx} C_y^2 \right]  \right\} - \theta }
+\end{split}
 \label{eq:normalized_ESBGK_PDF}
 \end{equation}
-where $\Omega = \lambda_{xx}  \lambda_{yy} - \lambda_{xy}^2$ and $\theta = -1, 0$, and $+1$ denote the Fermi-Dirac (FD),
-Maxwell-Boltzmann (MB), and the Bose-Einstein (BE) statistics, respectively. 
+where $\Omega = \lambda_{xx}  \lambda_{yy} - \lambda_{xy}^2$ and $\theta = -1, 0$, and $+1$ denote the Fermi-Dirac (FD), Maxwell-Boltzmann (MB), and the Bose-Einstein (BE) statistics, respectively. 
 %%
 We also have the gas pressure $p(x,y,t) = \frac{P_{xx} + P_{yy}}{2}$.  The tensor $W_{\alpha \beta}(x,y,t)$ can be obtained through
+\begin{subequations}
 \begin{align}
-&W_{xx} =(1-b)p + b P_{xx},&  &W_{xy} = b P_{xx},&  &W_{yy} = (1-b)p + bP_{yy}.&
+&W_{xx} =(1-b)p + b P_{xx}, \\
+&W_{xy} = b P_{xx}, \\
+&W_{yy} = (1-b)p + bP_{yy}. 
 \label{eq:pressure_tensor_variables}
 \end{align}
+\end{subequations}
 For the conservation of energy, $W_{xx} +W_{yy} = P_{xx} + P_{yy}$ is required.
 To obtain the new $f^{ES}$, one needs $z$ and $\lambda_{xx}, \lambda_{xy}\lambda_{yy}$ and these can be determined through solving the following equations simultaneously,
 \begin{subequations}
@@ -78,21 +87,11 @@ and the heat flux vector $Q_{i}$ are defined, respectively, by
 \begin{align}
 \Phi (\vec x, t) = \int  f(\vec p, \vec x, t) \phi(\vec p){d \vec p \over h^3},
 \end{align}
-where $\Phi =(n, n\vec u, \epsilon, P_{ij}, Q_{i})^T$ and $\phi=(1, \vec \xi, {m\over 2} c^2, c_{i}
-c_{j}, {m\over 2}c^2 c_{i} )^T$.  Here, $\vec \xi =\vec
-p/m$ is the particle velocity and $\vec c= \vec \xi - \vec u$ is
-the thermal velocity.  The gas pressure is defined by $P(\vec x, t) = P_{i i}/3 = 2 \epsilon /3$.
-Multiplying Eq. (1) by $1, \vec p$, or $\vec
-p^2/2m$, and integrating the resulting equations over all $\vec
-p$, then one obtains the general hydrodynamical equations
+where $\Phi =(n, n\vec u, \epsilon, P_{ij}, Q_{i})^T$ and $\phi=(1, \vec \xi, {m\over 2} c^2, c_{i} c_{j}, {m\over 2}c^2 c_{i} )^T$.  Here, $\vec \xi =\vec p/m$ is the particle velocity and $\vec c= \vec \xi - \vec u$ is the thermal velocity.  The gas pressure is defined by $P(\vec x, t) = P_{i i}/3 = 2 \epsilon /3$. Multiplying Eq. (1) by $1, \vec p$, or $\vec p^2/2m$, and integrating the resulting equations over all $\vec p$, then one obtains the general hydrodynamical equations
 \begin{align}
-{ \partial n \over \partial t} &+ \nabla_{\vec x} \cdot
-(n \vec u) = 0 \\
-n ( { \partial  \over \partial t} &+ \vec u \cdot \nabla_{\vec
-x}) u_{i} + {\partial P_{ij} \over \partial
-x_{j} } = 0, \\
-{\partial \epsilon \over \partial t} &+ \nabla_{\vec x} \cdot
-(\epsilon \vec u) + \nabla_{\vec x} \cdot \vec Q + S_{ij} P_{ij} = 0.
+\frac{ \partial n}{\partial t} &+ \nabla_{\vec x} \cdot (n \vec u) = 0, \\
+n ( \frac{ \partial }{\partial t} &+ \vec u \cdot \nabla_{\vec x}) u_{i} + \frac{\partial P_{ij} }{\partial x_{j} } = 0, \\ 
+\frac{\partial \epsilon}{\partial t} &+ \nabla_{\vec x} \cdot (\epsilon \vec u) + \nabla_{\vec x} \cdot \vec Q + S_{ij} P_{ij} = 0.
 \end{align}
 where $S_{ij}=(\partial u_{i}/\partial x_{j} +
 \partial u_{j}/\partial x_{i})/2$ is the rate of strain tensor.
@@ -107,67 +106,57 @@ We numerically study the two-dimensional Riemann problems for rarefied quantum g
 
 \begin{figure}
         \centering
-        \begin{subfigure}[b]{0.32\textwidth}
+        \begin{subfigure}[b]{0.45\textwidth}
                 \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_n}
-                \caption{$\tau = 1/10,000$}
-                \label{fig:5ESBGK_FD_n_tau0001}
+                \includegraphics[trim = 20mm 18mm 20mm 136mm,clip,width=\textwidth]{ForwardFacingStep_Mesh}
+                \caption{Mesh}
+                \label{FFS_mesh}
         \end{subfigure}%
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+				
+				%~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
           %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
+        \begin{subfigure}[b]{0.45\textwidth}
                 \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_n}
-                \caption{$\tau = 1/1,000$}
-                \label{fig:5ESBGK_FD_n_tau001}
+                \includegraphics[trim = 20mm 18mm 20mm 136mm,clip,width=\textwidth]{ForwardFacingStep_Density}
+                \caption{Density}
+                \label{fig:FFS_Density}
         \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_n}
-                \caption{$\tau = 1/100$}
-                \label{fig:5ESBGK_FD_n_tau01}
+				
+        \begin{subfigure}[b]{0.45\textwidth}
+								\centering
+                \includegraphics[trim = 20mm 18mm 20mm 136mm,clip,width=\textwidth]{ForwardFacingStep_Pressure}
+                \caption{Pressure}
+                \label{fig:FFS_Pressure}
         \end{subfigure}
-				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_0001_outtime_02/FD_p}
-                \caption{$\tau = 1/10,000$}
-                \label{fig:5ESBGK_FD_p_tau0001}
+				
+        \begin{subfigure}[b]{0.45\textwidth}
+								\centering
+                \includegraphics[trim = 20mm 18mm 20mm 136mm,clip,width=\textwidth]{ForwardFacingStep_Temperature}
+                \caption{Temperature}
+                \label{fig:FFS_temperaute}
         \end{subfigure}
-        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_001_outtime_02/FD_p}
-                \caption{$\tau = 1/1,000$}
-                \label{fig:5ESBGK_FD_p_tau001}
+				
+				\begin{subfigure}[b]{0.45\textwidth}
+								\centering
+                \includegraphics[trim = 20mm 18mm 20mm 136mm,clip,width=\textwidth]{ForwardFacingStep_Fugacity}
+                \caption{Fugacity}
+                \label{fig:FFS_Fugacity}
         \end{subfigure}
-				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.32\textwidth}
-                \centering
-                \includegraphics[trim = 20mm 15mm 20mm 20mm,clip,width=\textwidth]{FD_01_outtime_02/FD_p}
-                \caption{$\tau = 1/100$}
-                \label{fig:5ESBGK_FD_p_tau01}
-        \end{subfigure}
-        \caption{Comparison of results for \emph{Configuration 5} for FD gas and three relaxation times with parameter $\it{b=0.5}$ and TVD method.}
-				\label{fig:FD_config5_tau_comparison}
+				\caption{Comparison of results for \emph{Configuration 5} for FD gas and three relaxation times with parameter $\it{b=0.5}$ and TVD method.}
+				\label{fig:FD_config5_tau_comparison2}
 \end{figure}
 
-\section{ Concluding Remarks}
+\section{Concluding Remarks}
 Computations of 2-D rarefied gas flows based on the semiclassical Boltzmann-ES-BGK equation proposed by Wu et al. \cite{Wu2012} have been presented.  The semiclassical ES model was derived through maximum entropy principle and conserves the mass, momentum and energy but differs from the standard Bose-Einstein or Fermi-Dirac distribution. This ES distribution is anisotropic thus it can possess additional high order moments, therefore, its gas dynamical features are not well known. In this work, the unsteady rarefied quantum gas dynamical flow features are numerically studied.  The computational method treats the governing equation in phase space and employs the discrete ordinate method and high resolution shock capturing schemes. Specifically, we describe the solution method in details for the equation in two space dimensions.   A decoding procedure is devised for the semiclassical ES distribution which is different from that for standard Bose-Einstein or Fermi-Dirac distribution.  Computations of 2-D Riemann problems for rarefied gas flows of arbitrary particle statistics are presented for several order of relaxation times which corresponding to various range of Knudsen numbers.  Mesh refinement test for solution convergence has been checked and our results for small Knudsen number (Euler limit) are in good agreement with the calculations in \cite{Laxliu95}\cite{schultzrinne}.    These computational examples serve the purpose of exploring the nonlinear manifestation of shock wave, contact line and rarefaction wave and testing the robustness of the present method. All the expected flow profiles comprising shock, rarefaction wave and contact discontinuities of semiclassical ideal gases and their nonlinear interactions can be observed with considerably good detail and are in good agreement with available results. The present work emphasizes on building the unified and parallel framework for treating semiclassical gas dynamics of three statistics. 
 
-This work is supported by grants NSC 99-2221-E002-084-MY3 and CASTS Subproject
-10R80909-4.
+This work is supported by grants NSC 99-2221-E002-084-MY3 and CASTS Subproject 10R80909-4.
 
 %\#597R0066-69
 \vspace*{-.25cm}
 \begin{thebibliography}{1}
-\bibitem{Ueh1933} E. A. Uehling and G. E. Uhlenbeck, Phys. Rev. {\bf 43}, (1933) 552. \\
-\bibitem{BGK1954} P. L. Bhatnagar, E. P. Gross and M. Krook, Phys. Rev. {\bf 94}, 511 (1954). \\
+\section{References}
+\bibitem{Ueh1933} E. A. Uehling and G. E. Uhlenbeck, Phys. Rev. {\bf 43}, (1933) 552. 
+\bibitem{BGK1954} P. L. Bhatnagar, E. P. Gross and M. Krook, Phys. Rev. {\bf 94}, 511 (1954).
 \bibitem{Lei2012} W. Lei, J. P Meng, and Yonghao Zhang,Proc. Roy. Soc. A, 468(2012), p. 1799.
 \bibitem{Yang1995} J. Y. Yang and J. C. Huang, J. Comput. Phys., 120, (1995) 323-339.
 \bibitem{Yang2013} J. Y. Yang,B. P. Muljadi, Z. H. Li and H. X. Zhang, Commun. Comput. Phys. 14, (2013) p. 242-264 .
