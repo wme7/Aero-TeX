@@ -1,10 +1,15 @@
 Aero-wolfram repository
 
-This GIT repo is just a version control for most of my TeX files 
-of my lecture notes, homeworks and Reports. 
-Want to copy something? I'll save you some time...
-Don't loose your time in this one. :p
+This GIT repo is just a version control for most of my TeX files for my lecture notes, homeworks, reports and articles.
+Wanna to copy something? I'll save you some time. Check folders: 
+ 1.Headers&Templates/Article
+ 2.Headers&Templates/Beamer 
+ 3.Headers&Templates/BeamerStockton 
+And test some of the examples files. I believe these are the most usefull files you can find here.
 
+This files where created and compiled without problems using Texlive2012 and latest Texpad app por iPad.
+
+Enjoy ;)
 
 Contact us at:
 Diaz's Software Mill

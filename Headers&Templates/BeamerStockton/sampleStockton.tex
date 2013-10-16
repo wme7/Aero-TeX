@@ -1,0 +1,66 @@
+\input{Beamer_header.tex}
+
+\title[Short Title \hspace{4em}\insertframenumber/
+\inserttotalframenumber]{~ \\ Long Title:  A Sample Using \\ Stockton Beamer Theme \\~} %the [whatever] appears in the footer on the right
+\author[M. A. Diaz]{ \\ Manuel A. Diaz, National Taiwan Universty } %the [whatever] appears in the footer on the left
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+
+\maketitle
+\end{frame}
+
+\begin{frame}
+\frametitle{Pacific Colored Boxes}
+
+\orangebox{Theorem Orange.}{If you use the orangebox command, the box will be orange.}
+
+\greenbox{Theorem Green.}{If you use the greenbox command, the box will be green.}
+
+\bluebox{Theorem Blue.}{If you use the bluebox command, the box will be blue.}
+
+\graybox{Theorem Gray.}{If you use the graybox command, the box will be gray.}
+
+\grassgreenbox{Theorem Grass Green.}{If you use the grassgreen box command, the box will be grass green.}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Bullets}
+
+\begin{itemize}
+\item These are the ordinary bullets
+\item produced
+\item by the usual itemize command
+\end{itemize} 
+
+\begin{orangeitemize}
+\item  begin\{orangeitemize\}
+\item produces flat orange bullets
+\end{orangeitemize}
+
+\begin{grassgreenitemize}
+\item begin\{grassgreenitemize\}
+\item produces grass green bullets
+\end{grassgreenitemize}
+
+\begin{blackitemize}
+\item begin\{blackitemize\}
+\item produces black bullets
+\end{blackitemize}
+\end{frame}
+
+\begin{frame}\frametitle{Match Bullets to Box}
+
+\grassgreenbox{Match Yer Bullets}
+{
+  \begin{grassgreenitemize}
+  \item Don't forget to match \item your bullets to the box \item they live in. 
+  \end{grassgreenitemize}
+}
+
+\end{frame}
+
+\end{document}

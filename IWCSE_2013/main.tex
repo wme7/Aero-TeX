@@ -1,0 +1,50 @@
+\input{Beamer_header.tex}
+
+% Author Info
+\title[IWCSE 2013 \hspace{4em}\insertframenumber/
+\inserttotalframenumber]{~ \\ A discontinuous Galerkin method for initial value problems of Rarefied gas flows \\~} %the [whatever] appears in the footer on the right
+\subtitle{International Workshop on \\ Computational Science and Engineering}
+\author[Aerodynamic Design \& Analysis Lab]{ Manuel A. Diaz} %the [whatever] appears in the footer on the left
+\institute[NTU]{
+	Institute of Applied Mechanics \\
+	National Taiwan University \\[1ex]
+	%Taiwan, Taipei 10617 \\[1ex]
+	\texttt{f99543083@ntu.edu.tw}
+	}
+\date{October 14th, 2013}
+
+% Document begins Here
+\begin{document}
+
+% Create title page
+\begin{frame} 
+	\maketitle
+\end{frame}
+
+% outline frame
+\section*{outline} 
+\begin{frame}%[allowframebreaks] 
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+% Motivation Section
+\include{motivation}
+
+% One-dimensional Classical Boltzmann-BGK equation
+\include{model_theory}
+
+% Method
+\include{method&results}
+
+% Bibliography
+\section{References}
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\bibliographystyle{unsrt}
+	%\bibliographystyle{amsalpha}
+	\bibliography{Presentation_refs,BBGK_refs}
+\end{frame}
+
+% End of document
+\end{document}

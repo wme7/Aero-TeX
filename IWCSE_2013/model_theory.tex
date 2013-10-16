@@ -1,0 +1,132 @@
+\section{Model Equation}
+
+\begin{frame} \frametitle{Density distribution function}
+	\begin{itemize}
+	\item For a system of N particles (an ensemble of N interacting particles), let us define $f(t,\vec{x},\vec{p})$, as average number of particles per unit volume $d\vec{x}d\vec{p}$ with momentum $\vec{p}$ at the space-time position $(t,\vec{x})$. \\
+	\item The couple $(\vec{x},\vec{p})$ stands for a position-momentum space or phase-space.\\ 
+	\item The total number of particles that exist inside the whole $(\vec{x},\vec{p})$-space for a given time $t$ can be computed by doing
+	\end{itemize}
+	\begin{equation}
+	\int \int f(t,\vec{x},\vec{p})d\vec{x}d\vec{p} = N
+	\end{equation}
+\end{frame}
+
+\begin{frame} \frametitle{Boltzmann-BGK Equation for gas flows}
+	The evolution of the density distribution function for an ensemble of N interacting particles is dictated by Boltzmann Equation (BE),  
+	\begin{equation}
+	\frac{\partial{f}}{\partial{t}} +
+	\frac{\vec{p}}{m}\cdot\nabla_{\vec{x}}f -
+	\nabla_{\vec{x}}V\cdot\nabla_{\vec{p}}f =
+	\left(\frac{\delta f}{\delta t}\right)_{coll} 
+	\label{eq:full_Boltzmann_equation}
+	\end{equation}
+	where $-\nabla_{\vec{x}}V$ stands for a force field acting on the particles of our system and $\left( \frac{\delta f}{\delta t}\right )_{coll}$ is for the collision operator defined as
+	\begin{equation}
+	\left( \frac{\delta f}{\delta t}\right )_{coll} = \int \left[ s(\vec{x},\vec{p}',\vec{p})f'(1-f)-s(\vec{x},\vec{p},\vec{p}')f(1-f') \right]d\vec{p}'
+	\end{equation}
+\end{frame}
+
+\begin{frame} \frametitle{Kinetic Boltzmann Equation}
+	Let us we ignore for the moment any influence of any external force field yields
+	\begin{align}
+	\frac{\partial{f}}{\partial{t}} + 
+	\frac{\vec{p}}{m}\cdot\nabla_{\vec{x}}f =
+	\left(\frac{\delta f}{\delta t}\right)_{coll} 
+	\label{eq:kinetic_boltzmann}
+	\end{align}
+	This resulting formulation is the so called kinectic Boltzmann equation. It is evident from this formulation that the evolution of the ensemble due to convection and due to collision must ballance, i.e.,
+	\begin{equation*}
+	\left(\frac{\delta f}{\delta t}\right)_{conv} =
+	\left(\frac{\delta f}{\delta t}\right)_{coll}
+	\end{equation*}
+\end{frame}
+
+\subsection{Boltzmann-BGK model}
+\begin{frame} 
+	Observations: 
+	\begin{itemize}
+	\item The nonlinear integral nature of the collision term makes very difficult task to obtain Boltzmann equation as integro-differential equation.
+	\item To circumvent this difficulty we will make use of Bhatnagar, Gross \& Krook (BGK) collison operator (1954) which provides a more tractable way to solve for rarefied gases.
+	\item In this derivation we follow Yang \& Huang ideas in \cite{Yang1995323}. However recent developments in semi-classical acumulated in \cite{Shi20089389,Yang2013} had shown and proved a simpler manner for solving classical Botlzmann equation.
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Boltzmann BGK model equation}
+	Substituting the BGK collision operator then our model equation reads
+	\begin{align}
+	\frac{\partial{f}}{\partial{t}} + 
+	\frac{\vec{p}}{m}\cdot\nabla_{\vec{x}}f =
+	- \frac{1}{\tau} (f-f_M)
+	\label{eq:boltzmann-BGK}
+	\end{align}
+	where $\tau$ is the collision relaxation time and $f_M$ is the local Maxwellian equilibrium distribution function defined as
+	\begin{equation}
+	f_M(t,\vec{x},\vec{c})= \frac{\rho}{(2 \pi RT )^{\frac{d}{2}}} \exp\left(-{\frac{(\vec{c}-\vec{u})^2}{2 R T}}
+\right)
+	\label{eq:classical_feq}
+	\end{equation}
+	Where $R$ is the gas constant, $\rho(t,\vec{x})$, $\vec{u}(t,\vec{x})$, $T(t,\vec{x})$ are the density, mean velocity and temperature of the gas, $d$ is $(\vec{x},\vec{p})$-space dimension and we simplify $\vec{c}=\vec{p}/m$.
+\end{frame}
+
+\begin{frame} 
+	The Maxwellian equilibrium distribution function which is typically obtain by the maximun entropy principle under the constrains of mass, momentum and energy conservation which are
+	\begin{align}
+	\rho(t,\vec{x}) 				&= \int d\vec{c} \ f_M(t,\vec{x},\vec{c}), \\
+	\rho \vec{u}(t,\vec{x}) &= \int d\vec{c} \ \vec{u}\vec{u} \ f_M(t,\vec{x},\vec{c}), \\
+	E(t,\vec{x}) 						&= \int d\vec{c} \ \frac{\vec{u}\vec{u}}{2} \ f_M(t,\vec{x},\vec{c})
+	\end{align}
+\end{frame}
+
+\begin{frame} \frametitle{integration moments}
+	Once the equilibrium distribution function $f_M$ is known, our model equation (\ref{eq:boltzmann-BGK}) can be solved for $f$. Then the macroscopic quantities such as number density $n$, number density flux $n\vec{u}$, energy density $\epsilon$, etc. Are defined repectively by 
+	\begin{align}
+	\Phi(t,\vec{x}) = \int d\vec{c} \ \phi(\vec{c}) \ f(t,\vec{x},\vec{c})
+	\end{align}
+	where \\ $\Phi = (n ,n\vec{u},\epsilon,P_{ij},Q_{i})^T$ and $\phi = (1,\frac{\vec{p}}{m}, \frac{mC^2}{2},mC_iC_j,\frac{m}{2}C^2C_i)^T$. Here $C_i = (\vec{c}_i-\vec{u}_i)$ is a peculiar velocity, the gas pressure is defined by $p(t,\vec{x}) =$ $P_{ii}/d = 2E/d$ and $P_{ij}$ is the pressure tensor; $Q_i$ the heat flux vector.
+\end{frame}
+
+\begin{frame} \frametitle{1-D case}
+	Let us consider a one-dimensional case,
+	\begin{align}
+	\frac{\partial{f}}{\partial{t}} + 
+	v_x\cdot\frac{\partial f}{\partial x} =
+	- \frac{1}{\tau} (f-f_M)
+	\label{eq:1d_boltzmannBGK}
+	\end{align}
+	with it's local equilibrium distribution function,
+	\begin{align}
+	f_\sigma^{M}(t,x,v_x)= \frac{\rho}{(2 \pi RT)^{\frac{1}{2}}} \exp\left(-{\frac{(v_x-u)^2}{2 R T}} \right)
+	\end{align}
+\end{frame}
+
+\begin{frame} \frametitle{build non-dimensional variables}
+	A reference velocity $C_\infty$ and the time $t_\infty$ are be defined as
+	\begin{align}
+		&C_{\infty} = \sqrt{2RT_{\infty}}, &t_{\infty} = L/C_{\infty}
+	\end{align}
+	Here $L$ is the characteristic length of the problem we are solving \\
+	The definitions of non-dimensional variables are introduced as follows 
+	\begin{subequations}\label{eq:non-dimensional_relations}
+	\begin{align}
+	&(\hat{t}, \hat{\tau})=\frac{(t,\tau)}{t_\infty},& &(\hat u_x,\hat v_x,)=\frac{(u_x,v_x)}{V_\infty},& &\hat{\rho}=\frac{\rho}{\rho_\infty},&\\
+	&\hat{x}=\frac{x}{L},& &\hat{E}=\frac{E}{\rho_\infty V_\infty^2},& &\hat{p}=\frac{p}{p_\infty},&  \\ 
+	&p_\infty = \rho_\infty V_\infty^2,& &f_\infty = \frac{\rho_\infty}{V_\infty}&
+	\end{align}
+	\end{subequations}
+\end{frame}
+
+\begin{frame} \frametitle{Non-dimensional Formulation}
+	By using relations (\ref{eq:non-dimensional_relations}) into (\ref{eq:1d_boltzmannBGK}) it yields
+	\begin{align}
+	\frac{\partial \hat{f}}{\partial \hat{t}} + 
+	\hat{v}_x\cdot\frac{\partial \hat{f}}{\partial \hat{x}} =
+	- \frac{1}{\hat{\tau}} (\hat{f}-\hat{f}_M)
+	\label{eq:1d_non_dimensional_boltzmannBGK}
+	\end{align}
+	with it's local equilibrium distribution function,
+	\begin{align}
+	\hat{f}_{M}(\hat{t},\hat{x},\hat{v}_x)=  \frac{\hat{\rho}}{(\pi \hat{T})^{\frac{1}{2}}} \exp\left(-{\frac{(\hat{v}_x-\hat{u})^2}{\hat{T}}} \right)
+	\label{eq:1d_non_dimensional_distrib}
+	\end{align}
+	we will omit the hat sign from here on.
+\end{frame}
