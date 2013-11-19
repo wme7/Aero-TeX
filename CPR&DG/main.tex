@@ -1,6 +1,6 @@
 \input{Beamer_header2.tex}
 
-\title[CPR Review \hspace{4em}\insertframenumber/\inserttotalframenumber]{~ \\ Collocation Penalty via Reconstruction (CPR)\\ A review on the method \\~} %[whatever appears in the footer on the right]{Title of Presentation}
+\title[CPR Review \hspace{4em}\insertframenumber/\inserttotalframenumber]{~ \\ Correction Procedure via Reconstruction (CPR)\\ A review on the method \\~} %[whatever appears in the footer on the right]{Title of Presentation}
 \author[Aerodynamic Design \& Analysis Lab]{ Manuel A. Diaz} % [whatever appears in the footer on the left]{Author name}
 \institute[NTU]{
 	Institute of Applied Mechanics \\
@@ -28,13 +28,22 @@
 \include{Introduction}
 
 % Facts and History of the development of CPR
-%\include{History}
+\include{History}
 
 % About the Huynh's Flux Reconstruction
 \include{FR}
 
-% About the ZJ Wang's Lifting Collocation Penalty method
-\include{LCP}
+% About the ZJ Wang's Lifting Collocation Penalty strategy
+%\include{LCP}
+
+% From CPR to DG: Demostration
+\include{CPR2DG}
+
+% WENO limiter implementation
+\include{Limiter}
+
+% Numerical Results
+\include{Results}
 
 % Bibliography
 \section{References}

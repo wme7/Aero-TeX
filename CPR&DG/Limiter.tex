@@ -1,0 +1,126 @@
+\section{WENO Limiter}
+\subsection{Identify troubled elements}
+\begin{frame} \frametitle{Identify troubled elements}
+	Following the recent works for of Zhong and Shu \cite{Zhong&Shu2012,DuShu&Zhang2013}. We proceed to implement the Modified minmod function to identify cells in the vecinity of discontinuities.
+	Denote the cell/element average of the solution $u_j(x)$, as
+	\begin{equation}
+	\bar{u}_j = \frac{1}{\Delta x_j}\int_{E_j} u_j(x)dx = \frac{1}{2}\int_{-1}^{1} u_j(\xi)d\xi
+	\label{eq:cell_average}
+	\end{equation}
+	our second definition follows by integrating over the standar element domain.\\
+	
+	and further denote 
+	\begin{align}
+	&\tilde{u}_j = u_{j+\frac{1}{2}}^{-}-\bar{u}_j, & 
+	&\tilde{\tilde{u}}_j = \bar{u}_j-u_{j-\frac{1}{2}}^{+}, &
+	\end{align}
+	where $\tilde{u}$ and $\tilde{\tilde{u}}$ are modified either by the minmod limiter.
+	\begin{align}
+	&\tilde{\tilde{u}}^{mod} = m(\tilde{u}_j,\Delta_{+}\bar{u}_j,\Delta_{-}\bar{u}_j)
+	&\tilde{\tilde{\tilde{u}}}^{mod} = m(\tilde{\tilde{u}}_j,\Delta_{+}\bar{u}_j,\Delta_{-}\bar{u}_j)
+	\end{align}
+\end{frame}
+ 
+\begin{frame} \frametitle{The minmod function}
+	The traditional minmod function is defined as
+	\begin{equation}
+	m(a_1,\dots,a_l) = 
+		\begin{cases}
+			s\ min_{1\leqslant j \leqslant l }|a_j| &\text{if }s=sign(a_1)=\cdots=sign(a_l)\\
+			0, &\text{otherwise,}
+		\end{cases}
+	\label{eq:minmod}
+	\end{equation}
+	and the TVB modified minmod function,
+	\begin{equation}
+	\tilde{m}(a_1,\dots,a_l) =
+		\begin{cases}
+			a_1 &\text{if } |a_1|\leqslant Mh^2,\\
+			m(a_1,\dots,a_l) &\text{otherwise.}
+		\end{cases}
+	\label{eq:MODminmod}
+	\end{equation}
+\end{frame}
+
+\begin{frame} \frametitle{Detection procedure}
+	
+	\begin{block}{Detection procedure for troubled cells}
+	Whenever the minmod function gets enacted and returns other than the first argument, the cell will be marked as troubled and will be subject to WENO reconstruction.
+	\end{block}
+\end{frame}
+
+\subsection{Reconstruction using WENO limiter}
+\begin{frame}{Reconstruction of the new polynomials in the troubled $E_j$}
+	Let us assume that cell $E_j$ is a troubled cell. Denote the CPR solution polynomial of $u$ on the cells $E_{j-1},E_j,E_{j+1}$ as $p_o(x),p_1(x),p_2(x)$ respectively, i.e.,
+	\begin{align}
+	&p_0 = u_{j-1}(x),& &p_1 = u_{j}(x),& &p_2 = u_{j+1}(x),&
+	\end{align}
+	and use them to reconstuct a new polynomial $u_j^new(x)$ on $E_j$. 
+	\begin{block}
+	Notice that $x$ is refering to the global coordinate, however our interpolating polynomials are built for the standard element. We can use our local to global mapping defined in equation (\ref{eq:local2global_mapping}) to overcome this detail.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	In order to make sure that $u_j^new(x)$ mantains the original cell average of $u_j(x)$, which is essential to keep the conservativeness of the original CPR framework, we make the following modification:
+	\begin{align}
+	&\tilde{p}_0(x) = p_0(x)-\bar{\bar{p}}_0+\bar{\bar{p}}_1,&
+	&\tilde{p}_2(x) = p_2(x)-\bar{\bar{p}}_2+\bar{\bar{p}}_1,&
+	\label{eq:MODneighbours}
+	\end{align}
+where 
+	\begin{align}
+	&\bar{\bar{p}}_0 = \frac{1}{\Delta x_j}\int_{E_j} p_0(x)dx,&
+	&\bar{\bar{p}}_1 = \frac{1}{\Delta x_j}\int_{E_j} p_1(x)dx,&	
+	&\bar{\bar{p}}_2 = \frac{1}{\Delta x_j}\int_{E_j} p_2(x)dx.&
+	\end{align}
+	Notice however that these last three are no more than the cell averages of element $E_j$ and its neighbours. This will be precomputed for all elements in the detection stage.
+\end{frame}
+
+\begin{frame}
+	The final nonlinear WENO reconstruction polynomial $p_1^{new}(x)$ is now defined by a convex combination of these modified polynomials:
+	\begin{equation}
+	p_1^{new}(x) = \omega_0 \tilde{p}_0 + \omega_1 p_1 + \omega_2 \tilde{p}_2
+	\label{eq:WENOpolynomial}
+	\end{equation}
+	by substituting equations (\ref{eq:MODneighbours}) into (\ref{eq:WENOpolynomial}) and evaluating the cell average of $p_1^new(x)$, we can prove that $p_1^{new}(x)$ has the same average as $p_1(x)$.
+\end{frame}
+
+\begin{frame}
+	\begin{block}{Proof}
+		\begin{align*}
+		\frac{1}{\Delta x_j}\int_{E_j} p_1^{new} (x)dx =& 
+		\omega_0 \left( \frac{1}{\Delta x_j}\int_{E_j} p_0^{new} (x)dx 
+		-\bar{\bar{p}}_0 \frac{1}{\Delta x_j}\int_{E_j}dx
+		+\bar{\bar{p}}_1 \frac{1}{\Delta x_j}\int_{E_j}dx \right) \\
+		&+\omega_1 \frac{1}{\Delta x_j}\int_{E_j} p_1^{new} (x)dx \\ 
+		&+\omega_2 \left(\frac{1}{\Delta x_j}\int_{E_j} p_2^{new} (x)dx 
+		-\bar{\bar{p}}_2 \frac{1}{\Delta x_j}\int_{E_j}dx
+		+\bar{\bar{p}}_1 \frac{1}{\Delta x_j}\int_{E_j}dx \right)\\
+		\\
+		=& \omega_0 \left( \bar{p_0}-\bar{p_0}+\bar{p_1} \right)
+		+\omega_1 \bar{p_1}
+		+\omega_2 \left( \bar{p_2}-\bar{p_2}+\bar{p_1} \right)\\
+		\\
+		=& \omega_0 \bar{p} + \omega_1 \bar{p} + \omega_2 \bar{p} \\
+		\\
+		&\text{if $\omega_0+\omega_1+\omega_2=1$}\\
+		=& \bar{p}_1
+	\end{align*}	
+	\end{block}
+\end{frame}
+
+\begin{frame} \frametitle{The nonlinear weights}
+	the nonlinear weights are defined as
+	\begin{equation}
+		\omega_l= \frac{\bar{\omega}_l}{\sum_s \bar{\omega}_s}	
+	\end{equation}
+	where the non-normilized nonlinear weights $\bar{\omega}_l$ are functions of the linear weights $\gamma_l$ and the so-called smoothness indicators $\beta_l$ as follows
+	\begin{equation}
+		\bar{\omega}_l = \frac{\gamma}{(\epsilon-\beta_l)^2}
+	\end{equation}
+We use the following smoothness indicator for the one-dimensional case:
+	\begin{equation}
+	\beta_l = \sum_{s=1}^k \int_{E_j} \Delta x_j^{2s-1}\left(\frac{\partial^s}{\partial x^s} p_l(x)\right)^2 dx
+	\end{equation}
+\end{frame}
