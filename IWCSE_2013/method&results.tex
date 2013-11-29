@@ -1,38 +1,38 @@
 \section{Method \& Results}
 
-\subsection{Discrete Ordinate Method (DOM)}
-\begin{frame} \frametitle{Conventional Discrete Ordinate Method}
+\subsection{Velocity Space Discretization}
+\begin{frame} \frametitle{Discrete Ordinate Method DOM}
 	Following ideas in \cite{Yang1995323}, when applying conventional DOM to either classical or semi-classical Boltzmann-BGK formulation, we render it as set of linear PDE's with fixed/constant advection velocity $v_\sigma$,
 	\begin{align}
-	\frac{\partial{f_\sigma}}{\partial{t}} +
-	v_\sigma\cdot\frac{\partial{f_\sigma}}{\partial x} = 
-	-\frac{1}{\tau}(f_\sigma-f^{eq}_\sigma)
+		\frac{\partial{f_\sigma}}{\partial{t}} +
+		v_\sigma\cdot\frac{\partial{f_\sigma}}{\partial x} = 
+		-\frac{1}{\tau}(f_\sigma-f^{eq}_\sigma)
 	\end{align}
 Here $\sigma$ $(\sigma = 1,\dots,N_v)$ stands as the index the number of discrete velocities. Each equation has a corresponding equilibrium distribution funcion, namely
 	\begin{align}
-	f_\sigma^{M}(t,x,v_\sigma)= \frac{\rho}{(\pi T)^{\frac{1}{2}}} \exp\left({-\frac{(v_\sigma-u)^2}{T}} \right)
+		f_\sigma^{M}(t,x,v_\sigma)= \frac{\rho}{(\pi T)^{\frac{1}{2}}} \exp\left({-\frac{(v_\sigma-u)^2}{T}} \right)
 	\end{align}
 \end{frame}
 
-\begin{frame}
-Graphical Perspective of the evolution of the Boltzmann-BGK Equation
-\begin{figure}
-	\centering
-	\includegraphics[trim = 20mm 10mm 30mm 20mm,clip,width=\textwidth]{../IWCSE_2013/BasicConcepts_pics/MB_IC}
-	\caption{Initial Condition}
-	\label{fig:f_IC}
-\end{figure}
-\end{frame}
+%\begin{frame}
+%Graphical Perspective of the evolution of the Boltzmann-BGK Equation
+%\begin{figure}
+%	\centering
+%	\includegraphics[trim = 20mm 10mm 30mm 20mm,clip,width=\textwidth]{../IWCSE_2013/BasicConcepts_pics/MB_IC}
+%	\caption{Initial Condition}
+%	\label{fig:f_IC}
+%\end{figure}
+%\end{frame}
 
-\begin{frame}
-Graphical Perspective of the evolution of the Boltzmann-BGK Equation
-\begin{figure}
-	\centering
-	\includegraphics[trim = 20mm 10mm 30mm 20mm,clip,width=\textwidth]{../IWCSE_2013/BasicConcepts_pics/MB_evolution}
-	\caption{Evolution by BBGK}
-	\label{fig:f_evolution}
-\end{figure}
-\end{frame}
+%\begin{frame}
+%Graphical Perspective of the evolution of the Boltzmann-BGK Equation
+%\begin{figure}
+%	\centering
+%	\includegraphics[trim = 20mm 10mm 30mm 20mm,clip,width=\textwidth]{../IWCSE_2013/BasicConcepts_pics/MB_evolution}
+%	\caption{Evolution by BBGK}
+%	\label{fig:f_evolution}
+%\end{figure}
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Moments of the classical distribution function}

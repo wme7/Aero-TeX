@@ -1,9 +1,10 @@
 \input{Beamer_header.tex}
 
 % Author Info
-\title[IWCSE 2013 \hspace{4em}\insertframenumber/
-\inserttotalframenumber]{~ \\ A discontinuous Galerkin method for initial value problems of Rarefied gas flows \\~} %the [whatever] appears in the footer on the right
-\subtitle{International Workshop on \\ Computational Science and Engineering}
+\title[ICFD 2013 \hspace{4em}\insertframenumber/
+\inserttotalframenumber]{~ \\ Towards a General Purpose Algorithm for Applications on Rarefied Gas Flows Using \\
+Classical Boltzmann-BGK Equation \\~} %the [whatever] appears in the footer on the right
+\subtitle{10th International Conference \\ On Flow Dynamics}
 \author[Aerodynamic Design \& Analysis Lab]{ Manuel A. Diaz} %the [whatever] appears in the footer on the left
 \institute[NTU]{
 	Institute of Applied Mechanics \\
@@ -33,11 +34,20 @@
 
 % One-dimensional Classical Boltzmann-BGK equation
 \include{model_theory}
+%\include{BBGK1d}
+\include{BBGK2d}
 
-% Method
-\include{method&results}
+% Method & Results
+\section{Method \& Results}
+%\include{DOM1d}
+\include{DOM2d}
+\include{RK33}
+\include{split}
+\include{NDG1d}
+\include{results}
 
-% Bibliography
+% Acknowlegment & Bibliography
+\include{Acknowlegments}
 \section{References}
 \begin{frame}[allowframebreaks]
 	\frametitle{References}

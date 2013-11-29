@@ -1,0 +1,57 @@
+\begin{frame} \frametitle{2-D BBGK}
+	A two-dimensional BBGK model is defined as,
+	\begin{align}
+	\frac{\partial{f}}{\partial{t}} + 
+	v_x\cdot\frac{\partial f}{\partial x} + 
+	v_y\cdot\frac{\partial f}{\partial y} =
+	- \frac{1}{\tau} (f-f_M)
+	\label{eq:2d_boltzmannBGK}
+	\end{align}
+	with it's local equilibrium distribution function,
+	\begin{align}
+	f_\sigma^{M}(t,x,y,v_x,v_y)= \frac{\rho}{(2 \pi RT)^{\frac{1}{2}}} \exp\left(-{\frac{(v_x-u_x)^2+(v_y-u_y)^2}{2 R T}} \right)
+	\end{align}
+\end{frame}
+
+\begin{frame} \frametitle{build non-dimensional variables}
+	A reference velocity $C_\infty$ and the time $t_\infty$ are be defined as
+	\begin{align}
+		&C_{\infty} = \sqrt{2RT_{\infty}}, &t_{\infty} = L/C_{\infty}
+	\end{align}
+	Here $L$ is the characteristic length of the problem we are solving \\
+	The definitions of non-dimensional variables are introduced as follows 
+	\begin{subequations}\label{eq:non-dimensional_relations}
+		\begin{align}
+		&(\hat{t}, \hat{\tau})=\frac{(t,\tau)}{t_\infty},& 
+		&(\hat{u_x},\hat{u_y},\hat{v_x},\hat{v_y})=\frac{(u_x,u_y,v_x,v_y)}{V_\infty},&
+		\end{align} 
+		\begin{align}
+		&(\hat{x},\hat{y})=\frac{(x,y)}{L},& 
+		&\hat{\rho}=\frac{\rho}{\rho_\infty},&
+		&\hat{E}=\frac{E}{\rho_\infty V_\infty^2},& \\
+		\nonumber \\ 
+		&\hat{p}=\frac{p}{p_\infty},& 
+		&p_\infty = \rho_\infty V_\infty^2,& 
+		&f_\infty = \frac{\rho_\infty}{V_\infty}&
+		\end{align}
+	\end{subequations}
+\end{frame}
+
+\begin{frame} \frametitle{Non-dimensional Formulation}
+	By using relations (\ref{eq:non-dimensional_relations}) into (\ref{eq:2d_boltzmannBGK}) it yields
+	\begin{align}
+	\frac{\partial \hat{f}}{\partial \hat{t}} + 
+	\hat{v}_x\cdot\frac{\partial \hat{f}}{\partial \hat{x}} + 
+	\hat{v}_y\cdot\frac{\partial \hat{f}}{\partial \hat{y}} =
+	- \frac{1}{\hat{\tau}} (\hat{f}-\hat{f}_M)
+	\label{eq:2d_non_dimensional_boltzmannBGK}
+	\end{align}
+	with it's local equilibrium distribution function,
+	\begin{align}
+	\hat{f}_{M}(\hat{t},\hat{x},\hat{y},\hat{v}_x,\hat{v}_y) = 
+	\frac{\hat{\rho}}{(\pi \hat{T})^{\frac{1}{2}}} 
+	\exp\left(-{\frac{(\hat{v}_x-\hat{u}_x)^2+(\hat{v}_y-\hat{u}_y)^2}{\hat{T}}} \right)
+	\label{eq:2d_non_dimensional_distrib}
+	\end{align}
+	we will omit the hat sign from here on.
+\end{frame}
