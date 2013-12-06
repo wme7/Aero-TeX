@@ -1,0 +1,58 @@
+\input{Beamer_header2.tex}
+
+\title[CPR Review \hspace{4em}\insertframenumber/\inserttotalframenumber]{~ \\ Correction Procedure via Reconstruction (CPR)\\ A review on the method \\~} %[whatever appears in the footer on the right]{Title of Presentation}
+\author[Aerodynamic Design \& Analysis Lab]{ Manuel A. Diaz} % [whatever appears in the footer on the left]{Author name}
+\institute[NTU]{
+	Institute of Applied Mechanics \\
+	National Taiwan University \\
+	Taiwan, Taipei 10617 \\[1ex]
+	\texttt{f99543083@ntu.edu.tw}
+	}
+\date{\today}
+
+% Document Starts here
+\begin{document}
+
+% Create Title page
+\begin{frame}
+	\maketitle
+\end{frame}
+
+% Create Table of contents
+\section*{outline}
+\begin{frame} \frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+% Introduction
+\include{Introduction}
+
+% Facts and History of the development of CPR
+\include{History}
+
+% About the Huynh's Flux Reconstruction
+\include{FR}
+
+% About the ZJ Wang's Lifting Collocation Penalty strategy
+%\include{LCP}
+
+% From CPR to DG: Demostration
+\include{CPR2DG}
+
+% WENO limiter implementation
+\include{Limiter}
+
+% Numerical Results
+\include{Results}
+
+% Bibliography
+\section{References}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\bibliographystyle{unsrt}
+	%\bibliographystyle{amsalpha}
+	\bibliography{CPR&DG_refs}
+\end{frame}
+
+\end{document}

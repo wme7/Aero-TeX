@@ -1,0 +1,91 @@
+\subsection{Discrete Ordinate Method (DOM)}
+\begin{frame}
+	\frametitle{Conventional Discrete Ordinate Method}
+	When applying conventional DOM to either classical or semi-classical Boltzmann-BGK formulation, we render it as set of linear PDE's with fixed/constant advection velocity $\vec{c}_\sigma$,
+	\begin{equation}
+	\frac{\partial{f_\sigma}}{\partial{t}} +
+	\vec{c_\sigma}\bullet\frac{\partial{f_\sigma}}{\partial{\vec{x}}} +
+	\vec{F}\bullet\frac{\partial{f_\sigma}}{\partial{\vec{c_\sigma}}} = 
+	-\frac{1}{\tau}(f_\sigma-f^{eq}_\sigma)
+	\end{equation}
+Here $\sigma$ $(\sigma = 1,\dots,N_v)$ stands as the index the number of discrete velocities. 
+\end{frame}
+
+\begin{frame}
+We can also do the same for the semi-classical equilibrium distribution function. DOM renderes as a set of equations for the discrete values of $\vec{c}_\sigma$,
+	\begin{equation}
+	f_\sigma^{eq}=f^{eq}(\vec{x},\vec{c_\sigma},t)=\frac{1}{(\frac{1}{z})\exp\left({\frac{m}{2 k_B T}(\vec{c_\sigma}-\vec{u})^2}\right)+\theta}
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Moment of the semi-classical distribution function}
+	and the four moments integrals can be written in quadrature form, 
+	\begin{eqnarray}
+	\int f_\sigma d^3 c &=& \sum_\sigma W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho \\
+	\int \vec{c_\sigma} f_\sigma d^3 c &=& \sum_\sigma \vec{c_\sigma} W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho \vec{u} \nonumber \\
+	\int \frac{\vec{c_\sigma}^2}{2} f_\sigma d^3 c &=& \sum_\sigma \vec{c_\sigma}^2 W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho E \nonumber \\
+	\int \frac{(\vec{c_\sigma}-\vec{u})^2}{2} f_\sigma d^3 c &=& \sum_\sigma \frac{(\vec{c_\sigma}-\vec{u})^2}{2} W_\sigma \exp{(c_\sigma^2)} f(\vec{x},\vec{c_\sigma},t) = \rho e \nonumber
+	\end{eqnarray}
+	Here we let $\vec{c}_\sigma$ be the abscissas of our quadrature and $W_\sigma$ their corresponding weigthing values. 
+\end{frame} 
+
+%\subsection{Numerical Results}
+
+\begin{frame}
+	\frametitle{Numerical Results}
+			
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.85\textwidth]{SODsDG100N3}
+			\caption{Sod's classical Socktube Problem. Solving with MB distribution function, advecting information with Nodal DG method with 100 elements (legendre-gauss-lobato polynomials of degree 3) in physical space, RK3 in time and DOM with 81 velocity points.}
+			\label{fig:SODsDG100N3}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Numerical Results}
+			
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.85\textwidth]{SODsDG200N3}
+			\caption{Sod's classical Socktube Problem. Solving with MB distribution function, advecting information with Nodal DG method with 200 elements (legendre-gauss-lobato polynomials of degree 3) in physical space, RK3 in time and DOM with 81 velocity points.}
+			\label{fig:SODsDG200N3}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Numerical Results}
+			
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.85\textwidth]{LAXsDG100N3}
+			\caption{Sod's classical Socktube Problem. Solving with MB distribution function, advecting information with Nodal DG method with 100 elements (legendre-gauss-lobato polynomials of degree 3) in physical space, RK3 in time and DOM with 200 velocity points.}
+			\label{fig:LAXsDG100N3}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+
+	\begin{algorithm}[H]
+	\SetAlgoLined
+	\KwData{IC: $z_0(x,t)$,$u_0(x,t)$,$T_0(x,t)$}
+	\KwResult{One-dimensional Euler solution}
+	\BlankLine
+		
+	initialization\;
+	\While{ $time \geq t_{end}$ }{
+	define $\it{dt}$ \;
+		\eIf{ $\it{fmodel}=1$}{
+		Evaluate Relaxation Scheme\;
+		}{
+		Evaluate Euler Limit\;
+		}
+	}
+	 	
+	 \caption{Semiclassical Boltzmann-BGK 1D}
+	\end{algorithm}
+\end{frame}

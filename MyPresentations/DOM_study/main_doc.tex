@@ -1,0 +1,63 @@
+\documentclass[a4paper]{article}
+
+% Uncomment to compile only one file.
+%\includeonly{file2}
+
+% Packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+
+% extra definitions for new versions of the Algorithm2e commands in texpad
+%\providecommand{\SetAlgoLined}{\SetLine}
+%\providecommand{\DontPrintSemicolon}{\dontprintsemicolon}
+
+% Uncomment to test compliation of single files:
+%\includeonly{file1,file2}
+
+% Redefine \vec command to generate bold vector characters 
+\let\oldhat\hat
+\renewcommand{\vec}[1]{\mathbf{#1}}
+%\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+% Thesis Start
+\begin{document}
+
+% Make Title Page
+\title{SB-BGK with DDOM Algorithm}
+\author{Manuel Diaz\\[1ex]
+	Institute of Applied Mechanics\\
+	National Taiwan University \\
+	Taiwan, Taipei 10617
+	}
+\date{May 2012}
+\maketitle
+
+% Roman Numbering for intropages
+\pagenumbering{roman}
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+% Abstract of Report
+%\input{abstract}
+
+% Arabic Numbering for Chapter Pages
+\pagenumbering{arabic}
+
+% file1
+\input{Algorithm}
+
+%file3
+%\input{C-DOM}
+
+% file2
+%\input{D-DOM}
+
+% Bibliography
+%\bibliography{Refs}
+%\bibliographystyle{unsrt}
+
+\end{document}

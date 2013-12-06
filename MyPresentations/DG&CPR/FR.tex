@@ -1,0 +1,225 @@
+\section{Flux Reconstruction in one-dimension}
+
+%\begin{frame} \frametitle{Target Equation}
+%	Let us consider the following hyperbolic conservation law of the form
+%	\begin{equation}
+% 	\left.\begin{aligned}
+%        	&u_t + \div{f(u)} = 0,\\
+%        	&u(0,\v{x}) = u_0(\v{x}),
+%     		\end{aligned}
+% 	\right\}
+% 	\label{eq:conservation_law}
+%	\end{equation}
+%	for $\v{x} \in \mathcal{R}^3 $ and $t\geqslant 0$. \\
+%	Here $u_0$ the initial condition given at $t=0$.
+%\end{frame}
+
+\begin{frame} \frametitle{Conservation equation in 1d}
+	Let us consider the a one-dimensional advection equation in conservation form,
+	\begin{equation}
+	\left.\begin{aligned}
+		&\pd{u}{t}+\pd{f(u)}{x}=0,\\
+		&u(x,0) = u_0(x),
+		\end{aligned}
+	\right\}
+	\label{eq:conservation_law_1d} 
+	\end{equation}
+	here $u(x,t)$ represents our conservation variable that is defiend for any $x \in [a,b]$ and $t\geqslant 0$. $u_0$ the initial condition given at $t=0$.  
+\end{frame}
+
+\subsection{Domain Discretization}
+
+\begin{frame} \frametitle{Domain discretization}
+	Having confined our spatial domain to $\forall x \in [a,b]$, let now divid it to $N$ intervals, where the $j$-th interval is defined,
+	\begin{equation}
+	\mathcal{I}_j = [x_{j-1/2},x_{j+1/2}], \;\;\text{ for } j = 1,\dots,N
+	\end{equation}
+	Each interval is treated as an standard element, $\mathcal{I} = [-1,1]$, with $\xi$ to varing inside $\mathcal{I}$ while $x$ varies inside $\mathcal{I}_j$. A mapping betten this two variables is defined as
+	\begin{equation}
+	x(\xi) = xc_j + \frac{\Delta x_j}{2} \xi,
+	\label{eq:local2global_mapping}
+	\end{equation}
+	where $xc_j = \frac{1}{2}(x_{j+1/2}+x_{j-1/2})$ and $\Delta x_j = (x_{j+1/2}-x_{j-1/2})$, are the center and the with of $\mathcal{I}$. Moreover, if the elements are not uniform we would define $\Delta x = max_{j=1,\dots,N} \Delta x_j$. 
+\end{frame}
+
+%\begin{frame}
+%	An important property solution of the scalar conservation laws is that it satisfies a strict maximun principle. e.i. for a one-dimensional law as in (\ref{eq:conservation_law_1d}) if 
+%	\begin{align}
+%	&M = max_x \ u_0(x), & m = min_x \ u_0(x),
+%	\end{align}
+%	Then $u(t,x) \in [m,M]$ for any $x$ and $t$. In particularly, the solution will not be %negative if $u(0,x)\geqslant 0$.
+%\end{frame}
+	
+\begin{frame} 
+	We now wish to approach a solution of $u(x,t)$ on the standard element $\mathcal{I}$ first by defining a set of solution points $\xi_k$, where $k = 1,\dots,K$. The later should be choosen in advance and must be
+	\begin{itemize}
+	\item optimum for a quadrature method on the standard element and
+	\item optimum for a interpolation method.
+	\end{itemize}
+	In the following progress we concentrate on abscissas of:
+	\begin{itemize}
+	\item Gauss Legendre (Legendre)
+	\item Legendre-Gauss-Lobatto (LGL)
+	\end{itemize}
+	having specified the type and number of solution points, we use (\ref{eq:local2global_mapping}) to formulate the global coordiantes of the solutions points,
+	\begin{equation}
+	x_{j,k} = xc_j + \frac{\Delta x_j}{2} \xi_k,
+	\end{equation}
+\end{frame}
+
+\subsection{Numerical approximation of the solution}
+
+\begin{frame}
+	For every element $I_j$ of our domain, the solution is defined as $u_{j,k}^n$ for, $j=1,\dots,N$, $k = 1,\dots,K$ and every time step level $n$. Using the standard element approach, the solution for the $j$-th element is given by,
+	\begin{equation}
+	u_{j}(\xi) = \sum_{k=1}^{K} u_{j,k} \mathcal{L}_k(\xi)
+	\label{eq:u_interpolation_in_I}
+	\end{equation}
+	where
+	\begin{equation}
+	\mathcal{L}_k(\xi) = \prod_{i=1\;i\neq k}^{K} \frac{(\xi-\xi_i)}{(\xi_k-\xi_i)}
+	\label{eq:lagrangepolynomial}
+	\end{equation}
+	where (\ref{eq:lagrangepolynomial}) is a Lagrange inperpolatory polynomial. Notice that $u_j(\xi)$ is then degree $K-1$.
+\end{frame}
+
+\begin{frame} \frametitle{Approximating $u_{j}$ values at the boundaries}
+	Using definition (\ref{eq:u_interpolation_in_I}), we can reconstruct the boundary values by doing,
+	\begin{align}
+	&u_{j-1/2}^{+}=u_j(-1)& &\text{ and }& &u_{j+1/2}^{-}=u_j(1)&
+	\end{align}
+	if we choosen solution points coincide with the limits of our elements, then boundary values are simply defined by,
+	\begin{align}
+	&u_{j-1/2}^{+}=u_{j,1}& &\text{ and }& &u_{j+1/2}^{-}=u_{j,K}&
+	\end{align}
+\end{frame}
+
+\begin{frame}
+	Similarly we would also requiere to compute the fluxes at K solution points. This can be easy acomplish by doing,
+	\begin{equation}
+	f_{j,k} = f(u_{j,k}),
+	\end{equation}
+	and we interpolate flux at the boundaries by using the standar element,
+	\begin{equation}
+	f_j(\xi) = \sum_{k=1}^{K} f_{j,k} \mathcal{L}_k(\xi)
+	\label{eq:f_interpolation_in_I}
+	\end{equation}
+	Also notice that $f_j(\xi)$ is a polynomial of order $K-1$.
+\end{frame}
+
+\begin{frame}
+	By we compare the elements adjacent boundary/face values, is easy to notice that {\only<2>{\color{blue}}$f_j(1)\neq f_{j+1}(-1)$}.
+	
+	Therefore we must define a continuous flux function to deal with the data of adjacents cells.
+\end{frame}
+
+\begin{frame}
+	However, this flux function, $F$, must meet the following requirements
+	\begin{itemize}
+	\item Must use data from the boundaries, i.e. 
+	 \[ F_j(-1)= \hat{f}_{j-1/2} \text{ and } F_j(1)= \hat{f}_{j+1/2}.\] 
+	Where \[ \hat{f}_{j+1/2} = \hat{f}(f_{j+1/2}^{-},f_{j+1/2}^{+}) \]
+	is a Riemann flux. \pause
+	\item In each cell $\mathcal{I}_j$ the degree of $F_j(\xi)$ should be $K$.
+	\[ \text{i.e., one degree higher than the solution polynomial.}\] \pause
+	\item $F_j(\xi)$ is required to approximate the discontinuous solution $f_j(\xi)$. 
+	i.e., \[ F_j(\xi)-f_j(\xi) \approx 0.\] \pause
+	\end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{The continuous Flux function}
+	Let us define the flux function as:
+	\begin{equation}
+	F_j(\xi) = {\only<4>{\color{red}}f_j(\xi)}+ 
+	{\only<2>{\color{blue}} \left[ \hat{f}_{j-1/2} - f_j(-1) \right]} g_{LB}(\xi) +
+	{\only<3>{\color{green}}\left[ \hat{f}_{j+1/2} - f_j( 1) \right]} g_{RB}(\xi),
+	\;\; \xi \in [-1,1]
+	\label{eq:continuous_flux_func}
+	\end{equation}
+	Here $g_LB$ is the correction function at the left boundary satisfying,
+	\begin{align}
+	&g_{LB}(-1)=1& &\text{ and }&  &g_{LB}(1)=0&
+	\end{align}
+	and similarly $g_RB$ is the correction function at the right boundary and satisfies, 
+	\begin{align}
+	&g_{RB}(-1)=0& &\text{ and }&  &g_{RB}(1)=1&
+	\end{align}
+\end{frame}
+
+\begin{frame}
+	The derivate of $F_j(\xi)$ evaluated at the solution points $\xi_k$ for $k=1,\dots,K$, is then
+	\begin{equation}
+	\pd{F_j(\xi_k)}{\xi} = \pd{f_j(\xi_k)}{\xi}+ 
+	\left[ \hat{f}_{j-1/2} - f_j(-1) \right] g_{LB}^{\prime}(\xi) +
+	\left[ \hat{f}_{j+1/2} - f_j( 1) \right] g_{RB}^{\prime}(\xi),
+	\;\; \xi \in [-1,1]
+	\label{eq:continuous_flux_func}
+	\end{equation}		
+	Using the mapping defined in equation (\ref{eq:local2global_mapping}) and knowing that the derivate if $F_j(x)$ at the solution points $x_{j,k}$ is,
+	\begin{equation}
+	(F_j)_x (x_{j,k}) = \frac{2}{\Delta x_j} (F_j)_{\xi}(\xi_k)
+	\end{equation}
+Finally we update the numerical solution using the following ODE,
+	\begin{equation}
+	\pd{u_{j,k}}{t}+\frac{2}{\Delta x_j}(F_j)_\xi (\xi_k)=0
+	\end{equation}
+\end{frame}
+
+\subsection{Correction functions}
+
+\begin{frame} \frametitle{The Radau Polynomials}
+\begin{itemize}
+	\item Huynh in \cite{Huynh2007} introduces and tested many correction functions candidates.
+	\item Here, we are more interested in the radau polynomails. By using Radau polynomials it is possible to demostrate that the resulting scheme recovers a DG scheme for hyperbolic equations laws; at least in the linear case.
+	\item The Radau polynomials are of two kinds, left and right; and can be expressed in terms of Legendre Polyonomials, $P_K$, as
+\end{itemize}
+	\begin{align}
+		R_{Left,K}  =& \frac{1}{2}(P_K+P_{K-1}), \\
+		R_{Right,K} =& \frac{(-1)^K}{2}(P_K-P_{K-1})
+	\end{align}
+\end{frame}
+
+\begin{frame} \frametitle{Right Radau Polynomials}
+	Let us write explicitly the first four right Radau polynomials,
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/RadauRight.png} 
+	\label{fig:RadauRight}
+	\caption{Right Radau Polynomials}
+\end{figure}	
+	In the above figure notice that the main characteristic of this polynomial is
+\begin{align}
+	&R_{Right,K}(-1) = 1,& &and& &R_{Right,K}(1) = 0.& 
+\end{align}
+\end{frame}
+
+
+\begin{frame} \frametitle{Left Radau Polynomials}
+	Let us write explicitly the first four left Radau polynomials,
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/RadauLeft.png}
+	\label{fig:RadauLeft}
+	\caption{Left Radau Polynomials}
+\end{figure}
+	Similarly, we notice that the behavior of this polynomials is mirror symmetric,
+\begin{align}
+	&R_{Left,K}(-1) = 0,& &and& &R_{Left,K}(1) = 1.& 
+\end{align}
+\end{frame}
+
+\begin{frame} \frametitle{The correction functions}
+	Notice that when calling in our correction functions, $g_{LB} \& g_{RB}$, into the continuous flux function, $F_j(\xi)$, we must make sure that
+	\begin{align}
+	&g_{LB} = R_{Rright,K}& &and& &g_{RB} = R_{Left,K}&
+	\end{align}
+\end{frame}
+
+\begin{frame} \frametitle{Remarks}
+	\begin{itemize}
+	\item Recall that the $g_{LB}$ and $g_{RB}$ have not been uniquely defined, more can be found in Huynh's work \cite{Huynh2007}.
+	\item Because of their symmetry we only considere $g_{LB}$, and we would be only refered as $g$. 
+	\item Notice, however that $g'(\xi)$ is required to be meet the accuaracy of $u_j{\xi}$ and $f_{\xi}$ of degree $K-1$. Therefore g has to be choosen of degree $K$.  
+	\item Huynh in \cite{Huynh2007} by choosing Radau Polynomials as the correction functions, demostrated that CPR framework recovers a DG method, at least for linear case.
+	\end{itemize}
+\end{frame}

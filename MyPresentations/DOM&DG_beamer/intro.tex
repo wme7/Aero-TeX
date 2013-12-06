@@ -1,0 +1,95 @@
+\section{Introduction}
+\subsection{Semi-classical Boltzmann-BGK}
+
+\begin{frame}
+	\frametitle{Boltzmann-BGK Equation for gas flows}
+	Boltzmann Equation (BE), derived from statistical mechanics and based on kinetic theory, describes the evolution of the velocity distribution function, $f(\vec{x},\vec{c},t)$, for rarefied gases in phase-space. In this presentatio, the collission operator is replaced by the BGK operator to avoid the mathematical difficulty cuased by the nonlinear integral collision term,
+	\begin{equation}
+	\frac{\partial{f}}{\partial{t}} +
+	\vec{c}\bullet\frac{\partial{f}}{\partial{\vec{x}}} +
+	\vec{F}\bullet\frac{\partial{f}}{\partial{\vec{c}}} = 
+	\left( \frac{\delta f}{\delta t}\right )^{BGK}_{coll} = -\frac{1}{\tau}(f-f^{eq})
+	\label{eq:classicalBBGK}
+	\end{equation}
+	where $\tau$ stands for the molecular collision relaxation time.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semi-classical BE-BGK for gas flows}
+	Uehling and Uhlenbeck \cite{PhysRev.43.552} generalized the Boltzmann Equation to be used with quantum statistics, again their collision operator is replaced by the relaxation concept debeloped by Bhatnagar, Gross and Krook; which leads to our semi-classical Boltzmann-BGK equation,
+	\begin{equation}
+	\frac{\partial{f}}{\partial{t}} +
+	\frac{\vec{p}}{m}\bullet\frac{\partial{f}}{\partial{\vec{x}}} +
+	\nabla_\vec{x}{\phi}\bullet\frac{\partial{f}}{\partial{\vec{p}}} = 
+	\left( \frac{\delta f}{\delta t}\right )^{BGK}_{coll} = -\frac{1}{\tau}(f-f^{eq})
+	\label{eq:semiclassicalBBGK}
+	\end{equation}
+	where $\vec{p}$ is the momentum at the space time, $m$ the particle mass, and $\phi$ is a mean potential field.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semi-classical BE-BGK for gas flows}
+	However, let $\vec{c} = \vec{p} / m$ be the particle velocity and $F = \nabla_\vec{x}{\phi}$, then we can re-write our semiclassical formulation in eq. \ref{eq:semiclassicalBBGK}, into an analog of its classical counter part \cite{Yang2013},
+	\begin{equation}
+	\frac{\partial{f}}{\partial{t}} +
+	\vec{c}\bullet\frac{\partial{f}}{\partial{\vec{x}}} +
+	\vec{F}\bullet\frac{\partial{f}}{\partial{\vec{c}}} = 
+	\left( \frac{\delta f}{\delta t}\right )^{BGK}_{coll} = -\frac{1}{\tau}(f-f^{eq})
+	\label{eq:simplyfied_semiclassicalBBGK}
+	\end{equation}
+	where $\tau$ stands for the molecular collision relaxation time.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Classical Equilibrium Distribution function}
+	Following the work of C.T. Hsu \cite{ISI:000303761300021} and J.C. Huang \cite{Huang2011261} the equilibrium distribution function in three-dimensions for the classical gas, $f^{eq}(\vec{x},\vec{c},t)$, is given by
+	\begin{equation}
+	f^{eq}=f^{eq}(\vec{x},\vec{c},t)=n \left( \frac{1}{2 \pi RT} \right)^{\frac{3}{2}} \exp\left({\frac{(\vec{c}-\vec{u})^2}{2 R T}}
+\right)
+	\label{eq:classical_feq}
+	\end{equation}
+	Where $n(\vec{x},t)$, $\vec{u}(\vec{x},t)$, $T(\vec{x},t)$, the density, mean velocity and temperature of the gas.
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Semi-classical Equilibrium Distribution function}
+	Following the work of Uehling \& Uhlenbeck \cite{PhysRev.43.552} the equilibrium for the semi-classical distribution function, $f^{eq}(\vec{x},\vec{c},t)$, is given by
+	\begin{equation}
+	f^{eq}=f^{eq}(\vec{x},\vec{c},t)=\frac{1}{(\frac{1}{z})\exp\left({\frac{m}{2 k_B T}(\vec{c}-\vec{u})^2}\right)+\theta}
+	\label{eq:semiclassical_feq}
+	\end{equation}
+	Where $z(\vec{x},t)$, $\vec{u}(\vec{x},t)$, $T(\vec{x},t)$, the quemical potential, mean velocity and temperature of the gas; $\theta$ is a parameter that specifies the type of particle statistics we will using. Here are consider:
+	\[
+		\begin{cases}
+		\theta = +1, 	& \text{Fermi-Dirac particles.} \\
+		\theta = \ 0,	& \text{Maxwell-Boltzmann or classical particles.} \\
+		\theta = -1, 	& \text{Bose-Einstein particles.}
+		\end{cases}
+	\]
+	% i.e. we are will be solving Boltzmann Equation for Classical and Quantun Statisticas in a parallel maner.
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Moments of Semi-classical BE}
+	The first four moments of the distribution function are,
+	\begin{eqnarray}
+	\int \frac{d\vec{p}}{h^3} f(\vec{p},\vec{x},t) &=& \int f d^3 c = \rho \\
+	\int \frac{d\vec{p}}{h^3} \frac{\vec{p}}{m} f(\vec{p},\vec{x},t) &=& \int \vec{c} f d^3 c = \rho \vec{u} \\
+	\int \frac{d\vec{p}}{h^3} \frac{\vec{p}^2}{2m} f(\vec{p},\vec{x},t) &=& \int \frac{\vec{c}^2}{2} f d^3 c = \rho E \\
+	\int \frac{d\vec{p}}{h^3} \frac{(\vec{p}-m\vec{u})}{2m} f(\vec{p},\vec{x},t) &=& \int \frac{(\vec{c}-\vec{u})^2}{2} f d^3 c = \rho e 
+	\end{eqnarray}
+	where $\rho(\vec{x},t)$,  $\vec{u}(\vec{x},t)$ and $e(\vec{x},t)$ are density, mean velocity and internal specific energy of the gas particles respectively. Note that total Energy density can be also defined as $\rho E = 1/2 \rho \vec{u}^2 + \rho e$.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hydrodynamic Moments of SBE}
+	In analogy, if we where to evaluate the hydrodynamic limit a semi-classical gas we have,
+	\begin{eqnarray}
+	\int \frac{d\vec{p}}{h^3} f^{eq}(\vec{p},\vec{x},t) &=& \int f^{eq}d^3c = \rho \\
+	\int \frac{d\vec{p}}{h^3} \frac{\vec{p}}{m} f^{eq}(\vec{p},\vec{x},t) &=& \int \vec{c} f^{eq}d^3c = \rho \vec{u} \\
+	\int \frac{d\vec{p}}{h^3} \frac{\vec{p}^2}{2m} f^{eq}(\vec{p},\vec{x},t) &=& \int \vec{c}^2 f^{eq}d^3c = \rho E \\
+	\int \frac{d\vec{p}}{h^3} \frac{(\vec{p}-m\vec{u})}{2m} f^{eq}(\vec{p},\vec{x},t) &=& \int (\vec{c}-\vec{u})^2 f^{eq}d^3c = \rho e 
+	\end{eqnarray}
+	Note also that we are using a Gauss Hermite quadrature due to the gaussian-like behavior of the semi-classical statistics at low temperatures.
+\end{frame}

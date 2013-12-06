@@ -1,0 +1,458 @@
+\subsection{Dynamic DOM}
+	
+\begin{frame}
+	\frametitle{DDOM}
+	To circumbent the problems professor C.T. Hsu, et al. \cite{ISI:000303761300021,Hsu201239} noted that the exponential in the equilibrium distribution function (\ref{eq:classical_feq}) can be made independent of $\vec{u}(\vec{x},t)$ and $T(\vec{x},t)$. by using the transformation,
+	\begin{equation}
+	\vec{C}^{*}  = \frac{(\vec{c}-\vec{u})}{\sqrt{\frac{2 k_B T}{m}}} = \frac{(\vec{c}-\vec{u})}{a}
+	\label{eq:transformation}
+	\end{equation}
+Where $\vec{C}^{*}$ will be defined as the abscissas of our GH quadrature.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Graphically speacking}
+	
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{MB_DDOMvsDOM2}
+			\caption{Quadrature point distribution on thermaly normalized distribution with galilean transformation vs. traditional method}
+			\label{fig:MB_DDOMvsDOM2}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Graphically speacking}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{MB_DDOMvsDOM1}
+			\caption{Quadrature point distribution on thermaly normalized distribution with galilean transformation vs. traditional method}
+			\label{fig:MB_DDOMvsDOM1}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Graphically speacking}
+
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{MB_DDOMvsDOM3}
+			\caption{Quadrature point distribution on thermaly normalized distribution with galilean transformation vs. traditional method}
+			\label{fig:MB_DDOMvsDOM3}
+		\end{figure}
+		
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{DDOM}
+	Define variable $a = \sqrt{\frac{2 k_B T}{m}}$ and (\ref{eq:transformation}) can be re-written as in ref. \cite{Hsu201239},
+	\begin{equation}
+	\vec{c_\sigma}(\vec{x},t)  = a(\vec{x},t)\vec{C_\sigma}^{*}+\vec{u}(\vec{x},t) 
+	\end{equation}
+	To substitute $f(\vec{x},\vec{c},t)$ with $f^*(x,\vec{C^*},t)$ in BE, implies to substitute the total variation of the last term respect to $\vec{x}$ and $t$ as if $\vec{C}^*$ is a dependent variable of $\vec{c}$, in oder to preserver the physical meaning of the original BE.
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	e.i.,
+	\begin{equation}
+	f(\vec{x},\vec{c},t) = f^* (\vec{x},\vec{C}^*(\vec{x},t),t) = f^*
+	\end{equation}
+	
+	Taking the total differenciations of $f^*$ respecto to $x$ and $t$ we get,
+			
+	\begin{align*}
+		\frac{df^*}{dt} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{a}} \frac{\partial{a}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{u}} \frac{\partial{u}}{\partial{t}}
+		\\		
+		\\ \frac{df^*}{dx} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{a}} \frac{\partial{a}}{\partial{x}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{\partial{C^*}}{\partial{u}} \frac{\partial{u}}{\partial{x}}
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	Substituting know partial factors,
+			
+	\begin{align*}
+		\frac{df^*}{dt} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{-C^*}{a} \frac{\partial{a}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{ -1 }{a} \frac{\partial{u}}{\partial{t}}
+		\\		
+		\\ \frac{df^*}{dx} &= \frac{\partial{f^*}}{\partial{t}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{-C^*}{a} \frac{\partial{a}}{\partial{x}} + 
+				\frac{\partial{f^*}}{\partial{C^*}} \frac{ -1 }{a} \frac{\partial{u}}{\partial{x}}
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+Then Boltzmann - BGK equation using DDOM becomes,
+	\begin{equation}
+		\begin{split}
+			\frac{\partial{f^*_\sigma}}{\partial{t}} &+ (a\vec{C_\sigma}^{*}+\vec{u})\bullet\frac{\partial{f^*_\sigma}}{\partial{\vec{x}}} 
+			+\vec{F}\bullet\frac{\partial{f^*_\sigma}}{\partial{\vec{C_\sigma}^{*}}}
+			\\ &-\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\vec{C_\sigma}^*\left(\frac{\partial a}{\partial t} + \vec{c} \frac{\partial a}{\partial \vec{x}} \right )
+			-\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\left(\frac{\partial u}{\partial t} + \vec{c} \frac{\partial u}{\partial \vec{x}} \right ) 
+			\\ &= -\frac{1}{\tau}(f^*_\sigma-f^{*eq}_\sigma)
+		\end{split}
+	\end{equation}
+	Note that $f^*_\sigma = f(\vec{x},\vec{C_\sigma}^{*},t)$ and $f^{*eq}_\sigma=f^eq(\vec{x},\vec{C_\sigma}^{*},t)$
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	Again, we wish to compute the first four moments fo the the distribution function,
+	\begin{eqnarray}
+	\int f^* d^3 c  &=& \rho \\
+	\int \vec{c} f^* d^3 c  &=& \rho \vec{u} \nonumber \\
+	\int \frac{\vec{c}^2}{2} f^* d^3 c  &=& \rho E \nonumber \\
+	\int \frac{(\vec{c}-\vec{u})^2}{2} f^* d^3 c  &=& \rho e \nonumber
+	\end{eqnarray}
+	but observe that a change of integration variable is necessary to keep their physical meaning intact.
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	The term $(\frac{\partial C^*}{\partial c} )^3$ is introduced to perform this change of variables inside the moment integrals
+	\begin{eqnarray}
+		\int f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c  &=& \rho \\
+		\int \vec{c} f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c &=& \rho \vec{u} \nonumber \\
+		\int \frac{\vec{c}^2}{2} f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c  &=& \rho E \nonumber \\
+		\int \frac{(\vec{c}-\vec{u})^2}{2} f^* \left(\frac{\partial C^*}{\partial c} \right )^3 d^3 c &=& \rho e \nonumber
+	\end{eqnarray}
+	We identify the term $\left(\frac{\partial C^*}{\partial c} \right )$ as the Jacobian, J. 
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	The moment integrals become,
+	\begin{eqnarray}
+		\sum_\sigma J^3 W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t) &=&  \rho, \\
+		\sum_\sigma J^3 \vec{c_\sigma} W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t)&=& \rho \vec{u}, \nonumber \\
+		\sum_\sigma J^3 \frac{\vec{c_\sigma}^2}{2} W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t)&=& \rho E, \nonumber \\
+		\sum_\sigma J^3 \frac{(\vec{c_\sigma}-\vec{u})^2}{2} W_\sigma \exp(c_\sigma^2) f^*(\vec{x},\vec{c_\sigma},t) &=& \rho e  \nonumber
+	\end{eqnarray}
+	Where J is the Jacobian. Here $J = \sqrt{\frac{2k_B T(\vec{x},t)}{m}}$ .
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Using DDOM with Semi-classical Formulation}
+	\begin{itemize}
+	\item as we see the procedure is analogous to the DDOM developed for the classical distribution.
+	\item We apply and numerically evalute a case in 1d to test this results.
+	\item Our finding and conclusions will follow after.
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{1d Equations}
+	Neglecting any external force, the Boltzmann-BKG equation in 1d becomes,
+	\begin{equation}
+	\frac{\partial f(x,c,t)}{\partial t} + c \frac{\partial f(x,c,t)}{\partial x} = -\frac{f - f^{eq}}{\tau}
+	\end{equation}
+	and its companion semiclassical equilibrium distribution function becomes,
+	\begin{equation}
+	f^{eq} (x,c,t) = \frac{1}{(1/z) exp( \frac{ m \left | c - u \right |^2}{\sqrt{2 k_B T}} )+\theta}
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thermal Normalization \& Galilean trasformation of the 1d Equations}
+	Our thermal normalized definition of $\vec{C}^*$ goes a follows,
+	\begin{align*}
+	& C^* = \frac{(c-u)}{\sqrt{\frac{2k_BT_\infty}{m}}} & J = \left(\frac{\partial C^*}{\partial c} \right ) = \sqrt{\frac{2k_BT_\infty}{m}} 
+	\end{align*}
+	The Semiclassical equilibrium distribution becomes,
+	\begin{equation}
+	f^{eq} ( x, c, t) = \frac{1}{(1/  z) exp({C^*})+ \theta}
+	%\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/ \hat z) exp(\hat {C^*})+\hat \theta}
+	\label{eq:normadistf1d}
+	\end{equation}
+	%We will drop the hat notation in the following slides while working with normalized equations.
+\end{frame}
+
+\begin{frame}
+	\frametitle{BE with effects of galilean transformation}
+	substituting $f(x,c,t)$ by $f^*(x,C^*,t)$, and evaluating the total derivates of $f^*$ we get our dynamics Boltzmann-BGK equation,
+	
+	\begin{equation}
+	\frac{\partial f^*}{\partial t} + c_x \frac{\partial f*}{\partial x} 
+		- \frac{1}{a} \frac{\partial f^*}{\partial C^*} C^* \frac{Da}{Dt}
+		- \frac{1}{a} \frac{\partial f^*}{\partial C^*} \frac{Du}{Dt}
+		= -\frac{f - f^{eq}}{\tau}
+	\label{eq:sbbgk1d}
+	\end{equation}
+	
+	Where operator $D/Dt = d/dt + c d/dx$ is identified as the material derivate. Observer that, 
+	\begin{equation}
+		c(x,t) = a(x,t) C^* + u(x,t)
+	\end{equation}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 1d Equations}
+	But before coding it, we first need to normalize our governing equations. We follow Muljadi and Yang \cite{Yang2013} procedure,
+	
+	\begin{align*}
+	V_\infty &= \sqrt{\frac{2k_BT_\infty}{m}}, & t_\infty &= \frac{L}{V_\infty}
+	\end{align*}
+	
+	Here $L$ $(L = V_\infty t_\infty)$ is identified as the characterisitc length.
+\end{frame}
+
+\begin{frame}
+	Multiplying to equation \ref{eq:sbbgk1d} and it moments by $(\frac{V_\infty}{V_\infty})(\frac{t_\infty}{t_\infty})$, the following dimensionles relations follows,
+	\begin{align*}
+	(\hat t, \hat \tau) &= \frac{(t,\tau)}{t_\infty}, & (\hat u_x,\hat c_x,) = \frac{(u_x,c_x)}{V_\infty}, \\
+	\hat T &= \frac{T}{T_\infty}, & \hat E = E / \left(\frac{m^3V_\infty^4}{h^2} \right ), \\
+	\hat f &= f, &\hat {\rho u_x} = \rho u_x / \left(\frac{m^2V_\infty^3}{h^2} \right ), \\
+	\hat x &= \frac{x}{L}, &\hat \rho = \rho / \left(\frac{m^2V_\infty^2}{h^2} \right ).
+	\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Normalization of 1d Equations}
+	Neglecting any external force, the normalized Boltzmann-BKG equation in 1d becomes,
+	\begin{equation}
+	\frac{\partial \hat {f^*}}{\partial \hat t} + \hat c_x \frac{\partial \hat {f*}}{\partial \hat x} 
+		- \frac{1}{\hat a} \frac{\partial \hat {f^*}}{\partial \hat {C^*}} \hat {C^*} \frac{D \hat a}{D \hat t}
+		- \frac{1}{\hat a} \frac{\partial \hat {f^*}}{\partial \hat {C^*}} \frac{D \hat u}{D \hat t}
+		= -\frac{\hat f - \hat {f^{eq}}}{\hat \tau}
+	\end{equation}
+	The normalized one-dimensional semiclassical equilibrium distribution function becomes,
+	\begin{equation}
+	\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/z) exp(\left | \hat c - \hat u \right |^2 / \hat T)+\theta}
+\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Thermal Normalization \& Galilean trasformation}
+	Normalized definition of $\vec{C}^*$ are,
+	\begin{align*}
+	&\hat C^* = \frac{(\hat c-\hat u)}{\sqrt{\hat T}} & \hat J = \left(\frac{\partial \hat {C^*}}{\partial \hat c} \right ) = \sqrt{\hat T} 
+	\end{align*}
+	The Semiclassical equilibrium distribution becomes,
+	\begin{equation}
+		\hat f^{eq} (\hat x,\hat c,\hat t) = \frac{1}{(1/ \hat z) exp(\hat {C^*})+\hat \theta}
+	\label{eq:normadistf1d}
+	\end{equation}
+	We will drop the hat notation in the following slides while working with normalized equations.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Apply DOM to modified BE}
+	Applying Discrete Ordinate Method, we render the following set of dynamic Boltzmann-BGK equations,
+	\begin{equation}
+	\frac{\partial {f_\sigma^*}}{\partial t} + c_\sigma \frac{\partial f_\sigma^*}{\partial x} 
+		- \frac{1}{a} \frac{\partial f_\sigma^*}{\partial C_\sigma^*} C_\sigma^* \frac{Da}{Dt}
+		- \frac{1}{a} \frac{\partial f_\sigma^*}{\partial C_\sigma^*} \frac{Du}{Dt}
+		= -\frac{f_\sigma - f_\sigma^{eq}}{\tau}
+	\end{equation}
+	Note that $c_\sigma(x,t) = a(x,t) C_\sigma^* + u(x,t)$. We also must render their companion semi-classical equilibrium distribution functions,
+	\begin{equation}
+	f_\sigma^{eq} (x,c_\sigma,t) = \frac{1}{(1/z) exp(C_\sigma^*)^2 + \theta}
+	\end{equation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Basic Numerical Method}
+		\begin{equation}
+		\begin{split}
+			\frac{f^{*,n+1}_{\sigma,i} - f^{*,n}_{\sigma,i}}{\Delta t} & + 
+			(a_i\vec{C_\sigma}^{*}+\vec{u}_i)^{+} \bullet \frac{f^{*,n}_{\sigma,i-1} - f^{*,n}_{\sigma,i}}{\Delta x} 
+			\\ & +(a_i\vec{C_\sigma}^{*}+\vec{u}_i)^{-} \bullet \frac{f^{*,n}_{\sigma,i} - f^{*,n}_{\sigma,i+1}}{\Delta x}
+			\\ & -\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\vec{C_\sigma}^*\left(\frac{D a}{D t} \right )
+			\\ & -\frac{1}{a}\frac{\partial f^*}{\partial \vec{C_\sigma}^*}\left(\frac{D u}{D t} \right)
+			\\ & = -\frac{1}{\tau}(f^n_{\sigma,i} - f^{eq,n}_{\sigma,i})
+		\end{split}
+	\end{equation}
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Basic Numerical Method}
+		\begin{align*}
+			\left(\frac{D a}{D t} \right ) &= \frac{a^{n+1}_{i} - a^{n+1}_{i}}{\Delta t} \\
+				& + c^{+} \bullet \frac{a^{n}_{i} - a^{n}_{i-1}}{\Delta x}
+				 + c^{-} \bullet \frac{a^{n}_{i+1} - a^{n}_{i}}{\Delta x} \\
+			\left(\frac{D a}{D t} \right ) &= \frac{u^{n+1}_{i} - u^{n+1}_{i}}{\Delta t} \\
+				& + c^{+} \bullet \frac{u^{n}_{i} - u^{n}_{i-1}}{\Delta x}
+				 + c^{-} \bullet \frac{u^{n}_{i+1} - u^{n}_{i}}{\Delta x}
+		\end{align*}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DDOM}
+	The moment integrals become,
+	\begin{eqnarray}
+		\sum_\sigma J W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=&  \rho, \\
+		\sum_\sigma J c_\sigma W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=& \rho \vec{u}, \nonumber \\
+		\sum_\sigma J \frac{c_\sigma^2}{2} W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=& \rho E, \nonumber \\
+		\sum_\sigma J \frac{(c_\sigma-u)^2}{2} W_\sigma \exp(c_\sigma^2) f^*(x,c_\sigma,t) &=& \rho e  \nonumber
+	\end{eqnarray}
+	Where J is the Jacobian. Here $J = \sqrt{T(x,t)}$ .
+\end{frame}
+
+%\subsection{Numerical Results with DDOM}
+
+\begin{frame}
+	\frametitle{Right Expansion}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{2RE_upwind_DDOM1}
+			\caption{Result using MB distribution, Upwind method for all space differentials with 100 points in physical space, DDOM with 5 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_RE_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Right Expansion}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{2RE_upwind_DDOM}
+			\caption{Result using MB distribution, Upwind method for all space differentials with 200 points in physical space, DDOM with 5 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_RE_DDOM_2}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Right Expansion}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{2RE_WENO3_DDOM}
+			\caption{Result using MB distribution, WENO3 discretization for all space differentials with 100 points in physical space, DDOM with 5 velocity points in velocity space and and $\tau = 1 \over 10000$}
+			\label{fig:MB_RE_WENO_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lax case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{LAX_upwind_DDOM}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 100 points in physical space, DDOM with 3 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Lax_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lax case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{LAX_upwind_DDOM_2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space, DDOM with 3 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Lax_DDOM_2}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lax case with DG and DOM}
+			
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.85\textwidth]{LAXsDG100N3}
+			\caption{Solving with MB distribution function, Nodal DG method with 100 elements (legendre-gauss-lobato polynomials of degree $p=3$) in physical space, RK3 time integration, DOM with 200 velocity points and $\tau = {1 \over 10000}$}
+			\label{fig:LAXsDG100N3}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sjogreen case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sjogreen_upwind_DDOM}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 100 points in physical space, DDOM with 3 velocity points in velocity space, and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Sjogreen_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sjogreen case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sjogreen_upwind_DDOM_2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space, DDOM with 3 velocity points in velocity space, and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Sjogreen_DDOM_2}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space, DDOM with 3 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Sod_DDOM}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM_2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space, DDOM with 3 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Sod_DDOM2}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case with DG and DOM}
+			
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.85\textwidth]{SODsDG200N3}
+			\caption{Solving with MB distribution function, Nodal DG method with 200 elements (legendre-gauss-lobato polynomials of degree $p=3$) in physical space, RK3 time integraton, DOM with 81 velocity points and $\tau = {1 \over 10000}$}
+			\label{fig:SODsDG200N3}
+		\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM_wfix}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space, DDOM with 3 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Sods_DDOM_wfix}
+		\end{figure}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sod's case}
+		
+		\begin{figure}
+			\centering
+				\includegraphics[width=0.90\textwidth]{Sods_upwind_DDOM_wfix2}
+			\caption{Result using MB distribution, Upwind discretization for all space differentials with 200 points in physical space, DDOM with 3 velocity points in velocity space and $\tau = {1 \over 10000}$}
+			\label{fig:MB_Sods_DDOM_wfix2}
+		\end{figure}
+		
+\end{frame}

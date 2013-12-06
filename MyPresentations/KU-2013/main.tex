@@ -1,0 +1,398 @@
+\input{Beamer_header.tex}
+
+\title[Short Title \hspace{4em}\insertframenumber/
+\inserttotalframenumber]{~ \\ Semiclassical Botlzmann Formulation \\ in one dimensional phase space \\~} %the [whatever] appears in the footer on the right
+\author[M. A. Diaz]{ Manuel A. Diaz, \\ National Taiwan Universty } %the [whatever] appears in the footer on the left
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\section*{About NTU}
+
+\begin{frame}
+\begin{figure}
+ \centering
+ \includegraphics[height = 40 mm,width = 80 mm,trim=1pt 1pt 1pt 1pt]{../KU-2013/NTU_pics/NTU_library.jpg}
+ \caption{NTU's heart: the Main Library}
+ \label{fig:NTU_library}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+ \centering
+ \includegraphics[height = 50 mm,width = 80 mm,trim=1pt 1pt 1pt 1pt]{../KU-2013/NTU_pics/NTU_main_gate.jpg}
+ \caption{NTU's main entrance}
+ \label{fig:NTU_main_gate}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+ \centering
+ \includegraphics[height = 50 mm,width = 80 mm,trim=1pt 1pt 1pt 1pt]{../KU-2013/NTU_pics/NTU_Taipei.jpg}
+ \caption{NTU's main campus, located in the heart of Taipei City}
+ \label{fig:NTU_Taipei}
+\end{figure}
+\end{frame}
+
+\begin{frame} \frametitle{NTU Statistics}
+ \begin{orangeitemize}
+  \item Stablished
+    \begin{itemize}
+     \item Founded 1928
+     \item Reorganized 1945
+    \end{itemize}
+  \item Academic Staff
+    \begin{itemize}
+     \item 1,793 (full time),
+     \item 1,188 (joint and adjunct)
+    \end{itemize}
+  \item Student Population
+    \begin{itemize}
+     \item 17,106 (Undergraduates)
+     \item 15,710 (Post Graduates)
+    \end{itemize}
+  \item Campus
+    \begin{itemize}
+     \item 1,600,000 $m^2 \approx$ 395.4 acres.
+    \end{itemize}
+ \end{orangeitemize}
+ *according to 2012 statistics.
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+ \centering
+ \includegraphics[height = 50 mm,width = 80 mm,trim=1pt 1pt 1pt 1pt]{../KU-2013/NTU_pics/National_Palace_museum.jpg}
+ \caption{Taiwan's National Palace Museum}
+ \label{fig:National_Palace_museum}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+ \centering
+ \includegraphics[height = 50 mm,width = 80 mm,trim=1pt 1pt 1pt 1pt]{../KU-2013/NTU_pics/Taipei_city_view.jpg}
+ \caption{A View of the Taipei's commercial District}
+ \label{fig:Taipei_city_view}
+\end{figure}
+\end{frame}
+
+\section*{Outline} 
+
+\begin{frame} \frametitle{Outline}
+  \begin{orangeitemize}
+  % Today I want to pre-introduce three important concept to approach boltzmann equation.
+  \item Three important concepst before starting solving Botlzmann Equation, 
+  \begin{itemize}
+   \item Phase-Space diagramas
+   \item Probability functions and some general properties
+   \item The kinetic Boltzmann Equation
+  \end{itemize}
+  % Of course for this small presentation I have no intention of been as complete possible, however for more background the following we can refer to excelent text on classical Mechanics, Statisticas and Derivation of the Boltzmann Equation. \\
+  These concepts will be breafly discused here, more details can be pursued in \cite{morin2008introduction,flury1997first} and \cite{kremer2010introduction}.
+  % Secondly, I'll introduce a,
+  \item 1D formulation for classical Botlzmann Equation-BGK.
+  % I'm assuming that Professor Yang, has already introduced the classical formulation.
+  \item Nodal Discontinuous Galerkin Formulation of BBGK.
+  \item Numerical Examples.
+  \end{orangeitemize}
+\end{frame}
+
+\section{Motivation}
+
+\begin{frame} \frametitle{Regimes of continuous and rarefied gases}
+  Why we want to solve Boltzmann Equation?
+  \begin{figure}
+  \centering
+  \includegraphics[height = 40 mm,width = 80 mm,trim=1pt 1pt 1pt 1pt]{../KU-2013/Intro_pics/Knudsen_number_ranges}
+  \caption{Ranges of applicability for methods with respect to Kundsen number / Degree of rarefaction}
+  \label{fig:Knudsen_number_ranges}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.30\textwidth}
+                \centering
+                \includegraphics[trim = 1mm 1mm 1mm 1mm,clip,width=\textwidth]{../KU-2013/Intro_pics/micro_gas_flows}
+                \caption{Micro-gas Flows}
+                \label{fig:micro_gas_flows}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.30\textwidth}
+                \centering
+                \includegraphics[trim = 1mm 1mm 1mm 1mm,clip,width=\textwidth]{../KU-2013/Intro_pics/space_reentry}
+                \caption{Space Reentry}
+                \label{fig:space_reentry}
+        \end{subfigure}
+        \caption{Typical Application for the Classical Boltzmann Equation}
+	\label{fig:Classical_Applications}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+ Why we want to solve Semiclassical Boltzmann Equation?
+  \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.30\textwidth}
+                \centering
+                \includegraphics[trim = 1mm 1mm 1mm 1mm,clip,width=\textwidth]{../KU-2013/Motivation_pics/Electron_Flow}
+                \caption{Electron Flows in Semiconductors}
+                \label{fig:Electron_Flow}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.30\textwidth}
+                \centering
+                \includegraphics[trim = 1mm 1mm 1mm 1mm,clip,width=\textwidth]{../KU-2013/Motivation_pics/Plasma-lamp}
+                \caption{Plasma Modelation}
+                \label{fig:Plasma_lamp}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.30\textwidth}
+                \centering
+                \includegraphics[trim = 1mm 1mm 1mm 1mm,clip,width=\textwidth]{../KU-2013/Motivation_pics/HeatTransfer_compositeMaterials}
+                \caption{Heat Transfer in composite materials}
+                \label{fig:HeatTransfer_compositeMaterials}
+        \end{subfigure}
+        \caption{Typical Application for the Semi-classical Boltzmann Equation, Modelation of Quantum transport phenomena}
+	\label{fig:Semiclassical_Applications}
+ \end{figure}
+\end{frame}
+
+\section{Basic Concepts}
+
+\begin{frame} \frametitle{Phase space}
+We use a simple case to start familirizing with the concept of Phase Space. 
+Conside and ideal pendulum, or any linear oscilatory model.
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.60\textwidth}
+                \centering
+                \includegraphics[trim = 30mm 35mm 30mm 35mm,clip,width=\textwidth]{../KU-2013/BasicConcepts_pics/idealPendulum}
+        \end{subfigure}%
+        \caption{Ideal Pendulum ( in a bad-hand-made depiction)}
+        \label{fig:idealPendulum}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+How does phase space looks?
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.60\textwidth}
+                \centering
+                \includegraphics[trim = 30mm 35mm 30mm 35mm,clip,width=\textwidth]{../KU-2013/BasicConcepts_pics/phaseSpace_1d_01}
+        \end{subfigure}%
+        \caption{Depiction of phase space of one-spatial dimension}
+        \label{fig:phaseSpace_1d_01}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+We can easily identify 4 key position of our linear oscilator as depicted below,
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.60\textwidth}
+                \centering
+                \includegraphics[trim = 30mm 35mm 30mm 35mm,clip,width=\textwidth]{../KU-2013/BasicConcepts_pics/phaseSpace_1d_02}
+        \end{subfigure}%
+        \caption{Depiction of oscilator in phase space}
+        \label{fig:phaseSpace_1d_02}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+If we take discrete pictures of our oscilator and plot its momentum and x-position we would observe,
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.60\textwidth}
+                \centering
+                \includegraphics[trim = 30mm 35mm 30mm 35mm,clip,width=\textwidth]{../KU-2013/BasicConcepts_pics/phaseSpace_1d_03}
+        \end{subfigure}%
+        \caption{Depiction of phase space of one-spatial dimension}
+        \label{fig:phaseSpace_1d_03}
+ \end{figure}
+ Can we think of another examples?
+\end{frame}
+
+\begin{frame}
+How would a shock tube problem would look like in shape space?
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.60\textwidth}
+                \centering
+                \includegraphics[trim = 30mm 35mm 30mm 35mm,clip,width=\textwidth]{../KU-2013/BasicConcepts_pics/phaseSpace_shocktube}
+        \end{subfigure}%
+        \caption{Depiction a uniformly discrete shock-tube problem in phase space}
+        \label{fig:phaseSpace_1d_04}
+ \end{figure}
+\end{frame}
+
+\begin{frame} \frametitle{Probability Distribution Function}
+ \grassgreenbox{What is a probability distribution function?}
+{
+  Any function can be probability distribution function (PDF) as long it full fills two basic requirements:
+  \begin{grassgreenitemize}
+  \item Is positive function.
+  \item The integral over it's domain must be equal to one.
+  \end{grassgreenitemize}
+}
+\end{frame}
+
+
+\begin{frame}
+However today presentation is bias in favor of the Normal PDF,
+ \begin{align*}
+  Normal_{PDF}(x,\sigma,\mu) = \frac{1}{\sqrt{2 \pi } \sigma } e^{-\frac{(x-\mu )^2}{2 \sigma ^2}}
+ \end{align*}
+ where $\mu$ is the mean or expectation and $\sigma$ is the standar deviation. 
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[height = 40 mm,width = 50 mm,trim = 1mm 1mm 1mm 1mm]{../KU-2013/Mathematica_pics/Gaussian_PDF}
+                \caption{Influence of the $\sigma$ parameter}
+                \label{fig:Gaussian_PDF}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[height = 40 mm,width = 50 mm,trim = 1mm 1mm 1mm 1mm]{../KU-2013/Mathematica_pics/Gaussian_PDF02}
+                \caption{Influence of the $\mu$ parameter}
+                \label{fig:Gaussian_PDF02}
+        \end{subfigure}
+        \caption{Normal Distribution Function}
+	\label{fig:NormalDistributionFunction}
+ \end{figure}  
+\end{frame}
+
+\begin{frame}
+ Distribution function like Normal Distributions can provide a lot of mininum information. This information can be retrived by examming with detail it cumulants or Integration Moments
+ \begin{align*}
+  & M_0 = \int_{a}^{b} f(x) dx \\
+  & M_1 = \int_{a}^{b} x f(x) dx \\
+  & M_2 = \int_{a}^{b} x^2 f(x) dx \\
+  & M_n = \int_{a}^{b} x^n f(x) dx
+ \end{align*}
+\end{frame}
+
+\begin{frame}
+ Of course Probability distribution function are not only one-dimensional. The same principles used is classical statistics can be extended to 2d and 3d case (Just the equations become more complicated). 
+ For e.g. Normal distribution in 2D becomes:
+ \begin{align*}
+  & BiNormal_{PDF}(x,y,\mu_1,\mu_2,\sigma_1,\sigma_2) = \\
+  & \frac{\exp \left(\frac{1}{2} \left(-\frac{\left(x-\mu _1\right) \left(-\mu _2 \rho  \sigma _1+\mu _1 \sigma _2-\sigma _2 x+\rho  \sigma _1 y\right)}{\left(\rho ^2-1\right) \sigma _1^2 \sigma _2}-\frac{\left(y-\mu _2\right) \left(-\mu _1 \rho  \sigma _2+\mu _2 \sigma _1+\rho  \sigma _2 x+\sigma _1 (-y)\right)}{\left(\rho ^2-1\right) \sigma _1 \sigma _2^2}\right)\right)}{2 \pi  \sqrt{\sigma _1^2 \sigma _2^2-\rho ^2 \sigma _1^2 \sigma _2^2}}
+ \end{align*}
+We can think about it as the tensor product of two normal PDFs.
+\end{frame}
+
+\begin{frame}
+  Graphically we have,
+  \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[height = 40 mm,width = 50 mm,trim = 1mm 1mm 1mm 1mm]{../KU-2013/Mathematica_pics/Gaussian_PDF04}
+                \caption{Isotropic vehavior}
+                \label{fig:Gaussian_PDF04}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.45\textwidth}
+                \centering
+                \includegraphics[height = 40 mm,width = 50 mm,trim = 1mm 1mm 1mm 1mm]{../KU-2013/Mathematica_pics/Gaussian_PDF03}
+                \caption{Anisotropic}
+                \label{fig:Gaussian_PDF03}
+        \end{subfigure}
+        \caption{BiNormal Distribution Function}
+	\label{fig:BiNormalDistributionFunction}
+ \end{figure}  
+\end{frame}
+
+\begin{frame} \frametitle{Towards the Botlzmann Equation}
+  \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.30\textwidth}
+                \centering
+                \includegraphics[height = 40 mm,width = 30 mm,trim = 1mm 1mm 1mm 1mm]{../KU-2013/Intro_pics/james_clerk_maxwell}
+                \caption{Maxwell}
+                \label{fig:james_clerk_maxwell}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.30\textwidth}
+                \centering
+                \includegraphics[height = 40 mm,width = 30 mm,trim = 1mm 1mm 1mm 1mm]{../KU-2013/Intro_pics/ludwing_eduard_boltzmann}
+                \caption{Boltzmann}
+                \label{fig:ludwing_eduard_boltzmann}
+        \end{subfigure}
+        \caption{Pioneers in of Statistical Mechanics}
+	\label{fig:Maxwell-Boltzmann}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+How would a shock tube problem would look like in shape space?
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.60\textwidth}
+                \centering
+                \includegraphics[trim = 30mm 35mm 30mm 35mm,clip,width=\textwidth]{../KU-2013/BasicConcepts_pics/phaseSpace_shocktube}
+        \end{subfigure}%
+        \caption{Depiction a uniformly discrete shock-tube problem in phase space}
+        \label{fig:shocktube_dx}
+ \end{figure}
+\end{frame}
+
+\begin{frame} \frametitle{Introduction to Boltzmann Equation}
+ Here we consider Botlzmann initial the molecules of a Gas with N molecules enclosed in a recipiente of volume V.
+ Following Boltzmann work, the state of a gas in the phase-space is characterized by a density PDF namely $f(\vec{x},\vec{v},t)$.
+ \begin{equation}
+  f(\vec{x},\vec{v},t) d\vec{x} d\vec{v} = f(\vec{x},\vec{v},t) dx_1 dx_2 dx_3 dv_1 dv_2 dv_3 
+ \end{equation}
+  Which represents at time t, the number of molecules in the volume element with position vector within the range $x + dx$ and with velocity vectors within the range $v + dv$.
+\end{frame}
+
+\begin{frame}
+How would a shock tube problem would look like in shape space?
+ \begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.60\textwidth}
+                \centering
+                \includegraphics[trim = 30mm 35mm 30mm 35mm,clip,width=\textwidth]{../KU-2013/BasicConcepts_pics/phaseSpace_shocktube_dx}
+        \end{subfigure}%
+        \caption{Depiction a uniformly discrete shock-tube problem in phase space}
+        \label{fig:shocktube}
+ \end{figure}
+\end{frame}
+
+% Introduction
+\include{intro}
+
+
+% Bibliography
+\section{References}
+\subsection{Bibliography}
+
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	\bibliographystyle{unsrt}
+	%\bibliographystyle{amsalpha}
+	\bibliography{Presentation_refs,DDOM_refs}
+\end{frame}
+
+\end{document}
