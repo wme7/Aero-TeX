@@ -1,0 +1,152 @@
+\input{Article_header.tex}
+
+% Document Begin's
+%\begin{document}
+
+\title{Electrodynamics, Spring 2014 \\ Solution of Homework 3}
+\author{Manuel Diaz\\
+			f99543083@ntu.edu.tw\\}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Basic Definitions}
+Let us recall from lectures notes the following figure,
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/electrostatics_summary.png} 
+	\caption{Electrostacis Summary}
+	\label{fig:electrostatics_summary}
+\end{figure}
+
+Observe that by starting form the Potential definition of any problem it is always easier to know it's charge density and the electrical field.
+
+% Problem 1
+\section{Problem 3.2}
+Find the indiced charge and stored energy of a grounded sphere of radious $R$ in the precense of a point charge $q$.\\
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/example3_2.png} 
+	\caption{Example 3.2}
+	\label{fig:example_3.2}
+\end{figure}
+
+Solution: Using the method of images, we replace the original problem by a "similar" problem. One that involves two point charges as shown in figure (\ref{fig:example_3.2}) by replacing the grounded sphere by a single point charge. And asume an imaginary surface situated at a radious $R$ around this imaginary carge, we wish to found a magnitude of the charge that would make the potential in such surface equals to zero. In example 3.2, the potential of this configuration is given by,
+\begin{equation}
+	V(r,\theta) = \frac{1}{4\pi\epsilon_0}
+	\left(
+	\frac{q}{r} -
+	\frac{q^\prime}{r^\prime}
+	\right)
+\end{equation}
+and the cosines relations found in figure (\ref{fig:example_3.2}), the potential of the configuration of this two point charges is:
+
+\begin{equation}
+	V(r,\theta) = \frac{1}{4\pi\epsilon_0} 
+	\left[
+	\frac{q}{\sqrt{r^2+a^2-2ra cos(\theta)}} - 
+	\frac{q}{\sqrt{R^2+(ra/R)^-2ra cos(\theta)}}
+	\right]
+\end{equation}
+
+It is clear that the potential $V=0$ if $r=R$. Let us now compute the induced charge over the sphere. Recall from figure (\ref{fig:electrostatics_summary}) how to compute charge density from potential.
+\begin{align*}
+	\sigma_{induced} &= -\epsilon_0 \nabla^2{V} 
+\end{align*}
+In this case $\pd{V}{n}=\pd{V}{r}$ at the point $r=R$. Therefore,
+\begin{align*}
+	\sigma(\theta) = &-\epsilon_0 \pdd{V}{r}|_{r=R}\\
+	 	= &-\epsilon_0 \frac{q}{4\pi\epsilon_0} 
+		\left\{
+			-\frac{1}{2}(r^2+a^2-2ra\cos\theta)^{-3/2}(2r-2a\cos\theta) 
+		\right. \\
+		&\left.
+			+\frac{1}{2}(R^2+(ra/R)^2-2ra\cos\theta)^{3/2}
+			\left( \frac{a^2}{R^2}2r-2a\cos\theta \right)
+		\right\}|_{r=R} \\
+		= &-\frac{q}{4\pi} \left\{ -R^2+a^2-2Ra\cos\theta)^{-3/2} (R-a\cos\theta)+
+		(R^2+a^2-2Ra\cos\theta)^{-3/2} \left( \frac{a^2}{R}-acos\theta \right)\right\} \\
+		= &\frac{q}{4\pi}(R^2+a^2-2Ra\cos\theta)^{3/2}
+		\left[ R-a\cos\theta -\frac{a^2}{R}+a\cos\theta \right] \\
+		= &\frac{q}{4\pi R}(R^2-a^2)(R^2+a^2-2Ra\cos\theta)^{2/3}
+\end{align*}
+Then 
+\begin{align*}
+q_{induced} &= \int \sigma da 
+			= \frac{1}{4\pi} \int(R^2-a^2)(R^2+a^2-2Ra cos\theta)^{2/3}R^2 \sin\theta d\theta d\phi\\
+			&= \frac{q}{4\pi R}(R^2-a^2)2\pi R^2 \left[ -\frac{1}{Ra}(R^2+a^2-2Ra cos\theta)^{-1/2} \right]|_0^\pi\\
+			&= \frac{q}{2a}(a^2-R^2)\left[ \frac{1}{\sqrt{R^2+a^2+Ra}}-\frac{1}{\sqrt{R^2+a^2-Ra}}\right]\\
+			&\text{But $a>R$ (else q would be inside), so } \sqrt{R^2+a^2-2Ra}=a-R \\
+			&= \frac{q}{2a}(a^2-R^2)\left[\frac{1}{a+R}-\frac{1}{a-R} \right] = \frac{q}{2a}[(a-R)-(a+R)]=\frac{q}{2s}(-2R)\\
+			&= -\frac{qR}{a} = q^\prime.
+\end{align*}
+The force on q, due to the sphere, is the same as the force on the image charge $q^\prime$, to wit:
+\begin{align*}
+	F = \frac{1}{4\pi\epsilon_0} \frac{qq^\prime}{(a-b)^2}=\frac{1}{4\pi\epsilon_0}
+	\left( -\frac{R}{a}q^2 	\right)\frac{1}{(a-R^2/a)^2}
+	=\frac{1}{4\pi\epsilon_0} \frac{q^2R}{a^2-R^2}.
+\end{align*}
+To bring q in from infinity to a then, we do work
+\begin{align*}
+	W = \frac{q^2R}{4\pi\epsilon_0}\int_\infty^a \frac{\bar{a}}{(\bar{a}^2-R^2)^2} d\bar{a}
+	=\frac{q^2R}{4\pi\epsilon_0}\left[ -\frac{1}{2} \frac{1}{(\bar{a}^2-R^2)} \right]|_\infty^a = \frac{1}{4\pi\epsilon_0} \frac{q^2R}{2(a^2-R^2)}.
+\end{align*}
+
+% Problem 2
+\section{Problem 3.8a}
+Find the electric field inside and outside a unipotential sphere of radious $R$ in the presence of a uniform electrical field. See details in example 3.8. \\
+
+Solution: From example 3.8 we concluded that the potential for this configuration is given by
+\begin{equation}
+	V(r,\theta) = -E_0\left( r-\frac{R^3}{r^2} \right) \cos\theta,
+\end{equation}
+and from figure (\ref{fig:electrostatics_summary}) we know
+\begin{equation}
+	E = -\grad{V}.
+\end{equation}
+Moreover we can sphere is an equipotencial, (because in a conductor any internal field would cancel the effect of the external $\vec{E}$ field) therefore the electrical field inside the sphere is zero.
+The external field however, can be computed by evaluating the gradient of V in spherical coordiantes,
+\begin{align*}
+E = &-\left( \pd{V}{r}\hat{r}+\frac{1}{r}\pd{V}{\theta}\hat{\theta}+\frac{1}{r\sin\theta}\pd{V}{\phi}\hat{\phi} \right)\\
+ = &E_0\left[ \left( 1-2\frac{R^2}{r^3} \right)\cos\theta 
+ -\left(r-\frac{R^3}{r^2} \right)\sin\theta \right]
+\end{align*}
+
+% Problem 3
+
+% Problem 3
+\section{Problem 3.8b}
+Find the dipole and quadrupole moments for example 3.8.\\
+
+Solution: The induced charge density, is similar fasion as it was calculated as in example 3.2,
+\begin{equation}
+\sigma(\theta)=\epsilon_0\pd{V}{r}|_{r=R} = \epsilon_0E_0\left( 1-2\frac{R^2}{r^3} \right)\cos\theta |_{r=R} = 3\epsilon_0E_0\cos\theta.
+\end{equation}
+Moreover, from the multipole expansion equation, we identify 
+\begin{align}
+	\v{p}_{dip} =& \int r\cos\theta\rho(\v{r})d\tau\\
+	\v{p}_{quad} =& \int r^2\left(\frac{3}{2}\cos^2\theta-\frac{1}{2}\right)\rho(\v{r})d\tau
+\end{align}
+as the dipole and quadrupole moments respectively. Notice that these equations can be translated in the usual way for point, line an surface charges. Let us now evaluate the induced surface charge in equation (5) into definitions (6) and (7). Doing so we will get,
+\begin{align*}
+\v{p}_{dip} =& \int r\cos\theta\rho(\v{r})d\tau = \int R\cos\theta\sigma da \\
+			=& \int_0^{2\pi} \int_0^\pi 
+			R\cos\theta (3\epsilon_0E_0\cos\theta) R^2\sin\theta d\theta d\phi\\
+			& \text{ straigforward algebra will lead to the result }\\
+			=& 4\pi\epsilon_0E_0R^3
+\end{align*}
+and
+\begin{align*}
+\v{p}_{quad} =&	\int r^2\left(\frac{3}{2}\cos^2\theta-\frac{1}{2}\right)\rho(\v{r})d\tau 
+			= \int R^2\left(\frac{3}{2}\cos^2\theta-\frac{1}{2}\right)\sigma da \\
+			=& \int_0^{2\pi} \int_0^\pi 
+			R^2\left(\frac{3}{2}\cos^2\theta-\frac{1}{2}\right)
+			(3\epsilon_0E_0\cos\theta) R^2\sin\theta d\theta d\phi\\
+			& \text{ straigforward algebra will lead to the conclusion }\\
+			=& 0			
+\end{align*}
+
+
+End.
+\end{document}

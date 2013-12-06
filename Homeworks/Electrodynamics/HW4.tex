@@ -1,0 +1,133 @@
+\input{Article_header.tex}
+
+% Document Begin's
+%\begin{document}
+
+\title{Electrodynamics, Spring 2014 \\ Solution of Homework 4}
+\author{by Manuel Diaz\\
+			f99543083@ntu.edu.tw\\}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Basic Definitions}
+1. Let us recall from lectures notes the following figure,
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{images/electrostatics_summary.png} 
+	\caption{Electrostacis Summary}
+	\label{fig:electrostatics_summary}
+\end{figure}
+
+Observe that by starting form the Potential definition of any problem it is always easier to know it's charge density and the electrical field.\\
+2. From Chapter 3, the dipole potential field, $V_{dip}$, and the dipole moment, $\vec{p}$, are defined as
+\begin{align}
+	& V_{dip}(\vec{r}) = \frac{1}{4\pi \epsilon_0}\frac{\vec{p}\cdot\hat{r}}{r^2},& &\vec{p} = \int_{\tau}\vec{P}d\tau&
+\end{align}
+Where $\vec{P}$ is the polarization per unit volume.
+
+% Problem 1
+\section{Problem 4.2}
+Find the electric field outside a uniformaly polarized sphere or radious $R$.\\
+\begin{figure}
+	\centering
+	\includegraphics[width=0.2\textwidth]{images/example4_2.png} 
+	\caption{Example 4.2}
+	\label{fig:example_4.2}
+\end{figure}
+
+Solution: We choose the z axis to coincide with the direction of Polarization (Fig. \ref{fig:example_4.2}). The volume bound charge density $\rho_b$ is zero, since $\vec{P}$ is uniform, but
+\begin{equation}
+	\sigma_b = \vec{P}\cdot\hat{n} = P\cos\theta
+\end{equation}
+where theta is the usual spherical coordinate. From example 4.2 the potential field produced by this density, $P\cos\theta$, over the surface of a sphere is given by
+\begin{equation}
+	V(r,\theta) = \begin{cases}
+	\frac{P}{3\epsilon_0}r\cos\theta, & 0\leq r\leq R \\
+	\frac{P}{3\epsilon_0}\frac{R^3}{r^2}\cos\theta, & r \geq R
+	\end{cases}
+\end{equation}
+To compute the electric field, recall in figure \ref{fig:electrostatics_summary} and let us use the gradient relation, $E = -\grad{V}$. 
+The gradient of $V$ in spherical coordinates is given by:
+\begin{equation}
+	\grad{t} = \pd{t}{r}\hat{r} + \frac{1}{r}\pd{t}{\theta}\hat{\theta}+\frac{1}{r\sin\theta} \pd{t}{\phi}\hat{\phi}
+\end{equation}
+Evaluating our potential function, $V$, into (4) will yield,
+\begin{equation}
+\vec{E} = \begin{cases}
+	\left[ -\frac{P\cos\theta}{3\epsilon_0}\hat{r},\frac{P\sin\theta}{3\epsilon_0}\hat{\theta},0\hat{\phi} \right] , & 0\leq r\leq R \\
+	\left[ \frac{2P\,R^3\cos\theta}{3r^3\epsilon_0}\hat{r},\frac{P\,R^3\sin\theta}{3r^3\epsilon_0}\hat{\theta},0\hat{\phi} \right] & r \geq R
+\end{cases}
+\end{equation}
+Assuming $R=1$, $P=1$ and $\epsilon_0=1$. The electric field computed and ploted in Mathematica. The result is shown in figure \ref{fig:Efield_4.2}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.33\textwidth]{images/plotExample4_2.png} 
+	\caption{Electric Field for example 4.2}
+	\label{fig:Efield_4.2}
+\end{figure}
+
+% Problem 2
+\section{Problem 4.7a}
+Find the electric field outside a homogenours linear dielectric sphere place in an uniform electric field $\vec{E}_0$, similarly as shown in figure \ref{fig:example_4.7}.\\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.3\textwidth]{images/example4_7.png} 
+	\caption{Example 4.7}
+	\label{fig:example_4.7}
+\end{figure}
+
+Solution: From Example 4.7 we know that the potential inside and outside the sphere is given by,
+\begin{equation}
+	V(r,\theta) = \begin{cases}
+		-\frac{3E_0}{2+\epsilon_r}r\cos\theta, & 0\leq r\leq R \\
+		-E_0 r\cos\theta+\frac{E_0R^3}{r^2}\frac{\epsilon_r-1}{\epsilon_r+2}\cos\theta, & r\geq R
+	\end{cases}
+\end{equation}
+Once again, let us use the relation $E = -\grad{V}$ and expresion (4). The Electric field are,
+\begin{equation}
+	\vec{E} = \begin{cases}
+		\left[\frac{3E_0\cos\theta}{2+\epsilon_0}\hat{r},
+					-\frac{3E_0\sin\theta}{2+\epsilon_0}\hat{\theta},
+					0\hat{\phi} \right], & 0\leq r\leq R \\
+		\left[(E_0\cos\theta+2\frac{\epsilon_r-1}{\epsilon_r+2}\frac{R^3}{r^3}E_0\cos\theta)\hat{r},
+					(-E_0\sin\theta+\frac{\epsilon_r-1}{\epsilon_r+2}\frac{R^3}{r^3}E_0\sin\theta)\hat{\theta}, 
+					0\hat{\phi} \right], & r\geq R
+	\end{cases}
+\end{equation}
+We can further simply (6) and (7), however I choose to leave it this way to always recall that the first term is due to the external field, while the second one is due to the polarized sphere.
+As before, assuming $E_0=1$, $R=1$ and $\epsilon_r=1.5$. The electric field ploted in Mathematica and shown in figure \ref{fig:Efield_4.7}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.33\textwidth]{images/plotExample4_7.png} 
+	\caption{Electric Field for example 4.7}
+	\label{fig:Efield_4.7}
+\end{figure}
+
+% Problem 3
+\section{Problem 4.7b}
+Find the dipole for problem 4.7a\\
+
+Solution: Let us compare the potential outside the sphere (without the contribution of the external field $\vec{E}_0$) to the potential of a dipole, 
+\begin{equation}
+	V_{dip}(\vec{r}) = \frac{1}{4\pi \epsilon_0}\frac{\vec{p}\cdot\hat{r}}{r^2} 
+									= \frac{1}{4\pi \epsilon_0}\frac{p\cos\theta}{r^2} 
+									=\frac{E_0R^3}{r^2}\frac{\epsilon_r-1}{\epsilon_r+2}\cos\theta
+\end{equation}
+And solve for $p$ we have,
+\begin{align}
+	p = 4\pi R^3\epsilon_0 \frac{\epsilon_r-1}{\epsilon_r+2} E_0\cos\theta \\
+	\vec{p} = 4\pi R^3\epsilon_0 \frac{\epsilon_r-1}{\epsilon_r+2} E_0 \hat{z}
+\end{align}
+By reviewing the last homework I noted that many have also submited the Polarization (dipole moment per unit volume) of example 4.7. 
+Using the second relation in (1). We can define
+\begin{equation}
+	\vec{p} = \int_{\tau}\vec{P}d\tau = \frac{4\pi R^3}{3}\vec{P}
+\end{equation}
+Equating (10) with (11) and solving for $\vec{P}$ yields
+\begin{equation}
+	\vec{P} = 3E_0\frac{\epsilon_r-1}{\epsilon_r+2}\epsilon_0 \hat{z}
+\end{equation}
+End.
+\end{document}

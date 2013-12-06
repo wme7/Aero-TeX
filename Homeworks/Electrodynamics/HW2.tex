@@ -1,0 +1,149 @@
+\input{Article_header.tex}
+
+% Document Begin's
+%\begin{document}
+
+\title{Electrodynamics, Spring 2014 \\ Solution of Homework 2}
+\author{Manuel Diaz\\
+			f99543083@ntu.edu.tw\\}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Basic Definitions}
+Gauss Theorem,
+\begin{equation}
+	\oint \vec{E}\cdot d\vec{a} = \frac{Q_{enc}}{\epsilon_0}
+\end{equation}
+Potential,
+\begin{equation}
+	\mathcal{V}(r)=-\int_{\infty}^{r} \vec{E}\cdot d\vec{l}
+\end{equation}
+Energy,
+\begin{equation}
+	\mathcal{W}=\frac{1}{2}\int \rho \mathcal{V} d\tau
+\end{equation}
+
+% Problem 1
+\section{Problem 2.3}
+Find the electric Field inside a uniformly charged sphere of radious $R$ and total charge $q$. Solution: \\
+The total charge, $q$, in the sphere is,  
+\begin{align}
+	q &= \int_{V} \rho d\tau \rightarrow q = \int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{R} \rho r^2 sin \theta dr d\theta d\phi = 4 \pi \rho \frac{R^3}{3}
+\end{align}
+so, charge density, $\rho$, is found to be
+\begin{align}
+	\rho = \frac{3 q}{4\pi R^3}
+\label{eq:uniform_sphere_rho}
+\end{align}
+with (\ref{eq:uniform_sphere_rho}) the charge enclosed in a gauss surface of radious $r$, is 
+\begin{align}
+	Q_{enc}(r) &= \int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{r} \rho \tau^2 sin \theta d\tau d\theta d\phi, \\ 
+	&= q \frac{r^3}{R^3}.
+\end{align} 
+Using Gauss theorem and last results, the electrical field follows,
+\begin{align}
+	\vec{E}\cdot\int d\vec{a} &= |\vec{E}|(4\pi r^2) = \frac{1}{\epsilon_0} \frac{r^3}{R^3} \rightarrow |\vec{E}| = \frac{q}{4\pi\epsilon_0} \frac{r}{R^3}\\
+	\therefore \vec{E} &= \frac{q}{4\pi\epsilon_0}\frac{r}{R^3}\hat{r}
+\end{align}
+
+% Problem 2
+\section{Problem 2.4}
+Find the electric field out side a long cylinder of radious $r$, which has a radialy distributed charge of the form: 
+\begin{equation*}
+\rho = k s
+\end{equation*} 
+Solution: \\
+assume a cylindrical Gauss surface of length $l$ and radious $s$ around our original long cylinder, therefore the enclosed charge is,
+\begin{align}
+	Q_{enc} &= \int_{V} \rho d\tau \rightarrow Q_{enc} = \int_{0}^{l} \int_{0}^{2\pi} \int_{0}^{r} k\tau^2 d\tau d\theta dl = \frac{2}{3}\pi klr^3.
+\end{align}
+There is no constribution from the lateral Gauss surfaces due to $\vec{E} \perp d\vec{a}$, therefore,
+\begin{equation}
+	\oint \vec{E}\cdot d\vec{a} = 0
+\end{equation}
+Let us compute electrical field using Gauss Theorem,
+\begin{align}
+	\vec{E}\cdot \int d\vec{a} = |\vec{E}|2\pi s l &= \frac{2}{3}\pi klr^3 \rightarrow |\vec{E}|=\frac{k}{3\epsilon_0}\frac{r^3}{s} \\
+	\therefore \vec{E} &= \frac{k}{3\epsilon_0}\frac{r^3}{s}\hat{s}
+\end{align}
+
+% Problem 3
+\section{Problem 2.5}
+Find the potential inside and outside a uniform charged solid sphere of total charge $q$ and radius $R$. Solution: \\
+Let us use results from example 2.3 in the slides and problem 1, we have
+\begin{align}
+	\vec{E}_{outside}(r)=\frac{q}{4\pi\epsilon_0}\frac{1}{r^2}\hat{r}\;\;\text{for } r>R \\
+	\vec{E}_{inside}(r) =\frac{q}{4\pi\epsilon_0}\frac{r}{R^3}\hat{r}\;\;\text{for } 0\leq r\leq R
+\end{align}
+The potential outside the sphere is,
+\begin{equation}
+	\mathcal{V}(r) = -\int_{\infty}^{r} \vec{E}_{outside}\cdot d\vec{l}
+							= -\int_{\infty}^{R} \frac{q}{4\pi\epsilon_0}\frac{1}{\tau^2}d\tau
+							= -\frac{q}{4\pi\epsilon_0}\frac{-1}{r}|_{\infty}^{R}
+							= \frac{q}{4\pi\epsilon_0}\frac{q}{R},
+\end{equation}
+and for the potential inside the sphere is given by
+\begin{align}
+	\mathcal{V}(r) &= -\left[\int_{\infty}^{R} \vec{E}_{ouside}\cdot d\vec{l} 
+								+ \int_{R}^{r} \vec{E}_{inside} \cdot d\vec{l}\right]\\
+							&= \frac{q}{4\pi\epsilon_0 R} 
+								- \frac{q}{4\pi\epsilon_0 R^3} \int_R^r \tau d\tau \\
+							&= \frac{q}{4\pi\epsilon_0 R}
+								- \frac{q}{4\pi\epsilon_0 R^3} \left(\frac{r^2-R^2}{2}\right) \\
+							&= \frac{q}{8\pi\epsilon_0 R}\left(3-\frac{r^2}{R^2}\right)
+\end{align}
+
+% Problem 4
+\section{Problem 2.9}
+Find the energy of a uniformly charged sphere which has total charge $q$ and radious $R$. Solution: \\
+Using result (5) and (20), the total energy can be computed by doing,
+\begin{align}
+	\mathcal{W}	= \frac{1}{2} \int\rho\mathcal{V}d\tau 
+						= \frac{1}{2} \int_0^R \frac{3 q}{4\pi R^3} 
+						  \frac{q}{8\pi\epsilon_0 R}\left(3-\frac{r^2}{R^2}\right) 4\pi r^2 dr 
+						= \frac{3}{20}\frac{q^2}{\pi\epsilon_0 R}
+\end{align}
+Notice that $\int d\tau$ is a volume integral in spherical coordinates that has reduced to $\int 4\pi r^2 dr$. \\ We could also obtain this result by using the alternative formulation,
+\begin{equation}
+	\mathcal{W} = \frac{\epsilon_0}{2}\int |\vec{E}|^2 d\tau,
+\end{equation}
+and using our the results for an electrical field inside and outside the solid sphere, i.e., equations (14) and (15), we calculate 
+\begin{align}
+	\mathcal{W}_{total} 	&= \frac{\epsilon_0}{2} \left[
+						\int\left(\frac{q}{4\pi\epsilon_0}\frac{1}{r^2}\right)^2 4\pi r^2dr +
+						\int\left(\frac{q}{4\pi\epsilon_0}\frac{r}{R^3}\right)^2 4\pi r^2dr \right]\\
+						&= \frac{1}{2} \frac{q^2}{4\pi\epsilon_0} 
+						\int_{R}^{\infty}\frac{1}{r^2}dr + \int_{0}^{R}\frac{r^4}{R^6}dr 
+						 = \frac{q^2}{4\pi\epsilon_0}\frac{1}{2}
+						\left[-\frac{1}{r}|_{R}^{\infty} +\frac{r^5}{R^6}|_{0}^{R}\right]\\
+						&= \frac{q^2}{4\pi\epsilon_0}\frac{1}{2}\left[\frac{1}{R}+\frac{1}{5R}\right]
+						 = \frac{q^2}{4\pi\epsilon_0}\frac{1}{2}\left[\frac{6R}{5R^2}\right]
+						 = \frac{3}{20}\frac{q^2}{\pi\epsilon_0 R}
+\end{align}
+A little bit more algebra but, is the same result as in (21).
+
+% Problem 5
+\section{Problem 2.12}
+Find the capacitance of two concentric cylindrical shells of radious $a$ and $b$, where $a<b$. Solution: \\
+Let us define the electrical field in between of the cylinders of length $l$ using Gauss Law,
+\begin{align}
+	\vec{E}\cdot\oint d\vec{a} &= |\vec{E}|2\pi r l  = \frac{Q_{enc}}{\epsilon_0} 
+	\rightarrow	|\vec{E}| = \frac{Q_{enc}}{2\pi r l \epsilon_0} \\
+	&\therefore \vec{E} = \frac{Q_{enc}}{2\pi r l \epsilon_0} \hat{r}
+\end{align}
+Here $Q_{enc}$ can be the charge of the inner cylinder, $Q$. Once again, the contribution of the laterals is ignored due $\vec{E} \perp d\vec{a}$. Now let's find the potential,
+\begin{align}
+	\mathcal{V} 	&= -\int_{a}^{b} \vec{E}\cdot d\vec{r} 
+						 = -\int_{a}^{b} \frac{Q}{2\pi r l \epsilon_0}dr \\
+						&= -\frac{Q}{2\pi l\epsilon_0} Ln(r)|_{a}^{b}\
+						 =  \frac{Q}{2\pi l\epsilon_0} \left[ Ln(b)-Ln(a)\right]\\
+						&=  \frac{Q}{2\pi l\epsilon_0} Ln(b/a)
+\end{align}
+Finally the capacitance is given by the ratio
+\begin{equation}
+	C = \frac{Q}{\mathcal{V}} = \frac{2\pi l\epsilon_0}{Ln(b/a)}
+\end{equation}
+End.
+\end{document}
