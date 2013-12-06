@@ -1,0 +1,108 @@
+\begin{frame} \frametitle{One-dimensional Mesh}
+	Let us considere a simple scenario in one-dimension
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.70\textwidth}
+			\centering
+			\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/mesh1d}
+			\caption{1D Mesh}
+			\label{fig:uniform_mesh_1d}
+		\end{subfigure}%
+	\end{figure}
+	let us set $x \in [a,b] = [0,1]$ and divide the domain into $n = 10$ elements/cells.
+\end{frame}
+
+\begin{frame} \frametitle{Vertex and EtoV}
+	Then we can build a simple node list and a vectex connection matrix
+	\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.20\textwidth}
+                \centering
+                \includegraphics[trim = 0mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/VX}
+                \caption{Vertex nodes}
+                \label{fig:VX}
+        \end{subfigure}%
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.70\textwidth}
+                \centering
+                \includegraphics[trim = 0mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/EtoV}
+                \caption{Elements to Vertex}
+                \label{fig:EtoV}
+				\end{subfigure}
+				%\caption{Typical Application for the Classical Boltzmann Equation}
+				\label{fig:Nodal Grid}
+	\end{figure}
+	Note that here I'll focus only on the vertex (nodes at edges of my element)
+\end{frame}
+
+\begin{frame} \frametitle{FtoV}
+	following ideas from \cite{Karup2012}, we can further explore a way to build and FtoV matrix. 
+	In our example this array has the form,
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.70\textwidth}
+			\centering
+			\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/FtoV}
+			\caption{Face to elements Vertex}
+			\label{fig:FtoV}
+		\end{subfigure}%
+	\end{figure}
+	Notice that the use of a sparce structure can be very beneficial in order to save time and computer resources.
+\end{frame}
+
+\begin{frame} \frametitle{FtoF}
+	Now we can recover more information of the Face to Face connection by,
+	\begin{equation}
+		FtoF = (FtoV)(FtoV)^T - I.
+	\end{equation}
+	For our example we get,
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.85\textwidth}
+			\centering
+			\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/FtoF}
+			\caption{Face to Face matrix}
+			\label{fig:FtoF}
+		\end{subfigure}%
+	\end{figure}
+	Form the avobe result we identify by the element row-column indexes the information of Element and global face conection.
+\end{frame}
+
+\begin{frame} \frametitle{Local node list}
+	Given the one-dimensional element, set the label de local faces as $[1,2]$, for the left and right faces respectively.
+	We can transform the global face index to local face index by doing,
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.50\textwidth}
+			\centering
+			\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/FtoE_local}
+			\caption{Computing local element and face from FtoF matrix}
+			\label{fig:FtoF_local}
+		\end{subfigure}%
+	\end{figure}
+\end{frame}
+
+\begin{frame} \frametitle{EtoF \& EtoE}
+	Finally with the local indexes computed with the strategy of Fig. [\ref{fig:FtoF_local}], we can obtain
+	\begin{figure}
+        \centering
+        \begin{subfigure}[b]{0.20\textwidth}
+                \centering
+                \includegraphics[trim = 1mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/EtoE}
+                \caption{Element to Element connectivity}
+                \label{fig:EtoE}
+        \end{subfigure}%
+				~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.20\textwidth}
+                \centering
+                \includegraphics[trim = 1mm 0mm 0mm 0mm,clip,width=\textwidth]{../FEM_grid/Mesh1d_pics/EtoF}
+                \caption{Elements to Face connectivity}
+                \label{fig:EtoF}
+				\end{subfigure}
+				%\caption{Typical Application for the Classical Boltzmann Equation}
+				\label{fig:EtoE_and_EtoF}
+	\end{figure}
+	Now that we have this relations, we are out ot create boundary maps for faces inside the domain and outside the domain.
+\end{frame}
