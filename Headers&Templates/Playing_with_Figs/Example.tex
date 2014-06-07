@@ -1,0 +1,72 @@
+%
+%\documentclass[manuscript]{aastex}
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{adjustbox}
+\usepackage{blindtext}
+
+%
+\newcommand{\vdag}{(v)^\dagger}
+\newcommand{\myemail}{shanghsi@gmail.com}
+%
+\begin{document}
+% 
+\section{this section}
+%
+Here goes the text ...
+%
+\begin{figure}[h]
+	    \centering
+	    \begin{subfigure}[b]{0.4\textwidth}
+	        \centering
+	        \includegraphics[trim = 1mm 1mm 1mm 1mm,clip,width=\textwidth,angle=0]{figure_1_a}
+	        \caption{ this is the caption }
+	        \label{fig:figure1}
+	    \end{subfigure}
+	    ~
+	    \begin{subfigure}[b]{0.4\textwidth}
+	        \centering
+	        \includegraphics[trim = 1mm 1mm 1mm 1mm,clip,width=\textwidth,angle=0]{figure_1_a}
+	        \caption{ this is the caption }
+	        \label{fig:figure2}
+	    \end{subfigure}
+	    \caption{
+	    This is the main caption
+	    }
+\end{figure}     
+%
+\blindtext
+%
+\begin{figure}[ht]
+  \begin{adjustbox}{addcode={\begin{minipage}{\width}}{\caption{%
+      Here is a caption of the figure which is so long that 
+      it has to be wrapped over multiple lines, but should 
+      not exceed the width (height after the rotation) of the image.
+      }\end{minipage}},rotate=90,center}
+      \includegraphics[scale=0.4]{figure_1_a}%
+  \end{adjustbox}
+\end{figure}
+%
+\blindtext
+\begin{landscape}
+%
+\clearpage
+\setcounter{figure}{0}
+\makeatletter 
+\renewcommand{\thefigure}{\arabic{figure}}
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4,angle=0]{figure_1_a}
+	\caption{
+	The equation of state for the RC-MB gas. (a) The exact $\Gamma_{\mathrm{MB}}$ (solid line) and the proposed $\Gamma_{\mathrm{MB},\tanh}$ (circles). (b) Relative error distribution.
+	}
+	\label{fig:figure_1_a}
+\end{figure}
+%      
+\end{landscape}
+%
+\end{document}
