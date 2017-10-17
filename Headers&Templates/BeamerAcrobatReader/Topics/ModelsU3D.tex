@@ -1,0 +1,121 @@
+\section{Models 3D}
+
+\begin{frame}{3D models into \LaTeX}
+%
+\pause
+To input a 3-D model into latex document has two requirements:
+%
+\begin{description}
+	\item[File format] The model should be provided as either \texttt{*.prc} or \texttt{*.u3d} file.
+	\item[Set Package] Use package  ``\texttt{media9}'' in the preamble of the latex document.
+\end{description}
+\vspace{5mm}
+
+\pause
+Currently, the documentation for exporting to \texttt{*.u3d} is more wide spread that for \texttt{*.prc}. Although the last is preferred.
+\vspace{5mm}
+
+\pause
+To translate our model into \texttt{*.u3d} we require mainly two tools:
+\begin{itemize}
+	\item Paraview (open source)
+	\item Meshlab (open source)
+\end{itemize}
+%$
+so that we can translate our model as
+%
+\begin{equation*}
+	\texttt{*.vtk}/\texttt{*.plt} \rightarrow \texttt{*.x3d} \rightarrow \texttt{*.u3d}.
+\end{equation*}
+%
+\end{frame}
+
+\begin{frame}[fragile]{\LaTeX code}
+%
+A minimal working example:
+%
+\begin{lstlisting}[language=Tex]
+\documentclass[a4paper]{article}
+\usepackage{media9}
+%
+\begin{document}
+%
+\begin{figure}
+	\centering
+	\includemedia[
+    width=0.55\linewidth,
+    height=0.55\linewidth,
+    activate=pagevisible,
+    3Dmenu
+    ]{\includegraphics[scale=1]{figure.png}}{model.u3d}
+\caption{Figure's caption.}
+\end{figure}
+%
+\end{document}
+\end{lstlisting}
+%
+\end{frame}
+
+\begin{frame}{Surface Data}
+%
+\begin{figure}
+\begin{center}
+    \includemedia[
+    3Droll=-55.213569023847256,
+	3Dc2c=-0.5398818254470825 0.6635679006576538 -0.5178853869438171,
+	3Dcoo=-0.5000196695327759 0.07731148600578308 0.5000196695327759,
+	3Droo=3.933376830659421,
+	3Dlights=Headlamp,
+    width=0.55\linewidth,
+    height=0.55\linewidth,
+    activate=pagevisible,
+    3Dmenu
+    ]{\includegraphics[trim={150mm 0mm 150mm 0mm},clip,width=0.6\textwidth]{models3d/peaks00.png}}{models3d/peaks.u3d}
+\end{center}
+\caption{peaks function surface}
+\end{figure}
+%
+\end{frame}
+
+\begin{frame}{Matrix Data}
+%
+\begin{figure}
+\begin{center}
+    \includemedia[
+	3Droll=-36.51310188771555,
+	3Dc2c=0.39516207575798035 -0.6506498456001282 -0.6484610438346863,
+	3Dcoo=-2.500450372695923 0.4998800456523895 5.499730587005615,
+	3Droo=23.42219093955358,
+	3Dlights=Headlamp,
+	3Drender=SolidWireframe,
+    width=0.55\linewidth,
+    height=0.55\linewidth,
+    activate=pagevisible,
+    3Dmenu
+    ]{\includegraphics[trim={150mm 0mm 150mm 0mm},clip,width=0.6\textwidth]{models3d/mat3d00.png}}{models3d/mat3d.u3d}
+\end{center}
+\caption{3d matrix of data}
+\end{figure}
+%
+\end{frame}
+
+\begin{frame}{Vector Data}
+%
+\begin{figure}
+\begin{center}
+    \includemedia[
+    3Droll=33.80405078740256,
+	3Dc2c=0.29707708954811096 0.9546146988868713 -0.02135465294122696,
+	3Dcoo=-105.52574157714844 8.183454513549805 38.98417282104492,
+	3Droo=171.23822594493012,
+	3Dlights=Headlamp,
+    width=0.55\linewidth,
+    height=0.55\linewidth,
+    activate=pagevisible,
+    3Dmenu
+    ]{\includegraphics[trim={150mm 0mm 150mm 0mm},clip,width=0.6\textwidth]{models3d/wind00.png}}{models3d/wind.u3d}
+\end{center}
+\caption{wind image}
+\end{figure}
+%
+\end{frame}

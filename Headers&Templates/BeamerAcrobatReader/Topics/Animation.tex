@@ -1,0 +1,53 @@
+%\documentclass{beamer}
+%\usepackage{animate}
+
+%\begin{document}
+
+\section{Animation Test}
+%
+\begin{frame}{Animations into \LaTeX}
+%
+To input an animation into latex document has two requirements:
+%
+\begin{description}
+	\item[File Names] The picture files have to be name and numbered as \texttt{figure-1.png, figure-2.png, \dots} and saved into a single folder.
+	\item[Set Package] Use package ``\texttt{animate}'' in the preamble of the latex document.
+\end{description}
+%
+\end{frame}
+
+\begin{frame}[fragile]{\LaTeX code}
+%
+Minimal working example
+%
+\begin{lstlisting}[language=Tex]
+\documentclass[a4paper]{article}
+\usepackage{animate}
+%
+\begin{document}
+%
+\begin{figure}
+	\centering
+	\animategraphics[
+	loop,
+	controls,
+	width=0.75\linewidth
+	]{frames per second}{figures-}{1}{last number}
+\caption{Figure's caption.}
+\end{figure}
+%
+\end{document}
+\end{lstlisting}
+%
+\end{frame}
+
+\begin{frame}{Embedded Animation}
+	\centering
+ 	\animategraphics[loop,controls,width=0.75\linewidth]{6}{figures/Riemann2d/MB2d_config03-}{1}{16}
+\end{frame}
+
+%\begin{frame}{Embedded Animation}
+% 	\animategraphics[loop,controls,width=0.75\linewidth]{6}{figures/Riemann2d/MB2d_config05-}{1}{12}
+%\end{frame}
+
+%\end{document}

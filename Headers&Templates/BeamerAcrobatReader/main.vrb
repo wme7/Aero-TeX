@@ -1,0 +1,23 @@
+\frametitle{\LaTeX code}
+A minimal working example:
+%
+\begin{lstlisting}[language=Tex]
+\documentclass[a4paper]{article}
+\usepackage{media9}
+%
+\begin{document}
+%
+\begin{figure}
+	\centering
+	\includemedia[
+    width=0.55\linewidth,
+    height=0.55\linewidth,
+    activate=pagevisible,
+    3Dmenu
+    ]{\includegraphics[scale=1]{figure.png}}{model.u3d}
+\caption{Figure's caption.}
+\end{figure}
+%
+\end{document}
+\end{lstlisting}
+%

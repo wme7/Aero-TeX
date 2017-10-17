@@ -1,0 +1,45 @@
+\input{Beamer_header.tex}
+
+% Author Info
+\title[Manuel A. Diaz - NHRI 2016 \hspace{4em}\insertframenumber/
+\inserttotalframenumber]{~ \LaTeX\; PPT Template ~} %the [whatever] appears in the footer on the right
+\subtitle{Animations Test}
+\author[Biomedical Simulation Laboratory]{ Manuel A. Diaz } %the [whatever] appears in the footer on the left
+\institute[NHRI]{
+	Institute of Biomedical Engineering and Nanomedicine \\
+	National Health Research Institutes \\[1ex]
+	Taiwan, Miaoli 35053 \\[1ex]
+	\texttt{manuel.ade@nhri.com.tw}
+	}
+\date{August 28th, 2016}
+
+% Document begins Here
+\begin{document}
+
+% Create title page
+\frame{\maketitle}
+
+% outline frame
+\section*{outline} 
+\begin{frame}%[allowframebreaks] 
+	\frametitle{Outline}
+	\tableofcontents
+\end{frame}
+
+% Models
+\include{Topics/Animation}
+\include{Topics/ModelsU3D}
+
+% Acknowlegment & Bibliography
+\include{Topics/Acknowledgments}
+
+%\section{References}
+%\begin{frame}[allowframebreaks]
+%	\frametitle{References}
+%	\bibliographystyle{unsrt}
+%	%\bibliographystyle{amsalpha}
+%	\bibliography{References}
+%\end{frame}
+
+% End of document
+\end{document}

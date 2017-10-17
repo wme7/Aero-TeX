@@ -1,0 +1,264 @@
+%!TEX TS-program = xelatex
+\documentclass[a4paper]{friggeri-cv}
+\usepackage{afterpage}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{smartdiagram}
+\usepackage{fontspec}
+% if you want to add fontawesome package
+% you need to compile the tex file with LuaLaTeX
+% References:
+%   http://texdoc.net/texmf-dist/doc/latex/fontawesome/fontawesome.pdf
+%   https://www.ctan.org/tex-archive/fonts/fontawesome?lang=en
+%\usepackage{fontawesome}
+\usepackage{metalogo}
+%\usepackage{dtklogos}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{mindmap,shadows}
+\hypersetup{
+    pdftitle={},
+    pdfauthor={},
+    pdfsubject={},
+    pdfkeywords={},
+    colorlinks=false,       % no lik border color
+   allbordercolors=white    % white border color for all
+}
+\smartdiagramset{
+    bubble center node font = \footnotesize,
+    bubble node font = \footnotesize,
+    % specifies the minimum size of the bubble center node
+    bubble center node size = 0.5cm,
+    %  specifies the minimum size of the bubbles
+    bubble node size = 0.5cm,
+    % specifies which is the distance among the bubble center node and the other bubbles
+    distance center/other bubbles = 0.3cm,
+    % sets the distance from the text to the border of the bubble center node
+    distance text center bubble = 0.5cm,
+    % set center bubble color
+    bubble center node color = mintwhite,
+    % define the list of colors usable in the diagram
+    set color list = {lightgray, materialcyan, orange, green, materialorange, materialteal, materialamber, materialindigo, materialgreen, materiallime},
+    % sets the opacity at which the bubbles are shown
+    bubble fill opacity = 0.2,
+    % sets the opacity at which the bubble text is shown
+    bubble text opacity = 0.7,
+}
+\addbibresource{bibliography.bib}
+\RequirePackage{xcolor}
+\definecolor{pblue}{HTML}{0395DE}
+
+\begin{document}
+\header{Manuel A.}{Diaz}
+      {\hspace{4.0cm} High Performance Computing and Visualization Researcher}
+      
+% Fake text to add separator      
+\fcolorbox{white}{gray}{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
+.....
+}} 
+
+% In the aside, each new line forces a line break
+\begin{aside}
+  \includegraphics[trim={1cm 5cm 1cm 5cm},clip,scale=0.12]{img/CVPhoto2017.jpg}
+  \section{Address}
+    37 Keyan Rd
+    Zhunan, Miaoli
+    35053, Taiwan
+    ~
+  \section{Tel \& Skype}
+    +886 0988 137646
+    manuel.ade
+    ~
+  \section{Mail}
+    \href{mailto:manuel.ade@nhri.edu.tw}{manuel.ade@nhri.edu.tw}
+    \href{mailto:manuel.ade@gmail.com}{manuel.ade@gmail.com}
+    ~
+  \section{Web \& Git}
+    \href{https://about.me/manuel.a.diaz}{about.me/manuel.a.diaz}
+    \href{http://www.github.com/wme7}{www.github.com/wme7}
+    ~
+  % use  \hspace{} or \vspace{} to change bubble size, if needed
+  \section{Programing}
+        C/C++
+        Python
+        Matlab
+        Mathematica
+        \LaTeX
+        Markdown
+        Bash
+    ~
+  \section{HPC Tools}
+        OpenMP
+        MPI
+        CUDA
+    ~
+  \section{Visualization}
+        OpenGL + CUDA
+    ~
+  \section{Personal Skills}
+    \smartdiagram[bubble diagram]{
+        {\scriptsize Complex}\\{\scriptsize problem}\\{\scriptsize solver},
+        {\scriptsize Team}\\{\scriptsize \hspace{2mm} Player \hspace{2mm}},
+        {\scriptsize Technical}\\{\scriptsize communicator},
+        {\scriptsize Enthusiastic}\\{\scriptsize researcher},
+        {\scriptsize Objective}\\{\scriptsize driven}\\{\scriptsize worker},
+        {\scriptsize Passionate}\\{\scriptsize developer},
+        {\scriptsize Technology}\\{\scriptsize fan}
+    }
+\end{aside}
+
+\section{Career Objectives}
+\vspace{-2mm}
+\begin{mylist}
+  \myentry{To contribute to bridging the gap between high performance computing \\ \hspace{1.9cm} and the analysis \& visualization of large data sets.}
+  \myentry{To develop software tools that benefits the work of engineers and \\ \hspace{1.9cm} applied mathematicians.}
+  \myentry{To maximize the impact of my work by translating technologies into industry.} 
+\end{mylist}
+
+\section{Education}
+\vspace{-2mm}
+\begin{entrylist}
+  \entry
+    {since 2015}
+    {Ph.D. in Applied Mechanics}
+    {National Taiwan University, Taiwan, GPA: 3.85/4.3}
+    {\emph{Dissertation: Modeling Rarefied Gas Flows of Arbitrary Statistics with the Semiclassical Boltzmann-BGK equation.}}
+  \entry
+    {2003-2008}
+    {Bachelor of Science in Mechanical Engineering}
+    {Universidad Centroamericana ``Jose Simeon Canas'', El Salvador, GPA: 8.23/10.0}
+    {Concentration: Mechanical Design and Finite Element Modeling.}
+  \entry
+    {2000-2002}
+    {Technician in Mechanical Engineering}
+    {Instituto Técnico Ricaldone, El Salvador, GPA: 9.2/10}
+    {Mechanical Technology and Manufacturing of Machine Elements.}
+\end{entrylist}
+
+\section{Academic and Research Interests}
+\vspace{-2mm}
+\begin{mylist}
+\myentry{Computational fluid dynamics,}
+\myentry{High-order finite difference methods,}
+\myentry{Finite element methods and discontinuous Galerkin schemes,}
+\myentry{Mathematical modeling and simulation of nonlinear transport phenomena,}
+\myentry{Parallel computing with multiple graphical processing units (GPUs),}
+\myentry{High performance computing,}
+\myentry{Machine Learning with Neural Networks,}
+\myentry{Data visualization with CUDA \& OpenGL interoperability.}
+\end{mylist}
+
+\section{Experience}
+\vspace{-2mm}
+\begin{entrylist}
+  \entry
+    {2016 to date}
+    {Postdoctoral Fellow}
+    {National Health Research Institutes (NHRI), Taiwan}
+    {\emph{Objective: high-performance computing (HPC) solution for modeling strongly nonlinear ultrasound in multiple GPU accelerators and MPI.}}
+  \entry
+    {2014-2015}
+    {Laboratory Manager}
+    {Institute of Applied Mechanics, NTU}
+    {\emph{Linux systems administrator and code curator.}}
+  \entry
+    {2013-2014}
+    {Graduate Teaching Assistant}
+    {Institute of Applied Mechanics, NTU}
+    {\emph{T.A. for the Electrostatics class.}}
+  \entry
+    {2008-2009}
+    {Mechanical Designer}
+    {Ingendehsa S.A. de C.V.}
+    {\emph{Objective: cranes, pressure pipes and water gates mechanical design for a hydropower plant.}}
+  \entry
+    {2007-2008}
+    {Bachelor Research Assistant}
+    {Mechanical Department, UCA}
+    {\emph{Objective: analyze steam distribution networks and propose design modifications to minimize heat transfer losses.}}
+  % \entry
+  %   {2006}
+  %   {Undergraduate Teaching Assistant}
+  %   {Mechanical Department, UCA}
+  %   {\emph{T.A. for the Material Mechanics class.}}
+\end{entrylist}
+
+\newpage
+
+\section{Awards}
+~
+\begin{entrylist}
+  \entry{2014}
+    {Faculty Scholarship}
+    {National Taiwan Univeristy (NTU)}
+    {Awarded to top students of PhD degree.}
+  \entry{2011}
+    {Best Individual Project}
+    {Institute of Applied Mechanics, NTU}
+    {Best project award. Electronics class. Fall semester of 2010.}
+  \entry{2010}
+    {Taiwan Scholarship Recipient}
+    {Ministry of Foreign Affairs of Taiwan, El Salvador} 
+    {Awarded to top graduates from El Salvador.}
+  \entry{2008}
+    {Top Mechanical Engineering Graduate}
+    {Salvadorian Association of Mechanical, Electrical and Industrial Engineers}
+    {Awarded to top bachelor graduate of El Salvador.}
+  \entry{2008}
+    {Top Mechanical Engineering Graduate}
+    {Universidad Centroamericana (UCA) JSC, El Salvador}
+    {Awarded to top bachelor graduate of El Salvador.}
+\end{entrylist}
+
+\begin{aside}
+~
+~
+~
+  \section{OS Preference}
+    \textbf{GNU/Linux}\includegraphics[scale=0.40]{img/5stars.png}
+    \textbf{MacOS}\includegraphics[scale=0.40]{img/4stars.png}
+    \textbf{Windows}\includegraphics[scale=0.40]{img/3stars.png}
+    ~
+  \section{Places Lived}
+    \textbf{EL Salvador}
+    \textbf{Taiwan}
+    ~
+  \section{Languages}
+    \textbf{Spanish}\includegraphics[scale=0.40]{img/5stars.png}
+    \textbf{English}\includegraphics[scale=0.40]{img/5stars.png}
+    \textbf{Chinese}\includegraphics[scale=0.40]{img/2stars.png}
+    ~
+\end{aside}
+
+\section{Publications}
+
+\printbibsection{misc}{Doctoral Dissertation} 
+\printbibsection{article}{Articles in Peer-reviewed Journals}
+\printbibsection{inproceedings}{Articles Peer-reviewed Proceedings}
+
+\section{Personal References}
+~
+\begin{mylist}
+  \myentry{\emph{ Prof. Maxim Solovchuk}, \textbf{Current Advisor}, \texttt{solovchuk@nhri.org.tw} }
+  \myentry{\emph{ Ms. Elena Korshunova}, \textbf{co-author}, \texttt{helene.korshunova@gmail.com} }
+  \myentry{\emph{ Prof. Jaw-Yen Yang}, \textbf{PhD advisor}, \texttt{yangjy@iam.ntu.edu.tw} }
+  \myentry{\emph{ Prof. Yi-Ju Chou}, \textbf{academic advisor}, \texttt{yjchou@iam.ntu.edu.tw} }
+  \myentry{\emph{ Prof. Juan-Chen Huang}, \textbf{co-author}, \texttt{jchuang@mail.ntou.edu.tw} }
+  \myentry{\emph{ Prof. Min-Hung Chen}, \textbf{co-author},  \texttt{mhchen@iam.ntu.edu.tw} }
+  \myentry{\emph{ Ing. José Landaverde}, \textbf{Ingendehsa},  \texttt{hlandaverde@navegante.com.sv} }
+  \myentry{\emph{ Ing. Mario Chavez}, \textbf{UCA energy dept. director}, \texttt{mchavez@uca.edu.sv} }
+\end{mylist}
+
+\section{Other Info}
+\emph{I hereby declare that the information provided is true and accurate.}
+\\
+% \begin{flushleft}
+% \emph{\today}
+% \end{flushleft}
+\begin{flushright}
+\emph{Manuel A. Diaz}\\
+\emph{October 15, 2017}
+\end{flushright}
+
+\end{document}

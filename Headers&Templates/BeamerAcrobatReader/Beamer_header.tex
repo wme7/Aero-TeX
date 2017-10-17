@@ -1,0 +1,195 @@
+% ***********************************************************
+% ********* PHYSICS HEADER FOR BEAMER PRESENTATIONS *********
+% ***********************************************************
+% Version 2.1 
+% Orignal author: Chris Clark, UCLA, http://www.dfcd.net/articles/latex
+% Modified by: Manuel Diaz, NTU 2013, https://github.com/wme7
+
+%\documentclass[notes]{beamer}       % print frame + notes
+%\documentclass[notes=only]{beamer}  % only notes
+%\documentclass{beamer}              % only frames
+
+\documentclass[xcolor=svgnames,9pt,notes]{beamer} 
+\usetheme{Stockton}
+\usepackage{amsmath} % AMS Math Package
+\usepackage{amsthm} % Theorem Formatting
+\usepackage{amssymb}	% Math symbols such as \mathbb
+\usepackage{graphicx} % Allows for eps images
+\usepackage{epsfig} %for figures
+\usepackage{xcolor} %for color
+\usepackage{listings}
+\usepackage{subfig} %for figures arrays % Sets margins and page size
+\usepackage{booktabs} 	% for tables top, middle and bottom rules
+\usepackage{tcolorbox} % color boxes for emphazing 
+\usepackage{csquotes} % quotes package
+\usepackage{animate} % embed animations in the document
+\usepackage{media9} % embed u3d models in the document
+\usepackage[framemethod=tikz]{mdframed} % Load tikz package ;)
+
+% Add water mark in your presentation
+\definecolor{hughesblue}{rgb}{.9,.9,1} %A blue I like to use for highlighting, matches Hughes Hallet's book
+\logo{\includegraphics[height=1.5cm]{figures/NHRI_LogoFull_Watermark.png}} % comment out this line if you do not have the pacific-seal file}
+
+% Modify paper size so I can fit more info per page!
+\geometry{paperwidth=140mm,paperheight=105mm} % Sets margins and page size
+
+%% becuase will have to writte it like 1000 times,
+%% \u: \upsilon vector 
+%% \x: x vector
+\renewcommand{\u}{\boldsymbol{\upsilon}} 	% for vector upsilon
+\newcommand{\vxi}{\boldsymbol{\xi}} 	 	% for vector xi
+\newcommand{\p}{\boldsymbol{p}} 		 	% for vector p
+\renewcommand{\r}{\boldsymbol{r}} 		 	% for vector r
+\newcommand{\x}{\boldsymbol{x}} 		 	% for vector x
+\renewcommand{\c}{\boldsymbol{c}} 		 	% for vector c
+
+ \DeclareMathOperator{\Sample}{Sample}
+\let\vaccent=\v % rename builtin command \v{} to \vaccent{}
+\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} % for vectors
+\newcommand{\gv}[1]{\ensuremath{\mbox{\boldmath$ #1 $}}} 
+% for vectors of Greek letters
+\newcommand{\uv}[1]{\ensuremath{\mathbf{\hat{#1}}}} % for unit vector
+\newcommand{\abs}[1]{\left| #1 \right|} % for absolute value
+\newcommand{\avg}[1]{\left< #1 \right>} % for average
+\let\underdot=\d % rename builtin command \d{} to \underdot{}
+\renewcommand{\d}[2]{\frac{d #1}{d #2}} % for derivatives
+\newcommand{\dx}[1]{\frac{d}{d #1}} % for derivatives without specifying the derived function
+\newcommand{\dd}[2]{\frac{d^2 #1}{d #2^2}} % for double derivatives
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} 
+% for partial derivatives
+\newcommand{\pdd}[2]{\frac{\partial^2 #1}{\partial #2^2}} 
+% for double partial derivatives
+\newcommand{\pddd}[2]{\frac{\partial^3 #1}{\partial #2^3}} 
+% for triple partial derivatives
+\newcommand{\pdc}[3]{\left( \frac{\partial #1}{\partial #2}
+ \right)_{#3}} % for thermodynamic partial derivatives
+\newcommand{\ket}[1]{\left| #1 \right>} % for Dirac bras
+\newcommand{\bra}[1]{\left< #1 \right|} % for Dirac kets
+\newcommand{\braket}[2]{\left< #1 \vphantom{#2} \right|
+ \left. #2 \vphantom{#1} \right>} % for Dirac brackets
+\newcommand{\matrixel}[3]{\left< #1 \vphantom{#2#3} \right|
+ #2 \left| #3 \vphantom{#1#2} \right>} % for Dirac matrix elements
+\newcommand{\laplace}[1]{\gv{\nabla}^2 #1} % for laplacian
+\newcommand{\grad}[1]{\gv{\nabla} #1} % for gradient
+\newcommand{\gradx}[2]{\gv{\nabla}_{#2} #1} % for gradient
+\let\divsymb=\div % rename builtin command \div to \divsymb
+\renewcommand{\div}[1]{\gv{\nabla} \cdot #1} % for divergence
+\newcommand{\divx}[2]{\gv{\nabla}_{#2} \cdot #1} % for divergence v2
+\newcommand{\curl}[1]{\gv{\nabla} \times #1} % for curl
+\let\baraccent=\= % rename builtin command \= to \baraccent
+\renewcommand{\=}[1]{\stackrel{#1}{=}} % for putting numbers above =
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+% Modify '\vec{}' command to generate bold vector characters
+\let\oldhat\hat
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+% At the Beginning of every Section
+\AtBeginSection[]
+{
+  \begin{frame} \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+% Simplify Frames
+\newcommand{\Frame}[1]{\begin{frame} #1 \end{frame}}
+\newcommand{\Eq}[1]{\begin{equation} #1 \end{equation}}
+\newcommand{\Pa}[1]{\left(#1\right)} % encloses the argument using stretchable parentheses
+\newcommand{\Bra}[1]{\left[#1\right]} % encloses the argument using stretchable brakets
+\newcommand{\smat}[1]{\begin{smallmatrix}#1\end{smallmatrix}} % no delimiters 
+\newcommand{\psm}[1]{\Pa{\smat{#1}}} % parentheses as delimiters
+\newcommand{\bsm}[1]{\Bra{\smat{#1}}} % square brackets as delimiters
+\newcommand{\mat}[1]{\begin{matrix}#1\end{matrix}} % no delimiters 
+\newcommand{\PM}[1]{\Pa{\mat{#1}}} % parentheses as delimiters
+\newcommand{\BM}[1]{\Bra{\mat{#1}}} % square brackets as delimiters
+
+% listing configuration to present computer code
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% ***********************************************************
+% ********************** END HEADER **************** MD2013 *
+% ***********************************************************
+
+% General Guide lines:
+% Add \input{header.tex} to the first line of your document, e.g.:
+
+% ***********************************************************
+%\input{header.tex}
+%\title{}
+%\author{}
+%
+%\begin{document}
+%\maketitle
+%
+%\end{document}
+% ***********************************************************
+
+% The LaTeX for Physicists Header has the following features:
+
+% Sets font size to 9pt
+% Includes commonly needed packages for beamer presentation 
+% \v{ } makes bold vectors (\v is redefined to \vaccent)
+% \uv{ } makes bold unit vectors with hats
+% \gv{ } makes bold vectors of greek letters
+% \abs{ } makes the absolute value symbol
+% \avg{ } makes the angled average symbol
+% \d{ }{ } makes derivatives (\d is redefined to \underdot)
+% \dd{ }{ } makes double derivatives
+% \pd{ }{ } makes partial derivatives
+% \pdd{ }{ } makes double partial derivatives
+% \pdc{ }{ }{ } makes thermodynamics partial derivatives
+% \ket{ } makes Dirac kets
+% \bra{ } makes Dirac bras
+% \braket{ }{ } makes Dirac brackets
+% \matrixel{ }{ }{ } makes Dirac matrix elements
+% \grad{ } makes a gradient operator
+% \div{ } makes a divergence operator (\div is redefined to \divsymb)
+% \curl{ } makes a curl operator
+% \={ } makes numbers appear over equal signs (\= is redefined to \baraccent)
+
+% General LaTeX tips:
+
+% Use "$ ... $" for inline equations
+% Use "\[ ... \]" for equations on their own line
+% Use "\begin{center} ... \end{center}" to center something
+% Use "\includegraphics[width=?cm]{filename.eps}" for images - must compile to dvi then use dvipdfm from a batch file
+% Use "\begin{multicols}{2} ... \end{multicols}" for two columns
+% Use "\begin{enumerate} \item ... \end{enumerate}" for parts of physics exercises
+% Use "\section*{ }" for sections without numbering
+% Use "\begin{cases} ... \end{cases}" for piecewise functions
+% Use "\mathcal{ }" for a caligraphic font
+% Use "\mathbb{ }" for a blackboard bold font
